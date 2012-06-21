@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FastTester", "FastTester\FastTester.csproj", "{8539B0DE-94A1-4A64-B2B2-47578EBDE021}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8539B0DE-94A1-4A64-B2B2-47578EBDE021}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8539B0DE-94A1-4A64-B2B2-47578EBDE021}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8539B0DE-94A1-4A64-B2B2-47578EBDE021}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8539B0DE-94A1-4A64-B2B2-47578EBDE021}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

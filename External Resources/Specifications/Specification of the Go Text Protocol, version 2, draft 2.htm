@@ -1,0 +1,2686 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<!-- saved from url=(0069)http://www.lysator.liu.se/~gunnar/gtp/gtp2-spec-draft2/gtp2-spec.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Specification of the Go Text Protocol, version 2, draft 2</title>
+<meta name="description" content="Specification of the Go Text Protocol, version 2, draft 2">
+<meta name="keywords" content="gtp2-spec">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+
+
+<meta name="Generator" content="LaTeX2HTML v2002">
+<meta http-equiv="Content-Style-Type" content="text/css">
+
+<link rel="STYLESHEET" href="http://www.lysator.liu.se/~gunnar/gtp/gtp2-spec-draft2/gtp2-spec.css">
+
+</head>
+
+<body>
+
+<p>
+
+  </p><h1 align="CENTER">Specification of the Go Text Protocol, version 2, draft 2</h1>
+<p align="CENTER"><strong>Gunnar Farnebäck</strong></p>
+<p align="CENTER"><strong>October, 2002</strong></p>
+  
+  <div align="CENTER">
+<tt>http://www.lysator.liu.se/~gunnar/gtp</tt>
+  
+</div>
+  
+  <div align="CENTER">
+<b><font size="+3">This is a draft only.</font></b>  
+  
+</div>
+  
+  Permission is granted to make and distribute verbatim or modified
+  copies of this specification provided that the terms of the GNU Free
+  Documentation License (section <a href="http://www.lysator.liu.se/~gunnar/gtp/gtp2-spec-draft2/gtp2-spec.html#sec:gfdl">10</a>) are respected.
+
+<p>
+<br>
+
+</p><h2><a name="SECTION00010000000000000000">
+Contents</a>
+</h2>
+<!--Table of Contents-->
+
+<ul>
+<li><a name="tex2html75" href="http://www.lysator.liu.se/~gunnar/gtp/gtp2-spec-draft2/gtp2-spec.html#SECTION00020000000000000000">1 Introduction</a>
+<ul>
+<li><a name="tex2html76" href="http://www.lysator.liu.se/~gunnar/gtp/gtp2-spec-draft2/gtp2-spec.html#SECTION00021000000000000000">1.1 Purpose of the Protocol</a>
+</li><li><a name="tex2html77" href="http://www.lysator.liu.se/~gunnar/gtp/gtp2-spec-draft2/gtp2-spec.html#SECTION00022000000000000000">1.2 History</a>
+</li><li><a name="tex2html78" href="http://www.lysator.liu.se/~gunnar/gtp/gtp2-spec-draft2/gtp2-spec.html#SECTION00023000000000000000">1.3 Communication Model</a>
+</li><li><a name="tex2html79" href="http://www.lysator.liu.se/~gunnar/gtp/gtp2-spec-draft2/gtp2-spec.html#SECTION00024000000000000000">1.4 Typical Use Cases</a>
+</li><li><a name="tex2html80" href="http://www.lysator.liu.se/~gunnar/gtp/gtp2-spec-draft2/gtp2-spec.html#SECTION00025000000000000000">1.5 Reference Implementation</a>
+</li></ul>
+<br>
+</li><li><a name="tex2html81" href="http://www.lysator.liu.se/~gunnar/gtp/gtp2-spec-draft2/gtp2-spec.html#SECTION00030000000000000000">2 Protocol Basics</a>
+<ul>
+<li><a name="tex2html82" href="http://www.lysator.liu.se/~gunnar/gtp/gtp2-spec-draft2/gtp2-spec.html#SECTION00031000000000000000">2.1 Character Set</a>
+</li><li><a name="tex2html83" href="http://www.lysator.liu.se/~gunnar/gtp/gtp2-spec-draft2/gtp2-spec.html#SECTION00032000000000000000">2.2 Control Characters</a>
+</li><li><a name="tex2html84" href="http://www.lysator.liu.se/~gunnar/gtp/gtp2-spec-draft2/gtp2-spec.html#SECTION00033000000000000000">2.3 Whitespace</a>
+</li><li><a name="tex2html85" href="http://www.lysator.liu.se/~gunnar/gtp/gtp2-spec-draft2/gtp2-spec.html#SECTION00034000000000000000">2.4 Newline Convention</a>
+</li><li><a name="tex2html86" href="http://www.lysator.liu.se/~gunnar/gtp/gtp2-spec-draft2/gtp2-spec.html#SECTION00035000000000000000">2.5 Command Structure</a>
+</li><li><a name="tex2html87" href="http://www.lysator.liu.se/~gunnar/gtp/gtp2-spec-draft2/gtp2-spec.html#SECTION00036000000000000000">2.6 Response Structure</a>
+</li><li><a name="tex2html88" href="http://www.lysator.liu.se/~gunnar/gtp/gtp2-spec-draft2/gtp2-spec.html#SECTION00037000000000000000">2.7 Error Messages</a>
+</li><li><a name="tex2html89" href="http://www.lysator.liu.se/~gunnar/gtp/gtp2-spec-draft2/gtp2-spec.html#SECTION00038000000000000000">2.8 Timing</a>
+</li><li><a name="tex2html90" href="http://www.lysator.liu.se/~gunnar/gtp/gtp2-spec-draft2/gtp2-spec.html#SECTION00039000000000000000">2.9 Comments</a>
+</li><li><a name="tex2html91" href="http://www.lysator.liu.se/~gunnar/gtp/gtp2-spec-draft2/gtp2-spec.html#SECTION000310000000000000000">2.10 Empty lines</a>
+</li><li><a name="tex2html92" href="http://www.lysator.liu.se/~gunnar/gtp/gtp2-spec-draft2/gtp2-spec.html#SECTION000311000000000000000">2.11 Board Coordinates</a>
+</li><li><a name="tex2html93" href="http://www.lysator.liu.se/~gunnar/gtp/gtp2-spec-draft2/gtp2-spec.html#SECTION000312000000000000000">2.12 Protocol Subsets</a>
+</li><li><a name="tex2html94" href="http://www.lysator.liu.se/~gunnar/gtp/gtp2-spec-draft2/gtp2-spec.html#SECTION000313000000000000000">2.13 Private Extensions</a>
+</li><li><a name="tex2html95" href="http://www.lysator.liu.se/~gunnar/gtp/gtp2-spec-draft2/gtp2-spec.html#SECTION000314000000000000000">2.14 Panic Situations</a>
+</li></ul>
+<br>
+</li><li><a name="tex2html96" href="http://www.lysator.liu.se/~gunnar/gtp/gtp2-spec-draft2/gtp2-spec.html#SECTION00040000000000000000">3 Protocol Details</a>
+<ul>
+<li><a name="tex2html97" href="http://www.lysator.liu.se/~gunnar/gtp/gtp2-spec-draft2/gtp2-spec.html#SECTION00041000000000000000">3.1 Preprocessing</a>
+</li><li><a name="tex2html98" href="http://www.lysator.liu.se/~gunnar/gtp/gtp2-spec-draft2/gtp2-spec.html#SECTION00042000000000000000">3.2 Syntactic Entities</a>
+</li><li><a name="tex2html99" href="http://www.lysator.liu.se/~gunnar/gtp/gtp2-spec-draft2/gtp2-spec.html#SECTION00043000000000000000">3.3 Commands</a>
+</li><li><a name="tex2html100" href="http://www.lysator.liu.se/~gunnar/gtp/gtp2-spec-draft2/gtp2-spec.html#SECTION00044000000000000000">3.4 Success Responses</a>
+</li><li><a name="tex2html101" href="http://www.lysator.liu.se/~gunnar/gtp/gtp2-spec-draft2/gtp2-spec.html#SECTION00045000000000000000">3.5 Failure Responses</a>
+</li><li><a name="tex2html102" href="http://www.lysator.liu.se/~gunnar/gtp/gtp2-spec-draft2/gtp2-spec.html#SECTION00046000000000000000">3.6 Standard Error Messages</a>
+</li></ul>
+<br>
+</li><li><a name="tex2html103" href="http://www.lysator.liu.se/~gunnar/gtp/gtp2-spec-draft2/gtp2-spec.html#SECTION00050000000000000000">4 Important Concepts</a>
+<ul>
+<li><a name="tex2html104" href="http://www.lysator.liu.se/~gunnar/gtp/gtp2-spec-draft2/gtp2-spec.html#SECTION00051000000000000000">4.1 Handicap Placement</a>
+</li><li><a name="tex2html105" href="http://www.lysator.liu.se/~gunnar/gtp/gtp2-spec-draft2/gtp2-spec.html#SECTION00052000000000000000">4.2 Time Handling</a>
+</li><li><a name="tex2html106" href="http://www.lysator.liu.se/~gunnar/gtp/gtp2-spec-draft2/gtp2-spec.html#SECTION00053000000000000000">4.3 Scoring</a>
+</li></ul>
+<br>
+</li><li><a name="tex2html107" href="http://www.lysator.liu.se/~gunnar/gtp/gtp2-spec-draft2/gtp2-spec.html#SECTION00060000000000000000">5 Internal State</a>
+<ul>
+<li><a name="tex2html108" href="http://www.lysator.liu.se/~gunnar/gtp/gtp2-spec-draft2/gtp2-spec.html#SECTION00061000000000000000">5.1 State Variables</a>
+</li><li><a name="tex2html109" href="http://www.lysator.liu.se/~gunnar/gtp/gtp2-spec-draft2/gtp2-spec.html#SECTION00062000000000000000">5.2 Default State</a>
+</li><li><a name="tex2html110" href="http://www.lysator.liu.se/~gunnar/gtp/gtp2-spec-draft2/gtp2-spec.html#SECTION00063000000000000000">5.3 State Maintenance</a>
+</li></ul>
+<br>
+</li><li><a name="tex2html111" href="http://www.lysator.liu.se/~gunnar/gtp/gtp2-spec-draft2/gtp2-spec.html#SECTION00070000000000000000">6 Commands</a>
+<ul>
+<li><a name="tex2html112" href="http://www.lysator.liu.se/~gunnar/gtp/gtp2-spec-draft2/gtp2-spec.html#SECTION00071000000000000000">6.1 Required Commands</a>
+</li><li><a name="tex2html113" href="http://www.lysator.liu.se/~gunnar/gtp/gtp2-spec-draft2/gtp2-spec.html#SECTION00072000000000000000">6.2 Protocol Subsets</a>
+</li><li><a name="tex2html114" href="http://www.lysator.liu.se/~gunnar/gtp/gtp2-spec-draft2/gtp2-spec.html#SECTION00073000000000000000">6.3 List of All Commands</a>
+</li></ul>
+<br>
+</li><li><a name="tex2html115" href="http://www.lysator.liu.se/~gunnar/gtp/gtp2-spec-draft2/gtp2-spec.html#SECTION00080000000000000000">7 Example</a>
+</li><li><a name="tex2html116" href="http://www.lysator.liu.se/~gunnar/gtp/gtp2-spec-draft2/gtp2-spec.html#SECTION00090000000000000000">8 Comments on the Specification</a>
+<ul>
+<li><a name="tex2html117" href="http://www.lysator.liu.se/~gunnar/gtp/gtp2-spec-draft2/gtp2-spec.html#SECTION00091000000000000000">8.1 Design Principles</a>
+</li><li><a name="tex2html118" href="http://www.lysator.liu.se/~gunnar/gtp/gtp2-spec-draft2/gtp2-spec.html#SECTION00092000000000000000">8.2 Detail Comments</a>
+</li><li><a name="tex2html119" href="http://www.lysator.liu.se/~gunnar/gtp/gtp2-spec-draft2/gtp2-spec.html#SECTION00093000000000000000">8.3 Missing Features</a>
+</li><li><a name="tex2html120" href="http://www.lysator.liu.se/~gunnar/gtp/gtp2-spec-draft2/gtp2-spec.html#SECTION00094000000000000000">8.4 Licensing</a>
+</li></ul>
+<br>
+</li><li><a name="tex2html121" href="http://www.lysator.liu.se/~gunnar/gtp/gtp2-spec-draft2/gtp2-spec.html#SECTION000100000000000000000">9 Credits</a>
+</li><li><a name="tex2html122" href="http://www.lysator.liu.se/~gunnar/gtp/gtp2-spec-draft2/gtp2-spec.html#SECTION000110000000000000000">10 GNU Free Documentation License</a>
+<ul>
+<li><a name="tex2html123" href="http://www.lysator.liu.se/~gunnar/gtp/gtp2-spec-draft2/gtp2-spec.html#SECTION000112000000000000000">10.1 Applicability and Definitions</a>
+</li><li><a name="tex2html124" href="http://www.lysator.liu.se/~gunnar/gtp/gtp2-spec-draft2/gtp2-spec.html#SECTION000113000000000000000">10.2 Verbatim Copying</a>
+</li><li><a name="tex2html125" href="http://www.lysator.liu.se/~gunnar/gtp/gtp2-spec-draft2/gtp2-spec.html#SECTION000114000000000000000">10.3 Copying in Quantity</a>
+</li><li><a name="tex2html126" href="http://www.lysator.liu.se/~gunnar/gtp/gtp2-spec-draft2/gtp2-spec.html#SECTION000115000000000000000">10.4 Modifications</a>
+</li><li><a name="tex2html127" href="http://www.lysator.liu.se/~gunnar/gtp/gtp2-spec-draft2/gtp2-spec.html#SECTION000116000000000000000">10.5 Combining Documents</a>
+</li><li><a name="tex2html128" href="http://www.lysator.liu.se/~gunnar/gtp/gtp2-spec-draft2/gtp2-spec.html#SECTION000117000000000000000">10.6 Collections of Documents</a>
+</li><li><a name="tex2html129" href="http://www.lysator.liu.se/~gunnar/gtp/gtp2-spec-draft2/gtp2-spec.html#SECTION000118000000000000000">10.7 Aggregation With Independent Works</a>
+</li><li><a name="tex2html130" href="http://www.lysator.liu.se/~gunnar/gtp/gtp2-spec-draft2/gtp2-spec.html#SECTION000119000000000000000">10.8 Translation</a>
+</li><li><a name="tex2html131" href="http://www.lysator.liu.se/~gunnar/gtp/gtp2-spec-draft2/gtp2-spec.html#SECTION0001110000000000000000">10.9 Termination</a>
+</li><li><a name="tex2html132" href="http://www.lysator.liu.se/~gunnar/gtp/gtp2-spec-draft2/gtp2-spec.html#SECTION0001111000000000000000">10.10 Future Revisions of This License</a>
+</li></ul></li></ul>
+<!--End of Table of Contents-->
+<p>
+
+</p><h1><a name="SECTION00020000000000000000">
+1 Introduction</a>
+</h1>
+This document gives a specification of the Go Text Protocol (GTP),
+version 2.
+
+<p>
+
+</p><h2><a name="SECTION00021000000000000000">
+1.1 Purpose of the Protocol</a>
+</h2>
+
+<p>
+The intention of GTP is to provide a flexible and easy to implement
+communication protocol for go programs. The main purpose is to allow
+two programs to play each other but it is also useful for regression
+testing and communication with a GUI or a go server. Most use cases
+require an external support program, but this can be shared between
+all programs with GTP support.
+
+</p><p>
+
+</p><h2><a name="SECTION00022000000000000000">
+1.2 History</a>
+</h2>
+The Go Text Protocol was developed within the GNU Go project,
+initially to create a framework for automated regression testing and
+to simplify connecting the program to go servers. The first appearance
+of the protocol was on May 18, 2000, in GNU Go development version
+2.7.95. The first stable release of GNU Go with GTP support was GNU Go
+3.0.0, released August 24, 2001, which is the reference implementation
+for version 1 of the protocol. There is no good specification of GTP
+version 1, however, and this document is intended to provide one for
+version 2.
+
+<p>
+
+</p><h2><a name="SECTION00023000000000000000"></a>
+<a name="sec:communication-model"></a>
+<br>
+1.3 Communication Model
+</h2>
+The protocol is asymmetric and involves two parties, which we call
+controller and engine. The controller is typically some kind of
+arbiter or relay and the engine is typically a go playing program. All
+communication is initiated by the controller in form of commands, to
+which the engine responds.
+
+<p>
+The communication channel is assumed to be free from errors (i.e. 
+those are handled at a lower level). Examples are UNIX pipes or TCP/IP
+connections. The latter can also be established over an error prone
+modem connection by using PPP (Point to Point Protocol) as a transport
+layer.
+
+</p><p>
+
+</p><h2><a name="SECTION00024000000000000000">
+1.4 Typical Use Cases</a>
+</h2>
+
+<ol>
+<li>Regression testing. 
+<br>
+controller (regression script) -- engine 
+<br>
+The controller sets up a board position and asks the engine to e.g. 
+  generate a move.
+
+<p>
+</p></li>
+<li>Human vs program. 
+<br>
+controller (GUI) -- engine 
+<br>
+The controller relays moves between the human and the engine and
+  asks the engine to generate moves.
+
+<p>
+</p></li>
+<li>Program vs program with arbiter. 
+<br>
+engine 1 -- controller (arbiter) -- engine 2 
+<br>
+The controller relays moves between the two engines and alternately
+  asks the engines to generate moves. This involves two different GTP
+  channels, the first between the controller and engine 1, and the
+  second between the controller and engine 2. There is no direct
+  communication between the two engines. The controller dictates board
+  size, komi, etc.
+
+<p>
+</p></li>
+<li>Program vs program without arbiter. 
+<br>
+The same as above except that engine 1 includes the controller
+  functionality and the first GTP link is shortcut.
+
+<p>
+</p></li>
+<li>Connection between go server and program. 
+<br>
+go server -- controller (relay) -- engine 
+<br>
+The controller talks to a go server using whatever protocol is
+  needed and listens for match requests. When one arrives it accepts
+  it, starts the go engine and issues GTP commands to set up board
+  size, komi, etc. and if a game is restarted it also sets up the
+  position. Then it relays moves between the server and the engine and
+  asks the engine to generate new moves when it is in turn.
+</li>
+</ol>
+
+<p>
+
+</p><h2><a name="SECTION00025000000000000000">
+1.5 Reference Implementation</a>
+</h2>
+The reference implementation for GTP version 2 is GNU Go version 3.4.
+In cases of incompleteness or unclarity in this specification, the
+reference implementation decides the correct behaviour. Notice,
+however, that any command available in GNU Go 3.4, but not included in
+this specification (full list in section <a href="http://www.lysator.liu.se/~gunnar/gtp/gtp2-spec-draft2/gtp2-spec.html#sec:commands">6</a>), is to be
+considered a private extension (see section
+<a href="http://www.lysator.liu.se/~gunnar/gtp/gtp2-spec-draft2/gtp2-spec.html#sec:private-extensions">2.13</a>).
+
+<p>
+Temporary comment: GNU Go 3.4 is currently under development and GTP
+version 2 has not yet been implemented in the development versions.
+
+</p><p>
+
+</p><h1><a name="SECTION00030000000000000000">
+2 Protocol Basics</a>
+</h1>
+
+<p>
+
+</p><h2><a name="SECTION00031000000000000000"></a>
+<a name="sec:character-set"></a>
+<br>
+2.1 Character Set
+</h2>
+All messages exchanged in this protocol are to be considered as 8-bit
+character sequences. Only characters in the US-ASCII character set
+(ANSI X3.4-1986) are used for standardized commands and responses.
+Other characters may be used in comments (section <a href="http://www.lysator.liu.se/~gunnar/gtp/gtp2-spec-draft2/gtp2-spec.html#sec:comments">2.9</a>)
+and private extensions (section <a href="http://www.lysator.liu.se/~gunnar/gtp/gtp2-spec-draft2/gtp2-spec.html#sec:private-extensions">2.13</a>) but
+there is no preferred character set specified for those.
+
+<p>
+
+</p><h2><a name="SECTION00032000000000000000">
+2.2 Control Characters</a>
+</h2>
+Character values 0-31 and 127 are control characters in ASCII. The
+following control characters have a specific meaning in the
+protocol:
+<br>
+<p>
+<table cellpadding="3">
+<tbody><tr><td align="LEFT"><tt>HT</tt> (dec 9)</td>
+<td align="LEFT">Horizontal Tab</td>
+</tr>
+<tr><td align="LEFT"><tt>CR</tt> (dec 13)</td>
+<td align="LEFT">Carriage Return</td>
+</tr>
+<tr><td align="LEFT"><tt>LF</tt> (dec 10)</td>
+<td align="LEFT">Line Feed</td>
+</tr>
+</tbody></table>
+<br>
+</p><p>
+All other control characters must be discarded on input and should not
+be used on output.
+
+</p><p>
+
+</p><h2><a name="SECTION00033000000000000000"></a>
+<a name="sec:whitespace"></a>
+<br>
+2.3 Whitespace
+</h2>
+The following ASCII characters can be used to indicate whitespace in
+the protocol:
+<br>
+<p>
+<table cellpadding="3">
+<tbody><tr><td align="LEFT"><tt>SPACE</tt> (dec 32)</td>
+<td align="LEFT">Space</td>
+</tr>
+<tr><td align="LEFT"><tt>HT</tt> (dec 9)</td>
+<td align="LEFT">Horizontal Tab</td>
+</tr>
+</tbody></table>
+<br>
+</p><p>
+In the rest of the specification we use 'space' to denote a whitespace
+character. On input this may be either a SPACE or a HT. On output only a
+SPACE should be used.
+
+</p><p>
+
+</p><h2><a name="SECTION00034000000000000000"></a>
+<a name="sec:newline-convention"></a>
+<br>
+2.4 Newline Convention
+</h2>
+A newline is indicated by a single LF character. Any occurence of a CR
+character must be discarded on input, both by the engine and the
+controller. On output either LF or some combination of CR and LF can
+be used. In syntax descriptions we use <code>\n</code> to indicate a newline.
+
+<p>
+
+</p><h2><a name="SECTION00035000000000000000">
+2.5 Command Structure</a>
+</h2>
+A command is exactly one line long, with the syntax
+
+<p>
+</p><pre>[id] command_name [arguments]
+</pre>
+
+<p>
+Here <tt>id</tt> is an optional identity number and
+<tt>command_name</tt> a string. The rest of the line (up to the first
+newline) gives the arguments of the command.
+
+</p><p>
+
+</p><h2><a name="SECTION00036000000000000000">
+2.6 Response Structure</a>
+</h2>
+If successful, the engine returns a response of the form
+
+<p>
+</p><pre>=[id] result
+</pre>
+
+<p>
+Here '<tt>=</tt>' indicates success, <tt>id</tt> is the identity
+number given in the command, and <tt>result</tt> is a piece of text
+ending with two consecutive newlines.
+
+</p><p>
+
+</p><h2><a name="SECTION00037000000000000000">
+2.7 Error Messages</a>
+</h2>
+If unsuccessful, the engine returns a response of the form
+
+<p>
+</p><pre>?[id] error_message
+</pre>
+
+<p>
+Here '<tt>?</tt>' indicates failure, <tt>id</tt> is the identity
+number given in the command, and <tt>error_message</tt> gives an
+explanation for the failure, also ending with two consecutive
+newlines.
+
+</p><p>
+
+</p><h2><a name="SECTION00038000000000000000"></a>
+<a name="sec:timing"></a>
+<br>
+2.8 Timing
+</h2>
+There are no synchronization requirements between the controller and the
+engine. The controller may send commands at any time, regardless of
+whether it has obtained responses for previous commands. The engine may
+send responses whenever they are ready. It must, however, respond to the
+commands in the same order as they come in. The engine is allowed to
+make pauses while sending a response.
+
+<p>
+
+</p><h2><a name="SECTION00039000000000000000"></a>
+<a name="sec:comments"></a>
+<br>
+2.9 Comments
+</h2>
+Comments can be included in the command stream. All text between a
+hash sign (<tt>#</tt>) and the following newline is considered as
+comments and should be discarded on input.
+
+<p>
+
+</p><h2><a name="SECTION000310000000000000000">
+2.10 Empty lines</a>
+</h2>
+Empty lines and lines with only whitespace sent by the controller must
+be ignored by the engine. No response must be generated. Empty lines and
+lines with only whitespace sent by the engine and occuring outside a
+response must be ignored by the controller. Notice that pure comment
+lines will appear as empty lines after the comment has been discarded.
+
+<p>
+
+</p><h2><a name="SECTION000311000000000000000"></a>
+<a name="sec:board-coordinates"></a>
+<br>
+2.11 Board Coordinates
+</h2>
+Board intersections, in this document called vertices, are encoded by a
+letter plus a number. On a 19x19 board the letters go from A to T,
+excluding I, from the left to the right. The numbers go from 1 to 19,
+from the bottom to the top. Thus the lower left corner is called A1, the
+lower right corner T1, the upper left corner A19, and the upper right
+corner T19. Smaller boards use the obvious subset of these coordinates.
+Larger boards, up to 25x25, are handled by extending the letters with U
+to Z as needed. Boards larger than 25x25 are not supported by the
+protocol.
+
+<p>
+
+</p><h2><a name="SECTION000312000000000000000">
+2.12 Protocol Subsets</a>
+</h2>
+An engine does not have to implement all commands listed in this
+specification. In general, for an engine to be used with some specific
+controller, it is only required that the engine understands exactly the
+commands needed by that controller. To simplify this matching of
+capabilities, there are two predefined protocol subsets called the
+tournament and the regression subsets. There is also a small set of
+commands required for all GTP supporting engines.
+
+<p>
+
+</p><h2><a name="SECTION000313000000000000000"></a>
+<a name="sec:private-extensions"></a>
+<br>
+2.13 Private Extensions
+</h2>
+The protocol is trivial to extend with new commands. Obviously there is
+a risk for conflicts if multiple engines make incompatible private
+extensions of the protocol or if an engine makes a private extension
+which turns out to be incompatible with a future extension of the
+standard protocol.
+
+<p>
+In order to avoid this problem, standard commands do not include the
+dash (<tt>-</tt>) character. Private extensions are recommended to be of
+the form <tt>XXX-YYYYY</tt>, where <tt>XXX</tt> is a prefix which is
+sufficiently unique for the engine or controller in question, and
+<tt>YYYYY</tt> describes the command. E.g. a private variant of the
+<tt>genmove</tt> command used by GNU Go could be called
+<tt>gg-genmove</tt>.
+
+</p><p>
+Engines are allowed to use private extensions without a dash in the
+name, but then they do it at their own risk and must be prepared to
+change if the name later becomes used for a standard command.
+
+</p><p>
+
+</p><h2><a name="SECTION000314000000000000000">
+2.14 Panic Situations</a>
+</h2>
+If an engine for some reason, e.g. an internal error, finds itself in a
+position where it cannot meaningfully continue the session, the correct
+action is to just close the connection. This is also what typically will
+happen if the program should happen to encounter an uncontrolled crash.
+
+<p>
+
+</p><h1><a name="SECTION00040000000000000000">
+3 Protocol Details</a>
+</h1>
+
+<h2><a name="SECTION00041000000000000000"></a>
+<a name="sec:preprocessing"></a>
+<br>
+3.1 Preprocessing
+</h2>
+
+<p>
+When a command string arrives to an engine, it is expected to perform
+the following four operations before any further parsing takes place:
+
+</p><ol>
+<li><a name="it:remove-control"></a> Remove all occurences of CR and other
+  control characters except for HT and LF.
+</li>
+<li>For each line with a hash sign (#), remove all text following and
+  including this character.
+</li>
+<li><a name="it:convert-ht"></a> Convert all occurences of HT to SPACE.
+</li>
+<li>Discard any empty or white-space only lines.
+</li>
+</ol>
+
+<p>
+When a response arrives to a controller, it is expected only to do steps
+<a href="http://www.lysator.liu.se/~gunnar/gtp/gtp2-spec-draft2/gtp2-spec.html#it:remove-control">1</a> and <a href="http://www.lysator.liu.se/~gunnar/gtp/gtp2-spec-draft2/gtp2-spec.html#it:convert-ht">3</a> above.
+
+</p><p>
+Naturally an implementation does not have to actually do this
+preprocessing as a separate step but may interleave it with other
+parts of the parsing. For purposes of the following specifications,
+though, the preprocessing is supposed to have been carried out in
+full.
+
+</p><p>
+
+</p><h2><a name="SECTION00042000000000000000">
+3.2 Syntactic Entities</a>
+</h2>
+
+<p>
+
+</p><h3><a name="SECTION00042100000000000000"></a>
+<a name="sec:simple-entities"></a>
+<br>
+3.2.1 Simple Entities
+</h3>
+
+<ul>
+<li><b>int</b> 
+<br>
+An <tt>int</tt> is an unsigned integer in the interval <!-- MATH
+ $0 <= x <=
+  2^{31} - 1$
+ -->
+<img width="137" height="33" align="MIDDLE" border="0" src="./Specification of the Go Text Protocol, version 2, draft 2_files/img1.gif" alt="$0 &lt;= x &lt;=
+2^{31} - 1$">.
+
+<p>
+</p></li>
+<li><b>float</b> 
+<br>
+A <tt>float</tt> is a floating point number representable by a 32
+  bit IEEE 754 float.
+
+<p>
+</p></li>
+<li><b>string</b> 
+<br>
+A <tt>string</tt> is a sequence of printable, non-whitespace
+  characters. Strings are case sensitive.
+
+<p>
+</p></li>
+<li><b>vertex</b> 
+<br>
+A <tt>vertex</tt> is a board coordinate consisting of one letter and
+  one number, as defined in section <a href="http://www.lysator.liu.se/~gunnar/gtp/gtp2-spec-draft2/gtp2-spec.html#sec:board-coordinates">2.11</a>, or
+  the string ``pass''. Vertices are not case sensitive.  Examples:
+  ``B13'', ``j11''.
+
+<p>
+</p></li>
+<li><b>color</b> 
+<br>
+A <tt>color</tt> is one of the strings ``white'' or ``w'' to denote
+  white, or ``black'' or ``b'' to denote black. Colors are not case
+  sensitive.
+
+<p>
+</p></li>
+<li><b>move</b> 
+<br>
+A <tt>move</tt> is the combination of one <tt>color</tt> and one
+  <tt>vertex</tt>, separated by space. Moves are not case sensitive.
+  Examples: ``white&nbsp;h10'', ``B&nbsp;F5'', ``w&nbsp;pass''.
+
+<p>
+</p></li>
+<li><b>boolean</b> 
+<br>
+A <tt>boolean</tt> is one of the strings ``false'' and ``true''.
+</li>
+</ul>
+
+<p>
+
+</p><h3><a name="SECTION00042200000000000000"></a>
+<a name="sec:compound-entities"></a>
+<br>
+3.2.2 Compound Entities
+</h3>
+
+<p>
+
+</p><ul>
+<li><b>Collection</b> 
+<br>
+An <tt>{x y}</tt> is an <tt>x</tt> followed by a <tt>y</tt>,
+  separated by a space. <tt>x</tt> and <tt>y</tt> may be any
+  combination of simple entities. The construction can be generalized
+  to any fixed number of entities.
+
+<p>
+</p></li>
+<li><b>List</b> 
+<br>
+An <tt>x*</tt> is a space separated list of entities of type
+  <tt>x</tt>, where <tt>x</tt> may be any of the entities specified so
+  far. The list can have an arbitrary number of elements and goes on
+  until an LF is encountered.
+
+<p>
+</p></li>
+<li><b>Alternatives</b> 
+<br>
+An <tt>x<img width="8" height="31" align="MIDDLE" border="0" src="./Specification of the Go Text Protocol, version 2, draft 2_files/img2.gif" alt="$\vert$">y</tt> is either an <tt>x</tt> or a <tt>y</tt>.
+
+<p>
+</p></li>
+<li><b>Multiline list</b> 
+<br>
+An <tt>x&amp;</tt> is an LF separated list of entities of type
+  <tt>x</tt>, where <tt>x</tt> may be any of the entities specified so
+  far. The multiline list can have an arbitrary number of lines and
+  goes on until two consecutive LFs are encountered.
+</li>
+</ul>
+
+<p>
+
+</p><h2><a name="SECTION00043000000000000000">
+3.3 Commands</a>
+</h2>
+A command has one of the syntaxes
+
+<p>
+</p><pre>id command_name arguments\n
+id command_name\n
+command_name arguments\n
+command_name\n
+</pre>
+
+<p>
+
+</p><ul>
+<li><tt>id</tt> is an optional <tt>int</tt>.
+</li>
+<li><tt>command_name</tt> is a <tt>string</tt>.
+</li>
+<li><tt>arguments</tt> is a space separated list of some collection
+  of entities, the composition of which varies with the command If
+  <tt>arguments</tt> is missing it counts as empty.
+</li>
+</ul>
+
+<p>
+
+</p><h2><a name="SECTION00044000000000000000">
+3.4 Success Responses</a>
+</h2>
+A successful response has one of the syntaxes
+
+<p>
+</p><pre>=id response\n\n
+=id\n\n
+= response\n\n
+=\n\n
+</pre>
+
+<p>
+
+</p><ul>
+<li><tt>id</tt> is an optional <tt>int</tt> and must be the same
+  number as in the corresponding command. It may be omitted if and
+  only if it was omitted in the command.
+</li>
+<li><tt>response</tt> is some collection of entities, separated by
+  space or a single LF, the composition of which varies with the
+  command.  The response may be empty.
+</li>
+</ul>
+
+<p>
+
+</p><h2><a name="SECTION00045000000000000000">
+3.5 Failure Responses</a>
+</h2>
+An unsuccessful response has one of the syntaxes
+<pre>?id error_message\n\n
+? error_message\n\n
+</pre>
+
+<p>
+
+</p><ul>
+<li><tt>id</tt> is an optional <tt>int</tt> and must be the same
+  number as in the corresponding command. It may be omitted if and
+  only if it was omitted in the command.
+</li>
+<li><tt>error_message</tt> is a <tt>string*&amp;</tt>.
+</li>
+</ul>
+
+<p>
+
+</p><h2><a name="SECTION00046000000000000000"></a>
+<a name="sec:standard-error-messages"></a>
+<br>
+3.6 Standard Error Messages
+</h2>
+
+<p>
+If the engine receives an unknown or unimplemented command, use the
+error message ``unknown&nbsp;command''. Some commands fail in certain cases
+with standardized error messages. Those are listed in the command
+descriptions in section <a href="http://www.lysator.liu.se/~gunnar/gtp/gtp2-spec-draft2/gtp2-spec.html#sec:list-of-all-commands">6.3</a>. For other
+failures the engine can freely choose error message.
+
+</p><p>
+
+</p><h1><a name="SECTION00050000000000000000">
+4 Important Concepts</a>
+</h1>
+
+<p>
+
+</p><h2><a name="SECTION00051000000000000000">
+4.1 Handicap Placement</a>
+</h2>
+
+<p>
+The protocol supports both fixed placement of handicap stones and free
+placement. The handicap stones are always black.
+
+</p><p>
+
+</p><h3><a name="SECTION00051100000000000000"></a>
+<a name="sec:fixed-handicap-placement"></a>
+<br>
+4.1.1 Fixed Handicap Placement
+</h3>
+
+<p>
+With fixed placement the handicap stones are set in predetermined
+positions. The maximum number of fixed handicap stones varies with the
+board size but is never larger than 9. On a 19x19 board, the positions
+for the handicap stones are given by this table:
+
+</p><p>
+<table cellpadding="3">
+<tbody><tr><td align="CENTER">Handicap</td>
+<td align="LEFT">Vertices</td>
+</tr>
+<tr><td align="CENTER">2</td>
+<td align="LEFT">D4 Q16</td>
+</tr>
+<tr><td align="CENTER">3</td>
+<td align="LEFT">D4 Q16 D16</td>
+</tr>
+<tr><td align="CENTER">4</td>
+<td align="LEFT">D4 Q16 D16 Q4</td>
+</tr>
+<tr><td align="CENTER">5</td>
+<td align="LEFT">D4 Q16 D16 Q4 K10</td>
+</tr>
+<tr><td align="CENTER">6</td>
+<td align="LEFT">D4 Q16 D16 Q4 D10 Q10</td>
+</tr>
+<tr><td align="CENTER">7</td>
+<td align="LEFT">D4 Q16 D16 Q4 D10 Q10 K10</td>
+</tr>
+<tr><td align="CENTER">8</td>
+<td align="LEFT">D4 Q16 D16 Q4 D10 Q10 K4 K16</td>
+</tr>
+<tr><td align="CENTER">9</td>
+<td align="LEFT">D4 Q16 D16 Q4 D10 Q10 K4 K16 K10</td>
+</tr>
+</tbody></table> 
+<br>
+</p><p>
+The placement of handicap stones on other board sizes mirrors that of
+19x19 with stones at a specific distance from the edges and on the
+middle lines of the board, with the following caveats:
+
+</p><p>
+
+</p><ul>
+<li>For boards smaller than 13x13, the edge stones are placed on the third
+  line instead of on the fourth line.
+</li>
+<li>For boards of even size there is no middle line and therefore no
+  handicaps larger than 4.
+</li>
+<li>Boards of size 7x7 have at most 4 handicap stones.
+</li>
+<li>No handicap for boards smaller than 7x7.
+</li>
+</ul>
+
+<p>
+More explicitly we obtain the following table:
+
+</p><p>
+<table cellpadding="3">
+<tbody><tr><td align="CENTER">board size</td>
+<td align="CENTER">max handicap</td>
+<td align="CENTER">edge distance</td>
+</tr>
+<tr><td align="CENTER">25</td>
+<td align="CENTER">9</td>
+<td align="CENTER">4</td>
+</tr>
+<tr><td align="CENTER">24</td>
+<td align="CENTER">4</td>
+<td align="CENTER">4</td>
+</tr>
+<tr><td align="CENTER">23</td>
+<td align="CENTER">9</td>
+<td align="CENTER">4</td>
+</tr>
+<tr><td align="CENTER">22</td>
+<td align="CENTER">4</td>
+<td align="CENTER">4</td>
+</tr>
+<tr><td align="CENTER">21</td>
+<td align="CENTER">9</td>
+<td align="CENTER">4</td>
+</tr>
+<tr><td align="CENTER">20</td>
+<td align="CENTER">4</td>
+<td align="CENTER">4</td>
+</tr>
+<tr><td align="CENTER">19</td>
+<td align="CENTER">9</td>
+<td align="CENTER">4</td>
+</tr>
+<tr><td align="CENTER">18</td>
+<td align="CENTER">4</td>
+<td align="CENTER">4</td>
+</tr>
+<tr><td align="CENTER">17</td>
+<td align="CENTER">9</td>
+<td align="CENTER">4</td>
+</tr>
+<tr><td align="CENTER">16</td>
+<td align="CENTER">4</td>
+<td align="CENTER">4</td>
+</tr>
+<tr><td align="CENTER">15</td>
+<td align="CENTER">9</td>
+<td align="CENTER">4</td>
+</tr>
+<tr><td align="CENTER">14</td>
+<td align="CENTER">4</td>
+<td align="CENTER">4</td>
+</tr>
+<tr><td align="CENTER">13</td>
+<td align="CENTER">9</td>
+<td align="CENTER">4</td>
+</tr>
+<tr><td align="CENTER">12</td>
+<td align="CENTER">4</td>
+<td align="CENTER">3</td>
+</tr>
+<tr><td align="CENTER">11</td>
+<td align="CENTER">9</td>
+<td align="CENTER">3</td>
+</tr>
+<tr><td align="CENTER">10</td>
+<td align="CENTER">4</td>
+<td align="CENTER">3</td>
+</tr>
+<tr><td align="CENTER">9</td>
+<td align="CENTER">9</td>
+<td align="CENTER">3</td>
+</tr>
+<tr><td align="CENTER">8</td>
+<td align="CENTER">4</td>
+<td align="CENTER">3</td>
+</tr>
+<tr><td align="CENTER">7</td>
+<td align="CENTER">4</td>
+<td align="CENTER">3</td>
+</tr>
+<tr><td align="CENTER">6</td>
+<td align="CENTER">-</td>
+<td align="CENTER">-</td>
+</tr>
+<tr><td align="CENTER">5</td>
+<td align="CENTER">-</td>
+<td align="CENTER">-</td>
+</tr>
+<tr><td align="CENTER">4</td>
+<td align="CENTER">-</td>
+<td align="CENTER">-</td>
+</tr>
+<tr><td align="CENTER">3</td>
+<td align="CENTER">-</td>
+<td align="CENTER">-</td>
+</tr>
+<tr><td align="CENTER">2</td>
+<td align="CENTER">-</td>
+<td align="CENTER">-</td>
+</tr>
+</tbody></table> 
+<br>
+</p><p>
+
+</p><h3><a name="SECTION00051200000000000000"></a>
+<a name="sec:free-handicap-placement"></a>
+<br>
+4.1.2 Free Handicap Placement
+</h3>
+
+<p>
+With free placement the handicap stones are set as chosen by the
+controller or by one of the engines (for normal tournament use the
+engine playing the black stones would make the choice). The smallest
+number of handicap stones is 2. The highest number is one less the
+number of vertices on the board. However, when the number of handicap
+stones becomes very high there is no benefit in additional stones.
+Therefore, when asked to choose handicap placement, an engine is
+allowed to return a smaller number of stones than requested. This
+provision should only be used if the requested number of stones is so
+high that a smaller number of stones is believed to guarantee that the
+engine cannot possibly lose against any opponent.
+
+</p><p>
+
+</p><h2><a name="SECTION00052000000000000000"></a>
+<a name="sec:time-handling"></a>
+<br>
+4.2 Time Handling
+</h2>
+
+<p>
+The protocol has support for Canadian byo yomi, including absolute
+time (no byo yomi) as a special case. Canadian byo yomi is
+characterized by the three parameters
+
+</p><ul>
+<li>Main time <img width="18" height="14" align="BOTTOM" border="0" src="./Specification of the Go Text Protocol, version 2, draft 2_files/img3.gif" alt="$m$">,
+</li>
+<li>Byo yomi time <img width="11" height="15" align="BOTTOM" border="0" src="./Specification of the Go Text Protocol, version 2, draft 2_files/img4.gif" alt="$b$">,
+</li>
+<li>Byo yomi stones <img width="12" height="14" align="BOTTOM" border="0" src="./Specification of the Go Text Protocol, version 2, draft 2_files/img5.gif" alt="$s$">.
+</li>
+</ul>
+The semantics is that the clock is first set to <img width="18" height="14" align="BOTTOM" border="0" src="./Specification of the Go Text Protocol, version 2, draft 2_files/img3.gif" alt="$m$">. The
+engine has no requirements on the number of stones while this time is
+running. When it is up, the clock is reset to <img width="11" height="15" align="BOTTOM" border="0" src="./Specification of the Go Text Protocol, version 2, draft 2_files/img4.gif" alt="$b$"> and the
+engine has to play <img width="12" height="14" align="BOTTOM" border="0" src="./Specification of the Go Text Protocol, version 2, draft 2_files/img5.gif" alt="$s$"> stones before this time is up. When <img width="12" height="14" align="BOTTOM" border="0" src="./Specification of the Go Text Protocol, version 2, draft 2_files/img5.gif" alt="$s$"> stones
+have been played, the clock is reset to <img width="11" height="15" align="BOTTOM" border="0" src="./Specification of the Go Text Protocol, version 2, draft 2_files/img4.gif" alt="$b$">, regardless of
+remaining time. Then the engine has to play another <img width="12" height="14" align="BOTTOM" border="0" src="./Specification of the Go Text Protocol, version 2, draft 2_files/img5.gif" alt="$s$"> stones before
+the time is up. This procedure repeats until the game is over. If an
+engine fails to play <img width="12" height="14" align="BOTTOM" border="0" src="./Specification of the Go Text Protocol, version 2, draft 2_files/img5.gif" alt="$s$"> stones before its byo yomi time is up, it
+loses on time.
+
+<p>
+Setting <img width="47" height="14" align="BOTTOM" border="0" src="./Specification of the Go Text Protocol, version 2, draft 2_files/img6.gif" alt="$m=0$"> means that the engine immediately starts in byo yomi.
+Setting <img width="40" height="15" align="BOTTOM" border="0" src="./Specification of the Go Text Protocol, version 2, draft 2_files/img7.gif" alt="$b=0$"> means that if the main time is up before the game is
+over, the engine loses on time. Setting <img width="40" height="29" align="MIDDLE" border="0" src="./Specification of the Go Text Protocol, version 2, draft 2_files/img8.gif" alt="$b&gt;0$"> and <img width="41" height="14" align="BOTTOM" border="0" src="./Specification of the Go Text Protocol, version 2, draft 2_files/img9.gif" alt="$s=0$"> means no time
+limits.
+
+</p><p>
+
+</p><h2><a name="SECTION00053000000000000000"></a>
+<a name="sec:scoring"></a>
+<br>
+4.3 Scoring
+</h2>
+
+<p>
+Depending on the exact choice of rules (see also section
+<a href="http://www.lysator.liu.se/~gunnar/gtp/gtp2-spec-draft2/gtp2-spec.html#sec:missing-features">8.3</a>), scoring a finished game may be more or
+less complex. With a few exceptions it is critical to determine which
+stones are dead and which are alive. Sometimes it is also necessary to
+distinguish between life in seki and independent life.
+
+</p><p>
+This protocol provides two commands to query the engines about score
+and group status. They are both valid only when the game is finished.
+
+</p><p>
+The first command, <tt>final_score</tt>, asks for the engine's
+opinion about the score. The result is returned as a string of the
+form <tt>W+2.5</tt> if white wins, <tt>B+31</tt> if black wins, and
+just <tt>0</tt> if the game ends in a draw. The number in the result
+is of course the difference between the number of points for each
+player, including komi.
+
+</p><p>
+The second command, <tt>final_status_list</tt>, is used to query an
+engine about the status of the stones. This command takes a string
+argument which may be one of <tt>alive</tt>, <tt>seki</tt>, and
+<tt>dead</tt>. The result is reported by listing all stones having the
+requested status. The list is organized with one string per line. If
+an engine cannot distinguish between life in seki and independent
+life, all those stones should be reported as alive.
+
+</p><p>
+The protocol does not include any support for resolving disagreement
+about status or score.
+
+</p><p>
+
+</p><h1><a name="SECTION00060000000000000000">
+5 Internal State</a>
+</h1>
+
+<p>
+
+</p><h2><a name="SECTION00061000000000000000"></a>
+<a name="sec:state-variables"></a>
+<br>
+5.1 State Variables
+</h2>
+
+<p>
+An engine is expected to keep track of the following state information:
+
+</p><p>
+
+</p><ul>
+<li>board size
+</li>
+<li>board configuration
+</li>
+<li>number of captured stones of either color
+</li>
+<li>move history
+</li>
+<li>komi
+</li>
+<li>time settings
+</li>
+</ul>
+
+<p>
+
+</p><h2><a name="SECTION00062000000000000000"></a>
+<a name="sec:default-state"></a>
+<br>
+5.2 Default State
+</h2>
+
+<p>
+There is no default state for any state variable. When first started,
+the engine may set these as it likes. A controller which has some
+specific opinion about these values must set them explicitly with the
+appropriate commands, including clearing the board.
+
+</p><p>
+
+</p><h2><a name="SECTION00063000000000000000">
+5.3 State Maintenance</a>
+</h2>
+
+<p>
+The state is changed by certain commands, as specified in their
+description in section <a href="http://www.lysator.liu.se/~gunnar/gtp/gtp2-spec-draft2/gtp2-spec.html#sec:commands">6</a>. State which is not explicitly
+modified must remain unchanged. A failed command must never change any
+state.
+
+</p><p>
+
+</p><h1><a name="SECTION00070000000000000000"></a>
+<a name="sec:commands"></a>
+<br>
+6 Commands
+</h1>
+
+<h2><a name="SECTION00071000000000000000">
+6.1 Required Commands</a>
+</h2>
+All implementations are required to support the following commands:
+
+<p>
+</p><pre>protocol_version
+name
+version
+known_command
+list_commands
+quit
+boardsize
+clear_board
+komi
+play
+genmove
+</pre>
+
+<p>
+
+</p><h2><a name="SECTION00072000000000000000">
+6.2 Protocol Subsets</a>
+</h2>
+
+<h3><a name="SECTION00072100000000000000">
+6.2.1 Tournament</a>
+</h3>
+The tournament subset adds the commands:
+<pre>fixed_handicap
+place_free_handicap
+set_free_handicap
+</pre>
+
+<p>
+
+</p><h3><a name="SECTION00072200000000000000">
+6.2.2 Regression</a>
+</h3>
+The regression subset adds the commands:
+<pre>loadsgf
+reg_genmove
+</pre>
+
+<p>
+
+</p><h2><a name="SECTION00073000000000000000"></a>
+<a name="sec:list-of-all-commands"></a>
+<br>
+6.3 List of All Commands
+</h2>
+
+<p>
+
+</p><h3><a name="SECTION00073100000000000000">
+6.3.1 Adminstrative Commands</a>
+</h3>
+
+<p>
+
+</p><ul>
+<li><b>protocol_version</b> 
+<br>  <table cellpadding="3" width="100%">
+<tbody><tr><td align="LEFT" width="10%">arguments</td>
+<td align="LEFT" width="90%">none</td>
+</tr>
+<tr><td align="LEFT" width="10%">effects</td>
+<td align="LEFT" width="90%">none</td>
+</tr>
+<tr><td align="LEFT" width="10%">output</td>
+<td align="LEFT" width="90%"><tt>version_number</tt></td>
+</tr>
+<tr><td align="LEFT" width="10%">&nbsp;</td>
+<td align="LEFT" width="90%"><tt>int version_number</tt>  - Version of the GTP Protocol</td>
+</tr>
+<tr><td align="LEFT" width="10%">fails</td>
+<td align="LEFT" width="90%">never</td>
+</tr>
+<tr><td align="LEFT" width="10%">comments</td>
+<td align="LEFT" width="90%">For this specification 2.</td>
+</tr>
+</tbody></table>
+
+<p>
+
+</p></li>
+<li><b>name</b> 
+<br>  <table cellpadding="3" width="100%">
+<tbody><tr><td align="LEFT" width="10%">arguments</td>
+<td align="LEFT" width="90%">none</td>
+</tr>
+<tr><td align="LEFT" width="10%">effects</td>
+<td align="LEFT" width="90%">none</td>
+</tr>
+<tr><td align="LEFT" width="10%">output</td>
+<td align="LEFT" width="90%"><tt>name</tt></td>
+</tr>
+<tr><td align="LEFT" width="10%">&nbsp;</td>
+<td align="LEFT" width="90%"><tt>string* name</tt> - Name of the engine</td>
+</tr>
+<tr><td align="LEFT" width="10%">fails</td>
+<td align="LEFT" width="90%">never</td>
+</tr>
+<tr><td align="LEFT" width="10%">comments</td>
+<td align="LEFT" width="90%">E.g. ``GNU Go'', ``GoLois'', ``Many Faces of Go''. The
+    name does not include any version information, which is provided by
+    the <tt>version</tt> command.</td>
+</tr>
+</tbody></table>
+
+<p>
+</p></li>
+<li><b>version</b> 
+<br>  <table cellpadding="3" width="100%">
+<tbody><tr><td align="LEFT" width="10%">arguments</td>
+<td align="LEFT" width="90%">none</td>
+</tr>
+<tr><td align="LEFT" width="10%">effects</td>
+<td align="LEFT" width="90%">none</td>
+</tr>
+<tr><td align="LEFT" width="10%">output</td>
+<td align="LEFT" width="90%"><tt>version</tt></td>
+</tr>
+<tr><td align="LEFT" width="10%">&nbsp;</td>
+<td align="LEFT" width="90%"><tt>string* version</tt> - Version of the engine</td>
+</tr>
+<tr><td align="LEFT" width="10%">fails</td>
+<td align="LEFT" width="90%">never</td>
+</tr>
+<tr><td align="LEFT" width="10%">comments</td>
+<td align="LEFT" width="90%">E.g. ``3.1.33'', ``10.5''. Engines without a sense of version
+                number should return the empty string.</td>
+</tr>
+</tbody></table>
+
+<p>
+</p></li>
+<li><b>known_command</b> 
+<br>  <table cellpadding="3" width="100%">
+<tbody><tr><td align="LEFT" width="10%">arguments</td>
+<td align="LEFT" width="90%"><tt>command_name</tt></td>
+</tr>
+<tr><td align="LEFT" width="10%">&nbsp;</td>
+<td align="LEFT" width="90%"><tt>string command_name</tt> - Name of a command</td>
+</tr>
+<tr><td align="LEFT" width="10%">effects</td>
+<td align="LEFT" width="90%">none</td>
+</tr>
+<tr><td align="LEFT" width="10%">output</td>
+<td align="LEFT" width="90%"><tt>known</tt></td>
+</tr>
+<tr><td align="LEFT" width="10%">&nbsp;</td>
+<td align="LEFT" width="90%"><tt>boolean known</tt> - ``true'' if the command is known by the
+                              engine, ``false'' otherwise</td>
+</tr>
+<tr><td align="LEFT" width="10%">fails</td>
+<td align="LEFT" width="90%">never</td>
+</tr>
+<tr><td align="LEFT" width="10%">comments</td>
+<td align="LEFT" width="90%">The protocol makes no distinction between unknown commands
+                and known but unimplemented ones. Do not declare a command
+                as known if it is known not to work.</td>
+</tr>
+</tbody></table>
+
+<p>
+</p></li>
+<li><b>list_commands</b> 
+<br>  <table cellpadding="3" width="100%">
+<tbody><tr><td align="LEFT" width="10%">arguments</td>
+<td align="LEFT" width="90%">none</td>
+</tr>
+<tr><td align="LEFT" width="10%">effects</td>
+<td align="LEFT" width="90%">none</td>
+</tr>
+<tr><td align="LEFT" width="10%">output</td>
+<td align="LEFT" width="90%"><tt>commands</tt></td>
+</tr>
+<tr><td align="LEFT" width="10%">&nbsp;</td>
+<td align="LEFT" width="90%"><tt>string&amp; commands</tt> - List of commands, one per row</td>
+</tr>
+<tr><td align="LEFT" width="10%">fails</td>
+<td align="LEFT" width="90%">never</td>
+</tr>
+<tr><td align="LEFT" width="10%">comments</td>
+<td align="LEFT" width="90%">Include all known commands, including required ones and
+                private extensions.</td>
+</tr>
+</tbody></table>
+
+<p>
+</p></li>
+<li><b>quit</b> 
+<br>  <table cellpadding="3" width="100%">
+<tbody><tr><td align="LEFT" width="10%">arguments</td>
+<td align="LEFT" width="90%">none</td>
+</tr>
+<tr><td align="LEFT" width="10%">effects</td>
+<td align="LEFT" width="90%">The session is terminated and the connection is closed.</td>
+</tr>
+<tr><td align="LEFT" width="10%">output</td>
+<td align="LEFT" width="90%">none</td>
+</tr>
+<tr><td align="LEFT" width="10%">fails</td>
+<td align="LEFT" width="90%">never</td>
+</tr>
+<tr><td align="LEFT" width="10%">comments</td>
+<td align="LEFT" width="90%">The full response of this command must be sent before the
+                engine closes the connection. The controller must receive
+                the response before the connection is closed on its side.</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+
+<p>
+
+</p><h3><a name="SECTION00073200000000000000">
+6.3.2 Setup Commands</a>
+</h3>
+
+<ul>
+<li><b>boardsize</b> 
+<br>  <table cellpadding="3" width="100%">
+<tbody><tr><td align="LEFT" width="10%">arguments</td>
+<td align="LEFT" width="90%"><tt>size</tt></td>
+</tr>
+<tr><td align="LEFT" width="10%">&nbsp;</td>
+<td align="LEFT" width="90%"><tt>int size</tt> - New size of the board.</td>
+</tr>
+<tr><td align="LEFT" width="10%">effects</td>
+<td align="LEFT" width="90%">The board size is changed.
+                The board configuration, number of captured stones, and move
+                history become arbitrary.</td>
+</tr>
+<tr><td align="LEFT" width="10%">output</td>
+<td align="LEFT" width="90%">none</td>
+</tr>
+<tr><td align="LEFT" width="10%">fails</td>
+<td align="LEFT" width="90%">Syntax error. If the engine cannot handle the new
+                size, fails with the error message
+                "unacceptable&nbsp;size".</td>
+</tr>
+<tr><td align="LEFT" width="10%">comments</td>
+<td align="LEFT" width="90%">In GTP version 1 this command also did the work of
+                <tt>clear_board</tt>. This may or may not be true for
+                implementations of GTP version 2. Thus the controller must
+                call <tt>clear_board</tt> explicitly.
+                Even if the new board size is the same as the old one,
+                the board configuration becomes arbitrary.</td>
+</tr>
+</tbody></table>
+
+<p>
+</p></li>
+<li><b>clear_board</b> 
+<br>  <table cellpadding="3" width="100%">
+<tbody><tr><td align="LEFT" width="10%">arguments</td>
+<td align="LEFT" width="90%">none</td>
+</tr>
+<tr><td align="LEFT" width="10%">effects</td>
+<td align="LEFT" width="90%">The board is cleared, the number of captured stones is
+                reset to zero for both colors and the move history is reset
+                to empty.</td>
+</tr>
+<tr><td align="LEFT" width="10%">output</td>
+<td align="LEFT" width="90%">none</td>
+</tr>
+<tr><td align="LEFT" width="10%">fails</td>
+<td align="LEFT" width="90%">never</td>
+</tr>
+<tr><td align="LEFT" width="10%">comments</td>
+<td align="LEFT" width="90%">&nbsp;</td>
+</tr>
+</tbody></table>
+
+<p>
+</p></li>
+<li><b>komi</b> 
+<br>  <table cellpadding="3" width="100%">
+<tbody><tr><td align="LEFT" width="10%">arguments</td>
+<td align="LEFT" width="90%"><tt>new_komi</tt></td>
+</tr>
+<tr><td align="LEFT" width="10%">&nbsp;</td>
+<td align="LEFT" width="90%"><tt>float new_komi</tt> - New value of komi.</td>
+</tr>
+<tr><td align="LEFT" width="10%">effects</td>
+<td align="LEFT" width="90%">Komi is changed.</td>
+</tr>
+<tr><td align="LEFT" width="10%">output</td>
+<td align="LEFT" width="90%">none</td>
+</tr>
+<tr><td align="LEFT" width="10%">fails</td>
+<td align="LEFT" width="90%">syntax error</td>
+</tr>
+<tr><td align="LEFT" width="10%">comments</td>
+<td align="LEFT" width="90%">The engine must accept the komi even if it should be
+                ridiculous.</td>
+</tr>
+</tbody></table>
+
+<p>
+</p></li>
+<li><b>fixed_handicap</b> 
+<br>  <table cellpadding="3" width="100%">
+<tbody><tr><td align="LEFT" width="10%">arguments</td>
+<td align="LEFT" width="90%"><tt>number_of_stones</tt></td>
+</tr>
+<tr><td align="LEFT" width="10%">&nbsp;</td>
+<td align="LEFT" width="90%"><tt>int number_of_stones</tt>  - Number of handicap stones.</td>
+</tr>
+<tr><td align="LEFT" width="10%">effects</td>
+<td align="LEFT" width="90%">Handicap stones are placed on the board according to the
+                specification in section <a href="http://www.lysator.liu.se/~gunnar/gtp/gtp2-spec-draft2/gtp2-spec.html#sec:fixed-handicap-placement">4.1.1</a>.</td>
+</tr>
+<tr><td align="LEFT" width="10%">output</td>
+<td align="LEFT" width="90%"><tt>vertices</tt></td>
+</tr>
+<tr><td align="LEFT" width="10%">&nbsp;</td>
+<td align="LEFT" width="90%"><tt>vertex* vertices</tt>  - A list of the vertices where
+                handicap stones have been placed.</td>
+</tr>
+<tr><td align="LEFT" width="10%">fails</td>
+<td align="LEFT" width="90%">syntax error, invalid number of stones, board not empty</td>
+</tr>
+<tr><td align="LEFT" width="10%">comments</td>
+<td align="LEFT" width="90%">This command is only valid if the board is empty.
+                See section <a href="http://www.lysator.liu.se/~gunnar/gtp/gtp2-spec-draft2/gtp2-spec.html#sec:fixed-handicap-placement">4.1.1</a> for
+                valid number of handicap stones. 
+                The handicap stones are <i>not</i> included in the move
+                history.</td>
+</tr>
+</tbody></table>
+
+<p>
+
+</p></li>
+<li><b>place_free_handicap</b> 
+<br>  <table cellpadding="3" width="100%">
+<tbody><tr><td align="LEFT" width="10%">arguments</td>
+<td align="LEFT" width="90%"><tt>number_of_stones</tt></td>
+</tr>
+<tr><td align="LEFT" width="10%">&nbsp;</td>
+<td align="LEFT" width="90%"><tt>int number_of_stones</tt> - Number of handicap stones.</td>
+</tr>
+<tr><td align="LEFT" width="10%">effects</td>
+<td align="LEFT" width="90%">Handicap stones are placed on the board on the vertices the 
+                engine prefers. See also section
+                <a href="http://www.lysator.liu.se/~gunnar/gtp/gtp2-spec-draft2/gtp2-spec.html#sec:free-handicap-placement">4.1.2</a>.</td>
+</tr>
+<tr><td align="LEFT" width="10%">output</td>
+<td align="LEFT" width="90%"><tt>vertices</tt></td>
+</tr>
+<tr><td align="LEFT" width="10%">&nbsp;</td>
+<td align="LEFT" width="90%"><tt>vertex* vertices</tt>  - A list of the vertices where
+                handicap stones have been placed.</td>
+</tr>
+<tr><td align="LEFT" width="10%">fails</td>
+<td align="LEFT" width="90%">syntax error, invalid number of stones, board not
+                empty, bad vertex list</td>
+</tr>
+<tr><td align="LEFT" width="10%">comments</td>
+<td align="LEFT" width="90%">This command is only valid if the board is empty.
+                The engine may place fewer than the requested number of
+                stones on the board under certain circumstances, as
+                discussed in section <a href="http://www.lysator.liu.se/~gunnar/gtp/gtp2-spec-draft2/gtp2-spec.html#sec:free-handicap-placement">4.1.2</a>.
+                The controller can check this by 
+                counting the number of vertices in the response.
+                The handicap stones are <i>not</i> included in the move
+                history. Vertices must not be repeated or include ``pass''.</td>
+</tr>
+</tbody></table>
+
+<p>
+</p></li>
+<li><b>set_free_handicap</b> 
+<br>  <table cellpadding="3" width="100%">
+<tbody><tr><td align="LEFT" width="10%">arguments</td>
+<td align="LEFT" width="90%"><tt>vertices</tt></td>
+</tr>
+<tr><td align="LEFT" width="10%">&nbsp;</td>
+<td align="LEFT" width="90%"><tt>vertex* vertices</tt> - A list of vertices where handicap
+                stones should be placed on the board.</td>
+</tr>
+<tr><td align="LEFT" width="10%">effects</td>
+<td align="LEFT" width="90%">Handicap stones are placed on the vertices as requested.</td>
+</tr>
+<tr><td align="LEFT" width="10%">output</td>
+<td align="LEFT" width="90%">none</td>
+</tr>
+<tr><td align="LEFT" width="10%">fails</td>
+<td align="LEFT" width="90%">syntax error, board not empty, bad vertex list</td>
+</tr>
+<tr><td align="LEFT" width="10%">comments</td>
+<td align="LEFT" width="90%">This command is only valid if the board is empty.
+                The list must have at least two elements and no more than
+                the number of board vertices minus one.
+                The engine must accept the handicap placement.
+                The handicap stones are <i>not</i> included in the move
+                history. Vertices must not be repeated or include ``pass''.</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+
+<p>
+
+</p><h3><a name="SECTION00073300000000000000">
+6.3.3 Core Play Commands</a>
+</h3>
+
+<ul>
+<li><b>play</b> 
+<br>  <table cellpadding="3" width="100%">
+<tbody><tr><td align="LEFT" width="10%">arguments</td>
+<td align="LEFT" width="90%"><tt>move</tt></td>
+</tr>
+<tr><td align="LEFT" width="10%">&nbsp;</td>
+<td align="LEFT" width="90%"><tt>move move</tt> - Color and vertex of the move</td>
+</tr>
+<tr><td align="LEFT" width="10%">effects</td>
+<td align="LEFT" width="90%">A stone of the requested color is played at the requested
+                vertex. The number of captured stones is updated if needed 
+                and the move is added to the move history.</td>
+</tr>
+<tr><td align="LEFT" width="10%">output</td>
+<td align="LEFT" width="90%">none</td>
+</tr>
+<tr><td align="LEFT" width="10%">fails</td>
+<td align="LEFT" width="90%">syntax error, illegal move. In the latter case, fails
+                with the error message ``illegal&nbsp;move''.</td>
+</tr>
+<tr><td align="LEFT" width="10%">comments</td>
+<td align="LEFT" width="90%">Consecutive moves of the same color are not considered
+                illegal from the protocol point of view.</td>
+</tr>
+</tbody></table>
+
+<p>
+
+</p></li>
+<li><b>genmove</b> 
+<br>  <table cellpadding="3" width="100%">
+<tbody><tr><td align="LEFT" width="10%">arguments</td>
+<td align="LEFT" width="90%"><tt>color</tt></td>
+</tr>
+<tr><td align="LEFT" width="10%">&nbsp;</td>
+<td align="LEFT" width="90%"><tt>color color</tt> - Color for which to generate a move.</td>
+</tr>
+<tr><td align="LEFT" width="10%">effects</td>
+<td align="LEFT" width="90%">A stone of the requested color is played where the engine 
+                chooses. The number of captured stones is updated if needed
+                and the move is added to the move history.</td>
+</tr>
+<tr><td align="LEFT" width="10%">output</td>
+<td align="LEFT" width="90%"><tt>vertex</tt></td>
+</tr>
+<tr><td align="LEFT" width="10%">&nbsp;</td>
+<td align="LEFT" width="90%"><tt>vertex<img width="8" height="31" align="MIDDLE" border="0" src="./Specification of the Go Text Protocol, version 2, draft 2_files/img2.gif" alt="$\vert$">string vertex</tt> - Vertex where the move was
+                played or the string ``resign''.</td>
+</tr>
+<tr><td align="LEFT" width="10%">fails</td>
+<td align="LEFT" width="90%">never</td>
+</tr>
+<tr><td align="LEFT" width="10%">comments</td>
+<td align="LEFT" width="90%">Notice that ``pass'' is a valid vertex and should
+                be returned if the engine wants to pass. Use
+                ``resign'' if you want to give up the game. The
+                controller is allowed to use this command for either
+                color, regardless who played the last move.</td>
+</tr>
+</tbody></table>
+
+<p>
+</p></li>
+<li><b>undo</b> 
+<br>  <table cellpadding="3" width="100%">
+<tbody><tr><td align="LEFT" width="10%">arguments</td>
+<td align="LEFT" width="90%">none</td>
+</tr>
+<tr><td align="LEFT" width="10%">effects</td>
+<td align="LEFT" width="90%">The board configuration and the number of captured stones
+                are reset to the state before the last move. The last move
+                is removed from the move history.</td>
+</tr>
+<tr><td align="LEFT" width="10%">output</td>
+<td align="LEFT" width="90%">none</td>
+</tr>
+<tr><td align="LEFT" width="10%">fails</td>
+<td align="LEFT" width="90%">If the engine is unable to take back the last move, fails
+                with the error message "cannot&nbsp;undo".</td>
+</tr>
+<tr><td align="LEFT" width="10%">comments</td>
+<td align="LEFT" width="90%">If you want to take back multiple moves, use this command
+                multiple times.
+                The engine may fail to undo if the move history is empty or
+                if the engine only maintains a partial move history, which
+                has been exhausted by previous undos.
+                It is never possible to undo handicap placements. Use
+                clear_board if you want to start over.
+                An engine which never is able to undo should not include
+                this command among its known commands.</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+
+<p>
+
+</p><h3><a name="SECTION00073400000000000000">
+6.3.4 Tournament Commands</a>
+</h3>
+
+<ul>
+<li><b>time_settings</b> 
+<br>  <table cellpadding="3" width="100%">
+<tbody><tr><td align="LEFT" width="10%">arguments</td>
+<td align="LEFT" width="90%"><tt>main_time byo_yomi_time byo_yomi_stones</tt></td>
+</tr>
+<tr><td align="LEFT" width="10%">&nbsp;</td>
+<td align="LEFT" width="90%"><tt>int main_time</tt>        - Main time measured in seconds.</td>
+</tr>
+<tr><td align="LEFT" width="10%">&nbsp;</td>
+<td align="LEFT" width="90%"><tt>int byo_yomi_time</tt>   - Byo yomi time measured in seconds.</td>
+</tr>
+<tr><td align="LEFT" width="10%">&nbsp;</td>
+<td align="LEFT" width="90%"><tt>int byo_yomi_stones</tt> - Number of stones per byo yomi period.</td>
+</tr>
+<tr><td align="LEFT" width="10%">effects</td>
+<td align="LEFT" width="90%">The time settings are changed.</td>
+</tr>
+<tr><td align="LEFT" width="10%">output</td>
+<td align="LEFT" width="90%">none</td>
+</tr>
+<tr><td align="LEFT" width="10%">fails</td>
+<td align="LEFT" width="90%">syntax error</td>
+</tr>
+<tr><td align="LEFT" width="10%">comments</td>
+<td align="LEFT" width="90%">The interpretation of the parameters is discussed in
+                section <a href="http://www.lysator.liu.se/~gunnar/gtp/gtp2-spec-draft2/gtp2-spec.html#sec:time-handling">4.2</a>.
+                The engine must accept the requested values. This command
+                gives no provision for negotiation of the time settings.</td>
+</tr>
+</tbody></table>
+
+<p>
+
+</p></li>
+<li><b>time_left</b> 
+<br>  <table cellpadding="3" width="100%">
+<tbody><tr><td align="LEFT" width="10%">arguments</td>
+<td align="LEFT" width="90%"><tt>color time stones</tt></td>
+</tr>
+<tr><td align="LEFT" width="10%">&nbsp;</td>
+<td align="LEFT" width="90%"><tt>color color</tt> - Color for which the information applies.</td>
+</tr>
+<tr><td align="LEFT" width="10%">&nbsp;</td>
+<td align="LEFT" width="90%"><tt>int time</tt>    - Number of seconds remaining.</td>
+</tr>
+<tr><td align="LEFT" width="10%">&nbsp;</td>
+<td align="LEFT" width="90%"><tt>int stones</tt>  - Number of stones remaining.</td>
+</tr>
+<tr><td align="LEFT" width="10%">effects</td>
+<td align="LEFT" width="90%">none</td>
+</tr>
+<tr><td align="LEFT" width="10%">output</td>
+<td align="LEFT" width="90%">none</td>
+</tr>
+<tr><td align="LEFT" width="10%">fails</td>
+<td align="LEFT" width="90%">syntax error</td>
+</tr>
+<tr><td align="LEFT" width="10%">comments</td>
+<td align="LEFT" width="90%">While the main time is counting, the number of remaining
+                stones is given as 0.</td>
+</tr>
+</tbody></table>
+
+<p>
+</p></li>
+<li><b>final_score</b> 
+<br>  <table cellpadding="3" width="100%">
+<tbody><tr><td align="LEFT" width="10%">arguments</td>
+<td align="LEFT" width="90%">none</td>
+</tr>
+<tr><td align="LEFT" width="10%">effects</td>
+<td align="LEFT" width="90%">none</td>
+</tr>
+<tr><td align="LEFT" width="10%">output</td>
+<td align="LEFT" width="90%"><tt>score</tt></td>
+</tr>
+<tr><td align="LEFT" width="10%">&nbsp;</td>
+<td align="LEFT" width="90%"><tt>string score</tt> - Score as described in section
+                              <a href="http://www.lysator.liu.se/~gunnar/gtp/gtp2-spec-draft2/gtp2-spec.html#sec:scoring">4.3</a>.</td>
+</tr>
+<tr><td align="LEFT" width="10%">fails</td>
+<td align="LEFT" width="90%">If the engine is unable to determine the score, fails
+                 with error message ``cannot&nbsp;score''.</td>
+</tr>
+<tr><td align="LEFT" width="10%">comments</td>
+<td align="LEFT" width="90%">If the engine never is able to determine the score,
+                 leave the command unimplemented.</td>
+</tr>
+</tbody></table>
+
+<p>
+</p></li>
+<li><b>final_status_list</b> 
+<br>  <table cellpadding="3" width="100%">
+<tbody><tr><td align="LEFT" width="10%">arguments</td>
+<td align="LEFT" width="90%"><tt>status</tt></td>
+</tr>
+<tr><td align="LEFT" width="10%">&nbsp;</td>
+<td align="LEFT" width="90%"><tt>string status</tt> - Requested status.</td>
+</tr>
+<tr><td align="LEFT" width="10%">effects</td>
+<td align="LEFT" width="90%">none</td>
+</tr>
+<tr><td align="LEFT" width="10%">output</td>
+<td align="LEFT" width="90%"><tt>stones</tt></td>
+</tr>
+<tr><td align="LEFT" width="10%">&nbsp;</td>
+<td align="LEFT" width="90%"><tt>vertex*&amp; stones</tt> - Stones with the requested status.</td>
+</tr>
+<tr><td align="LEFT" width="10%">fails</td>
+<td align="LEFT" width="90%">syntax error</td>
+</tr>
+<tr><td align="LEFT" width="10%">comments</td>
+<td align="LEFT" width="90%">See section <a href="http://www.lysator.liu.se/~gunnar/gtp/gtp2-spec-draft2/gtp2-spec.html#sec:scoring">4.3</a> for details.</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+
+<p>
+
+</p><h3><a name="SECTION00073500000000000000"></a>
+<a name="sec:regression-commands"></a>
+<br>
+6.3.5 Regression Commands
+</h3>
+
+<ul>
+<li><b>loadsgf</b> 
+<br>  <table cellpadding="3" width="100%">
+<tbody><tr><td align="LEFT" width="10%">arguments</td>
+<td align="LEFT" width="90%"><tt>filename move_number</tt></td>
+</tr>
+<tr><td align="LEFT" width="10%">&nbsp;</td>
+<td align="LEFT" width="90%"><tt>string filename</tt> - Name of an sgf file.</td>
+</tr>
+<tr><td align="LEFT" width="10%">&nbsp;</td>
+<td align="LEFT" width="90%"><tt>int move_number</tt> - Optional move number.</td>
+</tr>
+<tr><td align="LEFT" width="10%">effects</td>
+<td align="LEFT" width="90%">Board size and komi are set to the values given in
+                 the sgf file. Board configuration, number of
+                 captured stones, and move history are found by
+                 replaying the game record up to the position before
+                 <tt>move_number</tt> or until the end if omitted.</td>
+</tr>
+<tr><td align="LEFT" width="10%">output</td>
+<td align="LEFT" width="90%">none</td>
+</tr>
+<tr><td align="LEFT" width="10%">fails</td>
+<td align="LEFT" width="90%">Syntax error. If the file does not exist or cannot be
+                 read in because it is broken in some way, fails with
+                 the error message ``cannot&nbsp;load&nbsp;file''.</td>
+</tr>
+<tr><td align="LEFT" width="10%">comments</td>
+<td align="LEFT" width="90%">Due to the syntactical limitations of this protocol,
+                 the filename cannot include spaces, hash signs (#),
+                 or control characters. The command requires the
+                 controller and the engine to share file system, or at
+                 least that the controller has sufficient knowledge
+                 about the file system of the engine. If
+                 <tt>move_number</tt> is larger than the number of
+                 moves in the file, read until the end of the file.
+                 This command has no support for sgf files with
+                 variations or game collections.</td>
+</tr>
+</tbody></table>
+
+<p>
+</p></li>
+<li><b>reg_genmove</b> 
+<br>  <table cellpadding="3" width="100%">
+<tbody><tr><td align="LEFT" width="10%">arguments</td>
+<td align="LEFT" width="90%"><tt>color</tt></td>
+</tr>
+<tr><td align="LEFT" width="10%">&nbsp;</td>
+<td align="LEFT" width="90%"><tt>color color</tt> - Color for which to generate a move.</td>
+</tr>
+<tr><td align="LEFT" width="10%">effects</td>
+<td align="LEFT" width="90%">none</td>
+</tr>
+<tr><td align="LEFT" width="10%">output</td>
+<td align="LEFT" width="90%"><tt>vertex</tt></td>
+</tr>
+<tr><td align="LEFT" width="10%">&nbsp;</td>
+<td align="LEFT" width="90%"><tt>vertex<img width="8" height="31" align="MIDDLE" border="0" src="./Specification of the Go Text Protocol, version 2, draft 2_files/img2.gif" alt="$\vert$">string vertex</tt> - Vertex where the engine would
+                want to play a move or the string ``resign''.</td>
+</tr>
+<tr><td align="LEFT" width="10%">fails</td>
+<td align="LEFT" width="90%">never</td>
+</tr>
+<tr><td align="LEFT" width="10%">comments</td>
+<td align="LEFT" width="90%">This command differs from <tt>genmove</tt> in that it
+                does not play the generated move. It is also advisable
+                to turn off any move randomization since that may
+                cause meaningless regression fluctuations.</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+
+<p>
+
+</p><h3><a name="SECTION00073600000000000000">
+6.3.6 Debug Commands</a>
+</h3>
+
+<ul>
+<li><b>showboard</b> 
+<br>  <table cellpadding="3" width="100%">
+<tbody><tr><td align="LEFT" width="10%">arguments</td>
+<td align="LEFT" width="90%">none</td>
+</tr>
+<tr><td align="LEFT" width="10%">effects</td>
+<td align="LEFT" width="90%">none</td>
+</tr>
+<tr><td align="LEFT" width="10%">output</td>
+<td align="LEFT" width="90%"><tt>board</tt></td>
+</tr>
+<tr><td align="LEFT" width="10%">&nbsp;</td>
+<td align="LEFT" width="90%"><tt>string*&amp; board</tt> - A diagram of the board position.</td>
+</tr>
+<tr><td align="LEFT" width="10%">fails</td>
+<td align="LEFT" width="90%">never</td>
+</tr>
+<tr><td align="LEFT" width="10%">comments</td>
+<td align="LEFT" width="90%">The engine may draw the board as it likes. It is,
+                 however, required to place the coordinates as
+                 described in section <a href="http://www.lysator.liu.se/~gunnar/gtp/gtp2-spec-draft2/gtp2-spec.html#sec:board-coordinates">2.11</a>.
+                 This command is only intended to help humans with
+                 debugging and the output should never need to be
+                 parsed by another program.</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+
+<p>
+
+</p><h1><a name="SECTION00080000000000000000">
+7 Example</a>
+</h1>
+
+<p>
+
+</p><h1><a name="SECTION00090000000000000000">
+8 Comments on  the Specification</a>
+</h1>
+
+<p>
+
+</p><h2><a name="SECTION00091000000000000000">
+8.1 Design Principles</a>
+</h2>
+
+<ol>
+<li><a name="it:design-machine"></a> The protocol is primarily intended for
+  machine-machine communication. At the same time we want it to be
+  reasonably human readable as well. There are two principal reasons
+  for this. The first one is to make it easy to debug a protocol
+  implementation or to find the error if the communication breaks
+  down, e.g. if two engines involved in a game get their boards out
+  of sync. The second reason is to make it easy to online issue GTP
+  commands, or write scripts, for engine testing.
+
+<p>
+The protocol is <i>not</i> intended as a user interface for playing
+  games though, even if it can be done for testing purposes.
+
+</p><p>
+</p></li>
+<li>The protocol intentionally does not include any negotiation
+  options. The controller dictates everything and the engine has to
+  comply, unless it is technically unable to, in which case it has to
+  fail. While this to some extent limits the power of the protocol, it
+  considerably simplifies implementation of both engines and
+  controllers.
+
+<p>
+Arguably an engine could fail on purpose as some kind of attempt to
+  force negotiation. This is not encouraged and is considered bad
+  style. A controller has absolutely no obligation to try to work
+  around such failures.
+</p></li>
+</ol>
+
+<p>
+
+</p><h2><a name="SECTION00092000000000000000">
+8.2 Detail Comments</a>
+</h2>
+
+<p>
+
+</p><ul>
+<li><b><a href="http://www.lysator.liu.se/~gunnar/gtp/gtp2-spec-draft2/gtp2-spec.html#sec:communication-model">1.3</a> Communication Model</b>
+<br>
+That the controller initiates all communication does not imply that
+  it has to set up the communication <i>channel</i>.
+
+<p>
+</p></li>
+<li><b><a href="http://www.lysator.liu.se/~gunnar/gtp/gtp2-spec-draft2/gtp2-spec.html#sec:character-set">2.1</a> Character Set</b>
+<br>
+ASCII specifies characters in the interval 0-127, some of which are
+  control characters. ``Other characters'' refer to characters in the
+  interval 128-255, which are available in various character sets
+  such as the ISO-8859-x series.
+
+<p>
+</p></li>
+<li><b><a href="http://www.lysator.liu.se/~gunnar/gtp/gtp2-spec-draft2/gtp2-spec.html#sec:whitespace">2.3</a> Whitespace</b>
+<br>
+The requirement to accept both SPACE and HT but only produce SPACE
+  applies to both engine and controller. The reason for this asymmetry
+  is that SPACE is the preferred character but since it for some
+  purposes can be convenient to write scripts of GTP commands manually
+  in text files it is conceivable that an HT may occur occasionally.
+
+<p>
+</p></li>
+<li><b><a href="http://www.lysator.liu.se/~gunnar/gtp/gtp2-spec-draft2/gtp2-spec.html#sec:newline-convention">2.4</a> Newline Convention</b>
+<br>
+The newline convention is easy to implement and allows
+  interoperability between platforms using LF, CRLF, or LFCR to
+  indicate newlines. It does not interoperate with the CR only
+  convention used in text files on MacOS, prior to MacOS X. This is
+  not expected to be a substantial problem.
+
+<p>
+</p></li>
+<li><b><a href="http://www.lysator.liu.se/~gunnar/gtp/gtp2-spec-draft2/gtp2-spec.html#sec:timing">2.8</a> Timing</b>
+<br>
+While the communication channels are required to be free from
+  errors, we do not assume that they are free from delays. For
+  communication over the internet, random delays are a reality and it
+  would be unrealistic not to take this into account.
+
+<p>
+</p></li>
+<li><b><a href="http://www.lysator.liu.se/~gunnar/gtp/gtp2-spec-draft2/gtp2-spec.html#sec:comments">2.9</a> Comments</b>
+<br>
+Comments are mainly useful in regression test suites. 
+
+<p>
+</p></li>
+<li><b><a href="http://www.lysator.liu.se/~gunnar/gtp/gtp2-spec-draft2/gtp2-spec.html#sec:board-coordinates">2.11</a> Board Coordinates</b>
+<br>
+The choice of board coordinates is guided by design principle
+  <a href="http://www.lysator.liu.se/~gunnar/gtp/gtp2-spec-draft2/gtp2-spec.html#it:design-machine">1</a> of the previous section. The alternative to
+  instead use a pair of integers is slightly easier for a machine to
+  parse and does not impose any limitations on the maximum board size.
+  However, the better human readibility of the chosen format is
+  considered significant enough.
+
+<p>
+This coordinate convention is identical to the one used on IGS and
+  many other go servers, and is also used in the specification of the
+  Go Modem Protocol.
+
+</p><p>
+</p></li>
+<li><b><a href="http://www.lysator.liu.se/~gunnar/gtp/gtp2-spec-draft2/gtp2-spec.html#sec:simple-entities">3.2.1</a> Simple Entities</b> 
+<br>
+The only purpose of the <tt>float</tt> entity is to specify komi
+  values. In practice it would suffice to restrict these to small
+  integers and half-integers, but it is probably better to allow
+  general floating point numbers anyway.
+
+<p>
+</p></li>
+<li><b><a href="http://www.lysator.liu.se/~gunnar/gtp/gtp2-spec-draft2/gtp2-spec.html#sec:compound-entities">3.2.2</a> Compound Entities</b> 
+<br>
+Since a list can only be stopped by an LF, an entity like
+  <tt>{int* color*}</tt> is invalid, although it would technically
+  be possible to tell the ints from the colors in this particular
+  case.
+
+<p>
+For similar reasons constructions of the form <tt>{x&amp; y&amp;}</tt>
+  or <tt>x&amp;*</tt> are also invalid.
+
+</p><p>
+The multiline list construction cannot be used for commands since these
+  are terminated by a single LF.
+
+</p><p>
+In constructions of the form <tt>x*&amp;</tt>, there is no requirement
+  that every <tt>x*</tt> has the same length. I.e., there may be
+  varying number of elements on each line.
+
+</p><p>
+</p></li>
+<li><b><a href="http://www.lysator.liu.se/~gunnar/gtp/gtp2-spec-draft2/gtp2-spec.html#sec:standard-error-messages">3.6</a> Standard Error Messages</b> 
+<br>
+Failures can be divided into two classes. In the first class we have
+  syntactically incorrect commands and other failures of the
+  controller to follow the specification. In the second class we have
+  technical limitations of the engine, which the controller cannot
+  easily foresee in advance.
+
+<p>
+Only failures in the second class have standard error messages, on
+  the assumption that these are the only ones the controller need to
+  take action on. Failures in the first class indicate programming
+  errors and will require debugging. Thus those error messages may
+  freely be chosen to best help the debugging.
+
+</p><p>
+</p></li>
+<li><b><a href="http://www.lysator.liu.se/~gunnar/gtp/gtp2-spec-draft2/gtp2-spec.html#sec:fixed-handicap-placement">4.1.1</a> Fixed Handicap Placement</b> 
+<br>
+This fixed handicap placement is compatible with the Go Modem
+  Protocol and many go servers.
+
+<p>
+</p></li>
+<li><b><a href="http://www.lysator.liu.se/~gunnar/gtp/gtp2-spec-draft2/gtp2-spec.html#sec:free-handicap-placement">4.1.2</a> Free Handicap Placement</b> 
+<br>
+Filling all vertices but one with handicap stones leave them in
+  atari and is obviously not attractive for black. Moreover black has
+  the trivial placement of half the number of stones in a chessboard
+  pattern which leaves white without a single legal move. It is also
+  possible to place a smaller number of stones than that so that white
+  cannot possibly form a single living group. Thus there clearly
+  exists thresholds above which it is not meaningful to add more
+  stones.
+
+<p>
+With this in mind it is recommended that every engine has a
+  threshold of at least 40 stones for 19x19 and a proportional number
+  for other board sizes. Extremely weak engines are recommended to
+  provide handicap placements all the way up to the full chessboard
+  pattern.
+
+</p><p>
+</p></li>
+<li><b><a href="http://www.lysator.liu.se/~gunnar/gtp/gtp2-spec-draft2/gtp2-spec.html#sec:time-handling">4.2</a> Time Handling</b> 
+<br>
+The controller is responsible for measuring time and deciding
+  whether an engine has run out of time. The information given by the
+  <tt>time_settings</tt> and <tt>time_left</tt> commands is only to
+  guide the engines about how fast they need to play.
+
+<p>
+</p></li>
+<li><b><a href="http://www.lysator.liu.se/~gunnar/gtp/gtp2-spec-draft2/gtp2-spec.html#sec:scoring">4.3</a> Scoring</b> 
+<br>
+With most rulesets scoring is difficult for computer programs. Only
+  sophisticated engines can be expected to have reliable scoring while
+  many engines probably will not implement the scoring commands at
+  all. A controller is recommended to have external methods available
+  to decide the winner (e.g. an independent trusted program or a
+  human reviewer) but there is no reason to invoke them if both
+  engines implement the scoring commands and agree about the result.
+
+<p>
+The format of the score string is identical to the RE property in
+  SGF FF[4].
+
+</p><p>
+</p></li>
+<li><b><a href="http://www.lysator.liu.se/~gunnar/gtp/gtp2-spec-draft2/gtp2-spec.html#sec:state-variables">5.1</a> State Variables</b> 
+<br>
+An engine which never uses some state for anything does not have to
+  keep track of it just because it should. The point of the rule is
+  that the engine is not allowed to suddenly change any state which it
+  does use, unless instructed to.
+
+<p>
+</p></li>
+<li><b><a href="http://www.lysator.liu.se/~gunnar/gtp/gtp2-spec-draft2/gtp2-spec.html#sec:default-state">5.2</a> Default State</b> 
+<br>
+It may seem natural to require e.g. an empty board when the engine
+  is started. However, it can also be convenient to be able to start
+  the engine with e.g. an sgf file already loaded.
+
+<p>
+</p></li>
+<li><b><a href="http://www.lysator.liu.se/~gunnar/gtp/gtp2-spec-draft2/gtp2-spec.html#sec:regression-commands">6.3.5</a> Regression Commands</b> 
+<br>
+GNU Go has a wide array of commands used in regression testing, such
+  as <tt>attack</tt> to test whether a string can be tactically
+  captured. However, except for simple move generation it is not at
+  all clear to what extent such commands can be defined in ways which
+  are meaningful across multiple programs. It is desired to increase
+  the set of standard regression commands in future protocol
+  revisions, but it must be done with care.
+
+<p>
+The reason for a separate <tt>reg_genmove</tt> command is that it is
+  usually desirable to get consistent regression results. I.e. for a
+  given position the same move should always be generated. In actual
+  play it is useful to have a random variability between moves of
+  similar value, in particular in the opening, to avoid playing too
+  predictably.
+
+</p><p>
+</p></li>
+</ul>
+
+<p>
+
+</p><h2><a name="SECTION00093000000000000000"></a>
+<a name="sec:missing-features"></a>
+<br>
+8.3 Missing Features
+</h2>
+
+<p>
+
+</p><ol>
+<li><b>Ruleset Commands and Scoring Options</b> 
+<br>
+This version of the protocol has no provisions to specify what
+  ruleset and/or scoring options to use. This is planned for future
+  revisions but has been omitted here due to the complexity of the
+  issue.
+
+<p>
+The reason why this is considered complex is that there are numerous
+  rulesets (using the term loosely) such as Japanese, Chinese, AGA,
+  Ing, IGS, and New Zealand, which differ with respect to one or more
+  of ko rule, area or territory scoring, scoring of seki, legality of
+  suicide, effect of handicap stones on scoring, and so on.
+
+</p><p>
+As a workaround this kind of information has to be passed through
+  other channels than GTP, e.g. as command line options when starting
+  the engine.
+
+</p><p>
+In practice this is not all that much of a problem since these
+  settings rarely vary between games, e.g. within a tournament. Still
+  it is desirable to have this functionality in the protocol, but it
+  is worth waiting for a well thought through design of the commands.
+
+</p><p>
+</p></li>
+<li><b>Introspective Commands</b> 
+<br>
+GNU Go includes a large number of commands to query the board, e.g. 
+  list legal moves, find connected strings, count liberties, and so
+  on. These can be useful when writing a ``stupid'' user interface
+  which does not itself know anything about the board logic. They have
+  been omitted from this specification mainly to keep it shorter and
+  make it look less imposing. They are under consideration for
+  inclusion in later revisions.
+</li>
+</ol>
+
+<p>
+
+</p><h2><a name="SECTION00094000000000000000">
+8.4 Licensing</a>
+</h2>
+Anyone may use this protocol for any purpose without any restrictions.
+
+<p>
+This <i>document</i> may be copied, modified, and distributed
+according to the terms of the GNU Free Documentation License, included
+in section <a href="http://www.lysator.liu.se/~gunnar/gtp/gtp2-spec-draft2/gtp2-spec.html#sec:gfdl">10</a>.
+
+</p><p>
+While this in theory allows anyone to create modified protocol
+specifications, which could potentially lead to great chaos, that
+would benefit noone and we trust people not be that stupid.
+
+</p><p>
+The reason why we allow modification at all is to make sure that new
+authors can continue evolving the protocol if previous authors
+disappear, without having to rewrite everything from scratch.
+
+</p><p>
+People who want to use this protocol as a basis for development of
+some other protocol are most welcome to start from this protocol
+specification.
+
+</p><p>
+
+</p><h1><a name="SECTION000100000000000000000">
+9 Credits</a>
+</h1>
+
+<p>
+
+</p><h1><a name="SECTION000110000000000000000"></a>
+<a name="sec:gfdl"></a>
+<br>
+10 GNU Free Documentation License
+</h1>
+
+<p>
+Version 1.1, March 2000
+<br>
+</p><p>
+Copyright © 2000  Free Software Foundation, Inc.
+<br>
+59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+<br>
+Everyone is permitted to copy and distribute verbatim copies
+ of this license document, but changing it is not allowed.
+
+</p><p>
+
+</p><h2><a name="SECTION000111000000000000000">
+Preamble</a>
+</h2>
+
+<p>
+The purpose of this License is to make a manual, textbook, or other
+written document ``free'' in the sense of freedom: to assure everyone
+the effective freedom to copy and redistribute it, with or without
+modifying it, either commercially or noncommercially.  Secondarily,
+this License preserves for the author and publisher a way to get
+credit for their work, while not being considered responsible for
+modifications made by others.
+
+</p><p>
+This License is a kind of ``copyleft'', which means that derivative
+works of the document must themselves be free in the same sense.  It
+complements the GNU General Public License, which is a copyleft
+license designed for free software.
+
+</p><p>
+We have designed this License in order to use it for manuals for free
+software, because free software needs free documentation: a free
+program should come with manuals providing the same freedoms that the
+software does.  But this License is not limited to software manuals;
+it can be used for any textual work, regardless of subject matter or
+whether it is published as a printed book.  We recommend this License
+principally for works whose purpose is instruction or reference.
+
+</p><p>
+
+</p><h2><a name="SECTION000112000000000000000">
+10.1 Applicability and Definitions</a>
+</h2>
+
+<p>
+This License applies to any manual or other work that contains a
+notice placed by the copyright holder saying it can be distributed
+under the terms of this License.  The ``Document'', below, refers to any
+such manual or work.  Any member of the public is a licensee, and is
+addressed as ``you''.
+
+</p><p>
+A ``Modified Version'' of the Document means any work containing the
+Document or a portion of it, either copied verbatim, or with
+modifications and/or translated into another language.
+
+</p><p>
+A ``Secondary Section'' is a named appendix or a front-matter section of
+the Document that deals exclusively with the relationship of the
+publishers or authors of the Document to the Document's overall subject
+(or to related matters) and contains nothing that could fall directly
+within that overall subject.  (For example, if the Document is in part a
+textbook of mathematics, a Secondary Section may not explain any
+mathematics.)  The relationship could be a matter of historical
+connection with the subject or with related matters, or of legal,
+commercial, philosophical, ethical or political position regarding
+them.
+
+</p><p>
+The ``Invariant Sections'' are certain Secondary Sections whose titles
+are designated, as being those of Invariant Sections, in the notice
+that says that the Document is released under this License.
+
+</p><p>
+The ``Cover Texts'' are certain short passages of text that are listed,
+as Front-Cover Texts or Back-Cover Texts, in the notice that says that
+the Document is released under this License.
+
+</p><p>
+A ``Transparent'' copy of the Document means a machine-readable copy,
+represented in a format whose specification is available to the
+general public, whose contents can be viewed and edited directly and
+straightforwardly with generic text editors or (for images composed of
+pixels) generic paint programs or (for drawings) some widely available
+drawing editor, and that is suitable for input to text formatters or
+for automatic translation to a variety of formats suitable for input
+to text formatters.  A copy made in an otherwise Transparent file
+format whose markup has been designed to thwart or discourage
+subsequent modification by readers is not Transparent.  A copy that is
+not ``Transparent'' is called ``Opaque''.
+
+</p><p>
+Examples of suitable formats for Transparent copies include plain
+ASCII without markup, Texinfo input format, L<sup><small>A</small></sup>T<small>E</small>X&nbsp;input format, SGML
+or XML using a publicly available DTD, and standard-conforming simple
+HTML designed for human modification.  Opaque formats include
+PostScript, PDF, proprietary formats that can be read and edited only
+by proprietary word processors, SGML or XML for which the DTD and/or
+processing tools are not generally available, and the
+machine-generated HTML produced by some word processors for output
+purposes only.
+
+</p><p>
+The ``Title Page'' means, for a printed book, the title page itself,
+plus such following pages as are needed to hold, legibly, the material
+this License requires to appear in the title page.  For works in
+formats which do not have any title page as such, ``Title Page'' means
+the text near the most prominent appearance of the work's title,
+preceding the beginning of the body of the text.
+
+</p><p>
+
+</p><h2><a name="SECTION000113000000000000000">
+10.2 Verbatim Copying</a>
+</h2>
+
+<p>
+You may copy and distribute the Document in any medium, either
+commercially or noncommercially, provided that this License, the
+copyright notices, and the license notice saying this License applies
+to the Document are reproduced in all copies, and that you add no other
+conditions whatsoever to those of this License.  You may not use
+technical measures to obstruct or control the reading or further
+copying of the copies you make or distribute.  However, you may accept
+compensation in exchange for copies.  If you distribute a large enough
+number of copies you must also follow the conditions in section 3.
+
+</p><p>
+You may also lend copies, under the same conditions stated above, and
+you may publicly display copies.
+
+</p><p>
+
+</p><h2><a name="SECTION000114000000000000000">
+10.3 Copying in Quantity</a>
+</h2>
+
+<p>
+If you publish printed copies of the Document numbering more than 100,
+and the Document's license notice requires Cover Texts, you must enclose
+the copies in covers that carry, clearly and legibly, all these Cover
+Texts: Front-Cover Texts on the front cover, and Back-Cover Texts on
+the back cover.  Both covers must also clearly and legibly identify
+you as the publisher of these copies.  The front cover must present
+the full title with all words of the title equally prominent and
+visible.  You may add other material on the covers in addition.
+Copying with changes limited to the covers, as long as they preserve
+the title of the Document and satisfy these conditions, can be treated
+as verbatim copying in other respects.
+
+</p><p>
+If the required texts for either cover are too voluminous to fit
+legibly, you should put the first ones listed (as many as fit
+reasonably) on the actual cover, and continue the rest onto adjacent
+pages.
+
+</p><p>
+If you publish or distribute Opaque copies of the Document numbering
+more than 100, you must either include a machine-readable Transparent
+copy along with each Opaque copy, or state in or with each Opaque copy
+a publicly-accessible computer-network location containing a complete
+Transparent copy of the Document, free of added material, which the
+general network-using public has access to download anonymously at no
+charge using public-standard network protocols.  If you use the latter
+option, you must take reasonably prudent steps, when you begin
+distribution of Opaque copies in quantity, to ensure that this
+Transparent copy will remain thus accessible at the stated location
+until at least one year after the last time you distribute an Opaque
+copy (directly or through your agents or retailers) of that edition to
+the public.
+
+</p><p>
+It is requested, but not required, that you contact the authors of the
+Document well before redistributing any large number of copies, to give
+them a chance to provide you with an updated version of the Document.
+
+</p><p>
+
+</p><h2><a name="SECTION000115000000000000000">
+10.4 Modifications</a>
+</h2>
+
+<p>
+You may copy and distribute a Modified Version of the Document under
+the conditions of sections 2 and 3 above, provided that you release
+the Modified Version under precisely this License, with the Modified
+Version filling the role of the Document, thus licensing distribution
+and modification of the Modified Version to whoever possesses a copy
+of it.  In addition, you must do these things in the Modified Version:
+
+</p><p>
+
+</p><ul>
+<li>Use in the Title Page (and on the covers, if any) a title distinct
+   from that of the Document, and from those of previous versions
+   (which should, if there were any, be listed in the History section
+   of the Document).  You may use the same title as a previous version
+   if the original publisher of that version gives permission.
+</li>
+<li>List on the Title Page, as authors, one or more persons or entities
+   responsible for authorship of the modifications in the Modified
+   Version, together with at least five of the principal authors of the
+   Document (all of its principal authors, if it has less than five).
+</li>
+<li>State on the Title page the name of the publisher of the
+   Modified Version, as the publisher.
+</li>
+<li>Preserve all the copyright notices of the Document.
+</li>
+<li>Add an appropriate copyright notice for your modifications
+   adjacent to the other copyright notices.
+</li>
+<li>Include, immediately after the copyright notices, a license notice
+   giving the public permission to use the Modified Version under the
+   terms of this License, in the form shown in the Addendum below.
+</li>
+<li>Preserve in that license notice the full lists of Invariant Sections
+   and required Cover Texts given in the Document's license notice.
+</li>
+<li>Include an unaltered copy of this License.
+</li>
+<li>Preserve the section entitled ``History'', and its title, and add to
+   it an item stating at least the title, year, new authors, and
+   publisher of the Modified Version as given on the Title Page.  If
+   there is no section entitled ``History'' in the Document, create one
+   stating the title, year, authors, and publisher of the Document as
+   given on its Title Page, then add an item describing the Modified
+   Version as stated in the previous sentence.
+</li>
+<li>Preserve the network location, if any, given in the Document for
+   public access to a Transparent copy of the Document, and likewise
+   the network locations given in the Document for previous versions
+   it was based on.  These may be placed in the ``History'' section.
+   You may omit a network location for a work that was published at
+   least four years before the Document itself, or if the original
+   publisher of the version it refers to gives permission.
+</li>
+<li>In any section entitled ``Acknowledgements'' or ``Dedications'',
+   preserve the section's title, and preserve in the section all the
+   substance and tone of each of the contributor acknowledgements
+   and/or dedications given therein.
+</li>
+<li>Preserve all the Invariant Sections of the Document,
+   unaltered in their text and in their titles.  Section numbers
+   or the equivalent are not considered part of the section titles.
+</li>
+<li>Delete any section entitled ``Endorsements''.  Such a section
+   may not be included in the Modified Version.
+</li>
+<li>Do not retitle any existing section as ``Endorsements''
+   or to conflict in title with any Invariant Section.
+
+<p>
+</p></li>
+</ul>
+
+<p>
+If the Modified Version includes new front-matter sections or
+appendices that qualify as Secondary Sections and contain no material
+copied from the Document, you may at your option designate some or all
+of these sections as invariant.  To do this, add their titles to the
+list of Invariant Sections in the Modified Version's license notice.
+These titles must be distinct from any other section titles.
+
+</p><p>
+You may add a section entitled ``Endorsements'', provided it contains
+nothing but endorsements of your Modified Version by various
+parties - for example, statements of peer review or that the text has
+been approved by an organization as the authoritative definition of a
+standard.
+
+</p><p>
+You may add a passage of up to five words as a Front-Cover Text, and a
+passage of up to 25 words as a Back-Cover Text, to the end of the list
+of Cover Texts in the Modified Version.  Only one passage of
+Front-Cover Text and one of Back-Cover Text may be added by (or
+through arrangements made by) any one entity.  If the Document already
+includes a cover text for the same cover, previously added by you or
+by arrangement made by the same entity you are acting on behalf of,
+you may not add another; but you may replace the old one, on explicit
+permission from the previous publisher that added the old one.
+
+</p><p>
+The author(s) and publisher(s) of the Document do not by this License
+give permission to use their names for publicity for or to assert or
+imply endorsement of any Modified Version.
+
+</p><p>
+
+</p><h2><a name="SECTION000116000000000000000">
+10.5 Combining Documents</a>
+</h2>
+
+<p>
+You may combine the Document with other documents released under this
+License, under the terms defined in section 4 above for modified
+versions, provided that you include in the combination all of the
+Invariant Sections of all of the original documents, unmodified, and
+list them all as Invariant Sections of your combined work in its
+license notice.
+
+</p><p>
+The combined work need only contain one copy of this License, and
+multiple identical Invariant Sections may be replaced with a single
+copy.  If there are multiple Invariant Sections with the same name but
+different contents, make the title of each such section unique by
+adding at the end of it, in parentheses, the name of the original
+author or publisher of that section if known, or else a unique number.
+Make the same adjustment to the section titles in the list of
+Invariant Sections in the license notice of the combined work.
+
+</p><p>
+In the combination, you must combine any sections entitled ``History''
+in the various original documents, forming one section entitled
+``History''; likewise combine any sections entitled ``Acknowledgements'',
+and any sections entitled ``Dedications''.  You must delete all sections
+entitled ``Endorsements.''
+
+</p><p>
+
+</p><h2><a name="SECTION000117000000000000000">
+10.6 Collections of Documents</a>
+</h2>
+
+<p>
+You may make a collection consisting of the Document and other documents
+released under this License, and replace the individual copies of this
+License in the various documents with a single copy that is included in
+the collection, provided that you follow the rules of this License for
+verbatim copying of each of the documents in all other respects.
+
+</p><p>
+You may extract a single document from such a collection, and distribute
+it individually under this License, provided you insert a copy of this
+License into the extracted document, and follow this License in all
+other respects regarding verbatim copying of that document.
+
+</p><p>
+
+</p><h2><a name="SECTION000118000000000000000">
+10.7 Aggregation With Independent Works</a>
+</h2>
+
+<p>
+A compilation of the Document or its derivatives with other separate
+and independent documents or works, in or on a volume of a storage or
+distribution medium, does not as a whole count as a Modified Version
+of the Document, provided no compilation copyright is claimed for the
+compilation.  Such a compilation is called an ``aggregate'', and this
+License does not apply to the other self-contained works thus compiled
+with the Document, on account of their being thus compiled, if they
+are not themselves derivative works of the Document.
+
+</p><p>
+If the Cover Text requirement of section 3 is applicable to these
+copies of the Document, then if the Document is less than one quarter
+of the entire aggregate, the Document's Cover Texts may be placed on
+covers that surround only the Document within the aggregate.
+Otherwise they must appear on covers around the whole aggregate.
+
+</p><p>
+
+</p><h2><a name="SECTION000119000000000000000">
+10.8 Translation</a>
+</h2>
+
+<p>
+Translation is considered a kind of modification, so you may
+distribute translations of the Document under the terms of section 4.
+Replacing Invariant Sections with translations requires special
+permission from their copyright holders, but you may include
+translations of some or all Invariant Sections in addition to the
+original versions of these Invariant Sections.  You may include a
+translation of this License provided that you also include the
+original English version of this License.  In case of a disagreement
+between the translation and the original English version of this
+License, the original English version will prevail.
+
+</p><p>
+
+</p><h2><a name="SECTION0001110000000000000000">
+10.9 Termination</a>
+</h2>
+
+<p>
+You may not copy, modify, sublicense, or distribute the Document except
+as expressly provided for under this License.  Any other attempt to
+copy, modify, sublicense or distribute the Document is void, and will
+automatically terminate your rights under this License.  However,
+parties who have received copies, or rights, from you under this
+License will not have their licenses terminated so long as such
+parties remain in full compliance.
+
+</p><p>
+
+</p><h2><a name="SECTION0001111000000000000000">
+10.10 Future Revisions of This License</a>
+</h2>
+
+<p>
+The Free Software Foundation may publish new, revised versions
+of the GNU Free Documentation License from time to time.  Such new
+versions will be similar in spirit to the present version, but may
+differ in detail to address new problems or concerns. See
+http://www.gnu.org/copyleft/.
+
+</p><p>
+Each version of the License is given a distinguishing version number.
+If the Document specifies that a particular numbered version of this
+License "or any later version" applies to it, you have the option of
+following the terms and conditions either of that specified version or
+of any later version that has been published (not as a draft) by the
+Free Software Foundation.  If the Document does not specify a version
+number of this License, you may choose any version ever published (not
+as a draft) by the Free Software Foundation.
+
+</p><p>
+
+</p><h2><a name="SECTION0001112000000000000000">
+ADDENDUM: How to use this License for your documents</a>
+</h2>
+
+<p>
+To use this License in a document you have written, include a copy of
+the License in the document and put the following copyright and
+license notices just after the title page:
+
+</p><p>
+</p><p>
+</p><blockquote>Copyright © YEAR  YOUR NAME.
+      Permission is granted to copy, distribute and/or modify this document
+      under the terms of the GNU Free Documentation License, Version 1.1
+      or any later version published by the Free Software Foundation;
+      with the Invariant Sections being LIST THEIR TITLES, with the
+      Front-Cover Texts being LIST, and with the Back-Cover Texts being LIST.
+      A copy of the license is included in the section entitled ``GNU
+      Free Documentation License''.
+</blockquote>
+<p>
+
+</p><p>
+If you have no Invariant Sections, write ``with no Invariant Sections''
+instead of saying which ones are invariant.  If you have no
+Front-Cover Texts, write ``no Front-Cover Texts'' instead of
+``Front-Cover Texts being LIST''; likewise for Back-Cover Texts.
+
+</p><p>
+If your document contains nontrivial examples of program code, we
+recommend releasing these examples in parallel under your choice of
+free software license, such as the GNU General Public License,
+to permit their use in free software.
+
+</p><p>
+
+</p><h1><a name="SECTION000120000000000000000">
+About this document ...</a>
+</h1>
+ <strong>Specification of the Go Text Protocol, version 2, draft 2</strong><p>
+This document was generated using the
+<a href="http://www.latex2html.org/"><strong>LaTeX</strong>2<tt>HTML</tt></a> translator Version 2002 (1.67)
+</p><p>
+Copyright © 1993, 1994, 1995, 1996,
+<a href="http://cbl.leeds.ac.uk/nikos/personal.html">Nikos Drakos</a>, 
+Computer Based Learning Unit, University of Leeds.
+<br>
+Copyright © 1997, 1998, 1999,
+<a href="http://www.maths.mq.edu.au/~ross/">Ross Moore</a>, 
+Mathematics Department, Macquarie University, Sydney.
+</p><p>
+The command line arguments were: <br>
+ <strong>latex2html</strong> <tt>-split 0 -show_section_numbers -nonavigation gtp2-spec.tex</tt>
+</p><p>
+The translation was initiated by Gunnar Farneback on 2002-10-12
+<br></p><hr>
+<address>
+Gunnar Farneback
+2002-10-12
+</address>
+
+
+</body></html>

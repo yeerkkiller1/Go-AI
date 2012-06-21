@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type='text/xsl' href='_UpgradeReport_Files/UpgradeReport.xslt'?><UpgradeLog>
+<Properties><Property Name="Solution" Value="OpenCLMatrixMult">
+</Property><Property Name="Solution File" Value="C:\Users\quentin\Dropbox\Go AI\OpenCLMatrixMult\OpenCLMatrixMult.sln">
+</Property><Property Name="User Options File" Value="C:\Users\quentin\Dropbox\Go AI\OpenCLMatrixMult\OpenCLMatrixMult.suo">
+</Property><Property Name="Date" Value="Thursday, May 03, 2012">
+</Property><Property Name="Time" Value="11:19 AM">
+</Property></Properties><Event ErrorLevel="0" Project="" Source="OpenCLMatrixMult.sln" Description="File successfully backed up as C:\Users\quentin\Dropbox\Go AI\OpenCLMatrixMult\Backup\OpenCLMatrixMult.sln">
+</Event><Event ErrorLevel="0" Project="" Source="OpenCLMatrixMult.suo" Description="File successfully backed up as C:\Users\quentin\Dropbox\Go AI\OpenCLMatrixMult\Backup\OpenCLMatrixMult.suo">
+</Event><Event ErrorLevel="0" Project="OpenCLMatrixMult" Source="OpenCLMatrixMult\OpenCLMatrixMult.csproj" Description="Project file successfully backed up as C:\Users\quentin\Dropbox\Go AI\OpenCLMatrixMult\Backup\OpenCLMatrixMult\OpenCLMatrixMult.csproj">
+</Event><Event ErrorLevel="0" Project="OpenCLMatrixMult" Source="OpenCLMatrixMult\OpenCLMatrixMult.csproj.user" Description="Project user file successfully backed up as C:\Users\quentin\Dropbox\Go AI\OpenCLMatrixMult\Backup\OpenCLMatrixMult\OpenCLMatrixMult.csproj.user">
+</Event><Event ErrorLevel="0" Project="OpenCLMatrixMult" Source="OpenCLMatrixMult\CLMatrixMult.cs" Description="File successfully backed up as C:\Users\quentin\Dropbox\Go AI\OpenCLMatrixMult\Backup\OpenCLMatrixMult\CLMatrixMult.cs">
+</Event><Event ErrorLevel="0" Project="OpenCLMatrixMult" Source="OpenCLMatrixMult\Form1.cs" Description="File successfully backed up as C:\Users\quentin\Dropbox\Go AI\OpenCLMatrixMult\Backup\OpenCLMatrixMult\Form1.cs">
+</Event><Event ErrorLevel="0" Project="OpenCLMatrixMult" Source="OpenCLMatrixMult\Form1.Designer.cs" Description="File successfully backed up as C:\Users\quentin\Dropbox\Go AI\OpenCLMatrixMult\Backup\OpenCLMatrixMult\Form1.Designer.cs">
+</Event><Event ErrorLevel="0" Project="OpenCLMatrixMult" Source="OpenCLMatrixMult\Program.cs" Description="File successfully backed up as C:\Users\quentin\Dropbox\Go AI\OpenCLMatrixMult\Backup\OpenCLMatrixMult\Program.cs">
+</Event><Event ErrorLevel="0" Project="OpenCLMatrixMult" Source="OpenCLMatrixMult\Properties\AssemblyInfo.cs" Description="File successfully backed up as C:\Users\quentin\Dropbox\Go AI\OpenCLMatrixMult\Backup\OpenCLMatrixMult\Properties\AssemblyInfo.cs">
+</Event><Event ErrorLevel="0" Project="OpenCLMatrixMult" Source="OpenCLMatrixMult\Properties\Resources.Designer.cs" Description="File successfully backed up as C:\Users\quentin\Dropbox\Go AI\OpenCLMatrixMult\Backup\OpenCLMatrixMult\Properties\Resources.Designer.cs">
+</Event><Event ErrorLevel="0" Project="OpenCLMatrixMult" Source="OpenCLMatrixMult\Properties\Settings.Designer.cs" Description="File successfully backed up as C:\Users\quentin\Dropbox\Go AI\OpenCLMatrixMult\Backup\OpenCLMatrixMult\Properties\Settings.Designer.cs">
+</Event><Event ErrorLevel="0" Project="OpenCLMatrixMult" Source="OpenCLMatrixMult\Properties\Settings.settings" Description="File successfully backed up as C:\Users\quentin\Dropbox\Go AI\OpenCLMatrixMult\Backup\OpenCLMatrixMult\Properties\Settings.settings">
+</Event><Event ErrorLevel="0" Project="OpenCLMatrixMult" Source="OpenCLMatrixMult\Form1.resx" Description="File successfully backed up as C:\Users\quentin\Dropbox\Go AI\OpenCLMatrixMult\Backup\OpenCLMatrixMult\Form1.resx">
+</Event><Event ErrorLevel="0" Project="OpenCLMatrixMult" Source="OpenCLMatrixMult\Properties\Resources.resx" Description="File successfully backed up as C:\Users\quentin\Dropbox\Go AI\OpenCLMatrixMult\Backup\OpenCLMatrixMult\Properties\Resources.resx">
+</Event><Event ErrorLevel="0" Project="OpenCLMatrixMult" Source="OpenCLMatrixMult\OpenCLMatrixMult.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="OpenCLMatrixMult" Source="OpenCLMatrixMult\OpenCLMatrixMult.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="" Source="OpenCLMatrixMult.sln" Description="Solution converted successfully">
+</Event><Event ErrorLevel="3" Project="" Source="OpenCLMatrixMult.sln" Description="Converted">
+</Event><Event ErrorLevel="0" Project="OpenCLMatrixMult" Source="OpenCLMatrixMult\OpenCLMatrixMult.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event></UpgradeLog>

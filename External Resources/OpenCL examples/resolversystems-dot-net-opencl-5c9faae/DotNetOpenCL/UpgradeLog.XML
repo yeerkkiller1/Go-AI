@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type='text/xsl' href='_UpgradeReport_Files/UpgradeReport.xslt'?><UpgradeLog>
+<Properties><Property Name="Solution" Value="DotNetOpenCL">
+</Property><Property Name="Solution File" Value="C:\Users\quentin\Dropbox\Go AI\resolversystems-dot-net-opencl-5c9faae\DotNetOpenCL\DotNetOpenCL.sln">
+</Property><Property Name="Date" Value="Thursday, May 03, 2012">
+</Property><Property Name="Time" Value="14:18 PM">
+</Property></Properties><Event ErrorLevel="0" Project="" Source="DotNetOpenCL.sln" Description="File successfully backed up as C:\Users\quentin\Dropbox\Go AI\resolversystems-dot-net-opencl-5c9faae\DotNetOpenCL\Backup\DotNetOpenCL.sln">
+</Event><Event ErrorLevel="0" Project="DotNetOpenCL" Source="DotNetOpenCL\DotNetOpenCL.csproj" Description="Project file successfully backed up as C:\Users\quentin\Dropbox\Go AI\resolversystems-dot-net-opencl-5c9faae\DotNetOpenCL\Backup\DotNetOpenCL\DotNetOpenCL.csproj">
+</Event><Event ErrorLevel="0" Project="DotNetOpenCL" Source="DotNetOpenCL\CL.cs" Description="File successfully backed up as C:\Users\quentin\Dropbox\Go AI\resolversystems-dot-net-opencl-5c9faae\DotNetOpenCL\Backup\DotNetOpenCL\CL.cs">
+</Event><Event ErrorLevel="0" Project="DotNetOpenCL" Source="DotNetOpenCL\Properties\AssemblyInfo.cs" Description="File successfully backed up as C:\Users\quentin\Dropbox\Go AI\resolversystems-dot-net-opencl-5c9faae\DotNetOpenCL\Backup\DotNetOpenCL\Properties\AssemblyInfo.cs">
+</Event><Event ErrorLevel="0" Project="DotNetOpenCL" Source="DotNetOpenCL\DotNetOpenCL.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="DotNetOpenCL" Source="DotNetOpenCL\DotNetOpenCL.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="" Source="DotNetOpenCL.sln" Description="Solution converted successfully">
+</Event><Event ErrorLevel="3" Project="" Source="DotNetOpenCL.sln" Description="Converted">
+</Event><Event ErrorLevel="0" Project="DotNetOpenCL" Source="DotNetOpenCL\DotNetOpenCL.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event></UpgradeLog>

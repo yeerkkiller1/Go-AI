@@ -1,0 +1,1326 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html401/loose.dtd">
+<!-- saved from url=(0047)http://www.gnu.org/software/gnugo/gnugo_19.html -->
+<html><!-- Created on February, 19 2009 by texi2html 1.78 --><!--
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people.
+Send bugs and suggestions to <texi2html-bug@nongnu.org>
+
+--><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>GNU Go Documentation: 19. The Go Text Protocol</title>
+
+<meta name="description" content="GNU Go Documentation: 19. The Go Text Protocol">
+<meta name="keywords" content="GNU Go Documentation: 19. The Go Text Protocol">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.78">
+
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+pre.display {font-family: serif}
+pre.format {font-family: serif}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: serif; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: serif; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.roman {font-family:serif; font-weight:normal;}
+span.sansserif {font-family:sans-serif; font-weight:normal;}
+ul.toc {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+
+<table cellpadding="1" cellspacing="1" border="0">
+<tbody><tr><td valign="middle" align="left">[<a href="http://www.gnu.org/software/gnugo/gnugo_18.html#SEC187" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="http://www.gnu.org/software/gnugo/gnugo_20.html#SEC201" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="http://www.gnu.org/software/gnugo/gnugo_ovr.html#SEC_Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="http://www.gnu.org/software/gnugo/gnugo_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="http://www.gnu.org/software/gnugo/gnugo_22.html#SEC217" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="http://www.gnu.org/software/gnugo/gnugo_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></tbody></table>
+
+<hr size="2">
+<a name="GTP"></a>
+<a name="SEC192"></a>
+<h1 class="chapter"> 19. The Go Text Protocol </h1>
+
+             
+<table class="menu" border="0" cellspacing="0">
+<tbody><tr><td align="left" valign="top"><a href="http://www.gnu.org/software/gnugo/gnugo_19.html#SEC193">19.1 The Go Text Protocol</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top"></td></tr>
+<tr><td align="left" valign="top"><a href="http://www.gnu.org/software/gnugo/gnugo_19.html#SEC194">19.2 Running GNU Go in GTP mode</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top"></td></tr>
+<tr><td align="left" valign="top"><a href="http://www.gnu.org/software/gnugo/gnugo_19.html#SEC195">19.3 GTP applications</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top"></td></tr>
+<tr><td align="left" valign="top"><a href="http://www.gnu.org/software/gnugo/gnugo_19.html#SEC196">19.4 The Metamachine</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top"></td></tr>
+<tr><td align="left" valign="top"><a href="http://www.gnu.org/software/gnugo/gnugo_19.html#SEC199">19.5 Adding new GTP commands</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top"></td></tr>
+<tr><td align="left" valign="top"><a href="http://www.gnu.org/software/gnugo/gnugo_19.html#SEC200">19.6 GTP command reference</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">         Details on every GTP command
+</td></tr>
+</tbody></table>
+
+<hr size="6">
+<a name="The-Go-Text-Protocol"></a>
+<a name="SEC193"></a>
+<h2 class="section"> 19.1 The Go Text Protocol </h2>
+
+<p>GNU Go 3.0 introduced a new interface, the Go Text Protocol, abbreviated
+GTP. The intention was to make an interface that is better suited for
+machine-machine communication than the ascii interface and simpler, more
+powerful, and more flexible than the Go Modem Protocol.
+</p>
+<p>There are two versions of the protocol. Version 1 was used with GNU Go
+3.0 and 3.2. GNU Go 3.4 and later versions use protocol version 2. The
+specification of GTP version 2 is available at
+<a href="http://www.lysator.liu.se/~gunnar/gtp/">http://www.lysator.liu.se/~gunnar/gtp/</a>. GNU Go 3.4 is the
+reference implementation for GTP version 2, but all but the most common
+commands are to be regarded as private extensions of the protocol.
+</p>
+<p>The GTP has a variety of applications. For GNU Go the first use was in
+regression testing (see section <a href="http://www.gnu.org/software/gnugo/gnugo_20.html#SEC201">Regression testing</a>), followed by communication with
+the NNGS go server and for automated test games against itself and other
+programs. Now there are also many graphical user interfaces available
+supporting GTP, as well as bridges to other Go servers than NNGS.
+</p>
+<hr size="6">
+<a name="Running-in-GTP-mode"></a>
+<a name="SEC194"></a>
+<h2 class="section"> 19.2 Running GNU Go in GTP mode </h2>
+
+<p>To start GNU Go in GTP mode, simply invoke it with the option
+‘<samp>--mode gtp</samp>’. You will not get a prompt or any other output to
+start with but GNU Go is silently waiting for GTP commands.
+</p>
+<p>A sample GTP session may look as follows:
+</p>
+<table><tbody><tr><td>&nbsp;</td><td><pre class="example">virihaure 462% ./gnugo --mode gtp
+1 boardsize 7
+=1
+
+2 clear_board
+=2
+
+3 play black D5
+=3
+
+4 genmove white
+=4 C3
+
+5 play black C3
+?5 illegal move
+
+6 play black E3
+=6
+
+7 showboard
+=7
+   A B C D E F G
+ 7 . . . . . . . 7
+ 6 . . . . . . . 6
+ 5 . . + X + . . 5
+ 4 . . . + . . . 4
+ 3 . . O . X . . 3
+ 2 . . . . . . . 2     WHITE (O) has captured 0 stones
+ 1 . . . . . . . 1     BLACK (X) has captured 0 stones
+   A B C D E F G
+
+8 quit
+=8
+
+</pre></td></tr></tbody></table>
+
+<p>Commands are given on a single line, starting by an optional identity
+number, followed by the command name and its arguments.
+</p>
+<p>If the command is successful, the response starts by an equals sign
+(‘<samp>=</samp>’), followed by the identity number of the command (if any) and
+then the result. In this example all results were empty strings except
+for command 4 where the answer was the white move at C3, and command 7
+where the result was a diagram of the current board position. The
+response ends by two consecutive newlines.
+</p>
+<p>Failing commands are signified by a question mark (‘<samp>?</samp>’) instead of
+an equals sign, as in the response to command 5.
+</p>
+<p>The detailed specification of the protocol can be found at
+<a href="http://www.lysator.liu.se/~gunnar/gtp/">http://www.lysator.liu.se/~gunnar/gtp/</a>. The available commands in
+GNU Go may always be listed using the command <code>list_commands</code>.
+They are also documented in See section <a href="http://www.gnu.org/software/gnugo/gnugo_19.html#SEC200">GTP command reference</a>.
+</p>
+
+<hr size="6">
+<a name="GTP-applications"></a>
+<a name="SEC195"></a>
+<h2 class="section"> 19.3 GTP applications </h2>
+
+<p>GTP is an asymmetric protocol involving two parties which we call
+controller and engine. The controller sends all commands and the engine
+only responds to these commands. GNU Go implements the engine end of the
+protocol.
+</p>
+<p>With the source code of GNU Go is also distributed a number of
+applications implementing the controller end. Among the most interesting of
+these are:
+</p>
+<ul class="toc">
+<li> ‘<tt>regression/regress.awk</tt>’
+<blockquote><p>Script to run regressions. The script sends GTP commands to set up and
+evaluate positions to the engine and then analyzes the responses from
+the engine. More information about GTP based regression testing can be
+found in the regression chapter (see section <a href="http://www.gnu.org/software/gnugo/gnugo_20.html#SEC201">Regression testing</a>).
+</p></blockquote>
+</li><li> ‘<tt>regression/regress.pl</tt>’
+<blockquote><p>Perl script to run regressions, giving output which together with the
+CGI script ‘<tt>regression/regress.plx</tt>’ generates HTML views of the
+regressions.
+</p></blockquote>
+</li><li> ‘<tt>regression/regress.pike</tt>’
+<blockquote><p>Pike script to run regressions. More feature-rich and powerful than
+‘<tt>regress.awk</tt>’.
+</p></blockquote>
+</li><li> ‘<tt>regression/view.pike</tt>’
+<blockquote><p>Pike script to examine a single regression testcase through a graphical
+board. This gives an easy way to inspect many of the GNU Go internals.
+</p></blockquote>
+</li><li> ‘<tt>interface/gtp_examples/twogtp</tt>’
+<blockquote><p>Perl script to play two engines against each other. The script
+essentially sets up both engines with desired boardsize, handicap, and
+komi, then relays moves back and forth between the engines.
+</p></blockquote>
+</li><li> ‘<tt>interface/gtp_examples/twogtp-a</tt>’
+<blockquote><p>An alternative Perl implementation of twogtp.
+</p></blockquote>
+</li><li> ‘<tt>interface/gtp_examples/twogtp.py</tt>’
+<blockquote><p>Implementation of twogtp in Python. Has more features than the Perl
+variants.
+</p></blockquote>
+</li><li> ‘<tt>interface/gtp_examples/twogtp.pike</tt>’
+<blockquote><p>Implementation of twogtp in Pike. Has even more features than the Python
+variant.
+</p></blockquote>
+</li><li> ‘<tt>interface/gtp_examples/2ptkgo.pl</tt>’
+<blockquote><p>Variation of twogtp which includes a graphical board.
+</p></blockquote>
+</li></ul>
+
+<p>More GTP applications, including bridges to go servers and graphical
+user interfaces, are listed at
+<a href="http://www.lysator.liu.se/~gunnar/gtp/">http://www.lysator.liu.se/~gunnar/gtp/</a>.
+</p>
+<hr size="6">
+<a name="The-Metamachine"></a>
+<a name="SEC196"></a>
+<h2 class="section"> 19.4 The Metamachine </h2>
+
+<p>An interesting application of the GTP is the concept of
+using GNU Go as an “Oracle” that can be consulted by another
+process. This could be another computer program that asks GNU Go
+to generate future board positions, then evaluate them.
+</p>
+<p>David Doshay at the University of California at Santa Cruz has done
+interesting experiments with a parallel engine, known as SlugGo, that is based
+on GNU Go.  These are described in
+<a href="http://lists.gnu.org/archive/html/gnugo-devel/2004-08/msg00060.html">http://lists.gnu.org/archive/html/gnugo-devel/2004-08/msg00060.html</a>.
+</p>
+<p>The “Metamachine” experiment is a more modest approach using the GTP to
+communicate with a GNU Go process that is used as an oracle. The following
+scheme is used.
+</p>
+<ul>
+<li> The GNU Go “oracle” is asked to generate its top moves using
+the GTP <code>top_moves</code> commands.
+</li><li> Both moves are tried and <code>estimate_score</code> is called
+from the resulting board position.
+</li><li> The higher scoring position is selected as the engine's move.
+</li></ul>
+
+<p>This scheme does not produce a stronger engine, but it is
+suggestive, and the SlugGo experiment seems to show that a
+more elaborate scheme along the same lines could produce
+a stronger engine.
+</p>
+<p>Two implementations are distributed with GNU Go. Both make use of
+<code>fork</code> and <code>pipe</code> system calls, so they require a Unix-like
+environment.  The Metamachine has been tested under GNU/Linux.
+</p>
+<p><strong>Important:</strong> If the Metamachine terminates normally, the GNU Go
+process will be killed. However there is a danger that
+something will go wrong. When you are finished running the
+Metamachine, it is a good idea to run <code>ps -A|grep gnugo</code>
+or <code>ps -aux|grep gnugo</code> to make sure there are no
+unterminated processes. (If there are, just kill them.)
+</p>
+<hr size="6">
+<a name="SEC197"></a>
+<h3 class="subsection"> 19.4.1 The Standalone Metamachine </h3>
+
+<p>In ‘<tt>interface/gtp_examples/metamachine.c</tt>’ is a standalone
+implementation of the Metamachine. Compile it with
+<code>cc -o metamachine metamachine.c</code> and run it. It forks
+a <code>gnugo</code> process with which it communicates through the
+GTP, to use as an oracle. 
+</p>
+<p>The following scheme is followed:
+</p>
+<table><tbody><tr><td>&nbsp;</td><td><pre class="example">             stdin             pipe a
+  GTP client ----&gt; Metamachine -----&gt; GNU Go
+             &lt;----             &lt;-----
+            stdout             pipe b
+</pre></td></tr></tbody></table>
+
+<p>Most commands issued by the client are passed along
+verbatim to GNU Go by the Metamachine. The exception
+is gg_genmove, which is intercepted then processed differently,
+as described above. The client is unaware of this, and only
+knows that it issued a gg_genmove command and received a reply.
+Thus to the the Metamachine appears as an ordinary GTP engine.
+</p>
+<p>Usage: no arguments gives normal GTP behavior.
+<code>metamachine --debug</code> sends diagnostics to stderr.
+</p>
+<hr size="6">
+<a name="SEC198"></a>
+<h3 class="subsection"> 19.4.2 GNU Go as a Metamachine </h3>
+
+<p>Alternatively, you may compile GNU Go with the configure option
+‘<samp>--enable-metamachine</samp>’. This causes the file
+<code>oracle.c</code> to be compiled, which contains the Metamachine
+code. This has no effect on the engine unless you run GNU
+Go with the runtime option ‘<samp>--metamachine</samp>’. Thus
+you must use both the configure and the runtime option
+to get the Metamachine.
+</p>
+<p>This method is better than the standalone program since
+you have access to GNU Go's facilities. For example, you
+can run the Metamachine with CGoban or in Ascii mode this
+way.
+</p>
+<p>You can get traces by adding the command line
+‘<samp>-d0x1000000</samp>’. In debugging the Metamachine, a danger is
+that any small oversight in designing the program can cause the
+forked process and the controller to hang, each one waiting for
+a response from the other. If this seems to happen it is useful
+to know that you can attach <code>gdb</code> to a running process and
+find out what it is doing.
+</p>
+<hr size="6">
+<a name="Adding-new-GTP-commands"></a>
+<a name="SEC199"></a>
+<h2 class="section"> 19.5 Adding new GTP commands </h2>
+
+<p>The implementation of GTP in GNU Go is distributed over three files,
+‘<tt>interface/gtp.h</tt>’, ‘<tt>interface/gtp.c</tt>’, and
+‘<tt>interface/play_gtp.c</tt>’. The first two implement a small library of
+helper functions which can be used also by other programs. In the
+interest of promoting the GTP they are licensed with minimal
+restrictions (see section <a href="http://www.gnu.org/software/gnugo/gnugo_21.html#SEC216">The Go Text Protocol License</a>). The actual GTP commands are
+implemented in ‘<tt>play_gtp.c</tt>’, which has knowledge about the engine
+internals. 
+</p>
+<p>To see how a simple but fairly typical command is implemented we look at
+<code>gtp_countlib()</code> (a GNU Go private extension command):
+</p>
+<table><tbody><tr><td>&nbsp;</td><td><pre class="example">static int
+gtp_countlib(char *s)
+{
+  int i, j;
+  if (!gtp_decode_coord(s, &amp;i, &amp;j))
+    return gtp_failure("invalid coordinate");
+
+  if (BOARD(i, j) == EMPTY)
+    return gtp_failure("vertex must not be empty");
+
+  return gtp_success("%d", countlib(POS(i, j)));
+}
+</pre></td></tr></tbody></table>
+
+<p>The arguments to the command are passed in the string <code>s</code>. In this
+case we expect a vertex as argument and thus try to read it with
+<code>gtp_decode_coord()</code> from ‘<tt>gtp.c</tt>’.
+</p>
+<p>A correctly formatted response should start with either ‘<samp>=</samp>’ or
+‘<samp>?</samp>’, followed by the identity number (if one was sent), the actual
+result, and finally two consecutive newlines. It is important to get
+this formatting correct since the controller in the other end relies on
+it. Naturally the result itself cannot contain two consecutive newlines
+but it may be split over several lines by single newlines.
+</p>
+<p>The easiest way to generate a correctly formatted response is with one
+of the functions <code>gtp_failure()</code> and <code>gtp_success()</code>, assuming
+that their formatted output does not end with a newline. 
+</p>
+<p>Sometimes the output is too complex for use with gtp_success, e.g. if
+we want to print vertices, which gtp_success() does not
+support. Then we have to fall back to the construction in e.g.
+<code>gtp_genmove()</code>:
+</p>
+<table><tbody><tr><td>&nbsp;</td><td><pre class="example">static int
+gtp_genmove(char *s)
+{
+  [...]
+  gtp_start_response(GTP_SUCCESS);
+  gtp_print_vertex(i, j);
+  return gtp_finish_response();
+}
+</pre></td></tr></tbody></table>
+
+<p>Here <code>gtp_start_response()</code> writes the equal sign and the identity
+number while <code>gtp_finish_response()</code> adds the final two newlines.
+The next example is from <code>gtp_list_commands()</code>:
+</p>
+<table><tbody><tr><td>&nbsp;</td><td><pre class="example">static int
+gtp_list_commands(char *s)
+{
+  int k;
+  UNUSED(s);
+
+  gtp_start_response(GTP_SUCCESS);
+
+  for (k = 0; commands[k].name != NULL; k++)
+    gtp_printf("%s\n", commands[k].name);
+
+  gtp_printf("\n");
+  return GTP_OK;
+}
+</pre></td></tr></tbody></table>
+
+<p>As we have said, the response should be finished with two newlines.
+Here we have to finish up the response ourselves since we already have
+one newline in place from the last command printed in the loop.
+</p>
+<p>In order to add a new GTP command to GNU Go, the following pieces of
+code need to be inserted in ‘<tt>play_gtp.c</tt>’:
+</p><ol>
+<li> A function declaration using the <code>DECLARE</code> macro in the list
+starting at line 68.
+</li><li> An entry in the <code>commands[]</code> array starting at line 200.
+</li><li> An implementation of the function handling the command.
+</li></ol>
+
+<p>Useful helper functions in ‘<tt>gtp.c</tt>’/‘<tt>gtp.h</tt>’ are:
+</p><ul class="toc">
+<li> <code>gtp_printf()</code> for basic formatted printing.
+</li><li> <code>gtp_mprintf()</code> for printing with special format codes for
+vertices and colors.
+</li><li> <code>gtp_success()</code> and <code>gtp_failure()</code> for simple responses.
+</li><li> <code>gtp_start_response()</code> and <code>gtp_end_response()</code> for more
+complex responses.
+</li><li> <code>gtp_print_vertex()</code> and <code>gtp_print_vertices()</code> for
+printing one or multiple vertices.
+</li><li> <code>gtp_decode_color()</code> to read in a color from the command arguments.
+</li><li> <code>gtp_decode_coord()</code> to read in a vertex from the command arguments.
+</li><li> <code>gtp_decode_move()</code> to read in a move, i.e. color plus
+vertex, from the command arguments. 
+</li></ul>
+
+
+<hr size="6">
+<a name="GTP-command-reference"></a>
+<a name="SEC200"></a>
+<h2 class="section"> 19.6 GTP command reference </h2>
+
+<p>This section lists the GTP commands implemented in GNU Go along with
+some information about each command. Each entry in the list has the
+following fields:
+</p>
+<ul>
+<li> Function: What this command does.
+</li><li> Arguments: What other information, if any, this command requires.
+Typical values include <em>none</em> or <em>vertex</em> or <em>integer</em> (there
+are others).
+</li><li> Fails: Circumstances which cause this command to fail.
+</li><li> Returns: What is displayed after the <em>=</em> and before the two
+newlines.  Typical values include <em>nothing</em> or <em>a move coordinate</em>
+or some status string (there are others).
+</li><li> Status: How this command relates to the standard GTP version 2
+commands. If nothing else is specified it is a GNU Go private extension.
+</li></ul>
+
+<p>Without further ado, here is the big list (in no particular order).
+</p>
+<p>Note: if new commands are added by editing ‘<tt>interface/play_gtp.c</tt>’ this
+list could become incomplete. You may rebuild this list in
+‘<tt>doc/gtp-commands.texi</tt>’ with the command <code>make gtp-commands</code>
+in the ‘<tt>doc/</tt>’ directory. This may require GNU sed.
+</p>
+<ul>
+<li><a name="IDX318"></a>
+</li><li> quit: Quit
+<pre class="verbatim">Arguments: none
+Fails:     never
+Returns:   nothing
+
+Status:    GTP version 2 standard command.
+</pre><a name="IDX319"></a>
+</li><li> protocol_version: Report protocol version.
+<pre class="verbatim">Arguments: none
+Fails:     never
+Returns:   protocol version number
+
+Status:    GTP version 2 standard command.
+</pre><a name="IDX320"></a>
+</li><li> name: Report the name of the program.
+<pre class="verbatim">Arguments: none
+Fails:     never
+Returns:   program name
+
+Status:    GTP version 2 standard command.
+</pre><a name="IDX321"></a>
+</li><li> version: Report the version number of the program.
+<pre class="verbatim">Arguments: none
+Fails:     never
+Returns:   version number
+
+Status:    GTP version 2 standard command.
+</pre><a name="IDX322"></a>
+</li><li> boardsize: Set the board size to NxN and clear the board.
+<pre class="verbatim">Arguments: integer
+Fails:     board size outside engine's limits
+Returns:   nothing
+
+Status:    GTP version 2 standard command.
+</pre><a name="IDX323"></a>
+</li><li> query_boardsize: Find the current boardsize
+<pre class="verbatim">Arguments: none
+Fails:     never
+Returns:   board_size
+</pre><a name="IDX324"></a>
+</li><li> clear_board: Clear the board.
+<pre class="verbatim">Arguments: none
+Fails:     never
+Returns:   nothing
+
+Status:    GTP version 2 standard command.
+</pre><a name="IDX325"></a>
+</li><li> orientation: Set the orienation to N and clear the board
+<pre class="verbatim">Arguments: integer
+Fails:     illegal orientation
+Returns:   nothing
+</pre><a name="IDX326"></a>
+</li><li> query_orientation: Find the current orientation
+<pre class="verbatim">Arguments: none
+Fails:     never
+Returns:   orientation
+</pre><a name="IDX327"></a>
+</li><li> komi: Set the komi.
+<pre class="verbatim">Arguments: float
+Fails:     incorrect argument
+Returns:   nothing
+
+Status:    GTP version 2 standard command.
+</pre><a name="IDX328"></a>
+</li><li> get_komi: Get the komi
+<pre class="verbatim">Arguments: none
+Fails:     never
+Returns:   Komi 
+</pre><a name="IDX329"></a>
+</li><li> black: Play a black stone at the given vertex.
+<pre class="verbatim">Arguments: vertex
+Fails:     invalid vertex, illegal move
+Returns:   nothing
+
+Status:    Obsolete GTP version 1 command.
+</pre><a name="IDX330"></a>
+</li><li> playwhite: Play a white stone at the given vertex.
+<pre class="verbatim">Arguments: vertex
+Fails:     invalid vertex, illegal move
+Returns:   nothing
+
+Status:    Obsolete GTP version 1 command.
+</pre><a name="IDX331"></a>
+</li><li> play: Play a stone of the given color at the given vertex.
+<pre class="verbatim">Arguments: color, vertex
+Fails:     invalid vertex, illegal move
+Returns:   nothing
+
+Status:    GTP version 2 standard command.
+</pre><a name="IDX332"></a>
+</li><li> fixed_handicap: Set up fixed placement handicap stones.
+<pre class="verbatim">Arguments: number of handicap stones
+Fails:     invalid number of stones for the current boardsize
+Returns:   list of vertices with handicap stones
+
+Status:    GTP version 2 standard command.
+</pre><a name="IDX333"></a>
+</li><li> place_free_handicap: Choose free placement handicap stones and put them on the board.
+<pre class="verbatim">Arguments: number of handicap stones
+Fails:     invalid number of stones
+Returns:   list of vertices with handicap stones
+
+Status:    GTP version 2 standard command.
+</pre><a name="IDX334"></a>
+</li><li> set_free_handicap: Put free placement handicap stones on the board.
+<pre class="verbatim">Arguments: list of vertices with handicap stones
+Fails:     board not empty, bad list of vertices
+Returns:   nothing
+
+Status:    GTP version 2 standard command.
+</pre><a name="IDX335"></a>
+</li><li> get_handicap: Get the handicap
+<pre class="verbatim">Arguments: none
+Fails:     never
+Returns:   handicap
+</pre><a name="IDX336"></a>
+</li><li> loadsgf: Load an sgf file, possibly up to a move number or the first occurence of a move.           
+<pre class="verbatim">Arguments: filename + move number, vertex, or nothing
+Fails:     missing filename or failure to open or parse file
+Returns:   color to play
+
+Status:    GTP version 2 standard command.
+</pre><a name="IDX337"></a>
+</li><li> color: Return the color at a vertex.
+<pre class="verbatim">Arguments: vertex
+Fails:     invalid vertex
+Returns:   "black", "white", or "empty"
+</pre><a name="IDX338"></a>
+</li><li> list_stones: List vertices with either black or white stones.
+<pre class="verbatim">Arguments: color
+Fails:     invalid color
+Returns:   list of vertices
+</pre><a name="IDX339"></a>
+</li><li> countlib: Count number of liberties for the string at a vertex.
+<pre class="verbatim">Arguments: vertex
+Fails:     invalid vertex, empty vertex
+Returns:   Number of liberties.
+</pre><a name="IDX340"></a>
+</li><li> findlib: Return the positions of the liberties for the string at a vertex.
+<pre class="verbatim">Arguments: vertex
+Fails:     invalid vertex, empty vertex
+Returns:   Sorted space separated list of vertices.
+</pre><a name="IDX341"></a>
+</li><li> accuratelib: Determine which liberties a stone of given color will get if played at given vertex.
+<pre class="verbatim">Arguments: move (color + vertex)
+Fails:     invalid color, invalid vertex, occupied vertex
+Returns:   Sorted space separated list of liberties
+</pre><a name="IDX342"></a>
+</li><li> accurate_approxlib: Determine which liberties a stone of given color will get if played at given vertex.
+<pre class="verbatim">Arguments: move (color + vertex)
+Fails:     invalid color, invalid vertex, occupied vertex
+Returns:   Sorted space separated list of liberties
+
+Supposedly identical in behavior to the above function and
+can be retired when this is confirmed.
+</pre><a name="IDX343"></a>
+</li><li> is_legal: Tell whether a move is legal.
+<pre class="verbatim">Arguments: move
+Fails:     invalid move
+Returns:   1 if the move is legal, 0 if it is not.
+</pre><a name="IDX344"></a>
+</li><li> all_legal: List all legal moves for either color.
+<pre class="verbatim">Arguments: color
+Fails:     invalid color
+Returns:   Sorted space separated list of vertices.
+</pre><a name="IDX345"></a>
+</li><li> captures: List the number of captures taken by either color.
+<pre class="verbatim">Arguments: color
+Fails:     invalid color
+Returns:   Number of captures.
+</pre><a name="IDX346"></a>
+</li><li> last_move: Return the last move.
+<pre class="verbatim">Arguments: none
+Fails:     no previous move known
+Returns:   Color and vertex of last move.
+</pre><a name="IDX347"></a>
+</li><li> move_history: Print the move history in reverse order
+<pre class="verbatim">Arguments: none
+Fails:     never
+Returns:   List of moves played in reverse order in format: 
+           color move (one move per line)
+</pre><a name="IDX348"></a>
+</li><li> invariant_hash: Return the rotation/reflection invariant board hash.
+<pre class="verbatim">Arguments: none
+Fails:     never
+Returns:   Invariant hash for the board as a hexadecimal number.
+</pre><a name="IDX349"></a>
+</li><li> invariant_hash_for_moves: Return the rotation/reflection invariant board hash obtained by playing all the possible moves for the
+           given color.
+<pre class="verbatim">Arguments: color
+Fails:     invalid color
+Returns:   List of moves + invariant hash as a hexadecimal number,
+           one pair of move + hash per line.
+</pre><a name="IDX350"></a>
+</li><li> trymove: Play a stone of the given color at the given vertex.
+<pre class="verbatim">Arguments: move (color + vertex)
+Fails:     invalid color, invalid vertex, illegal move
+Returns:   nothing
+</pre><a name="IDX351"></a>
+</li><li> tryko: Play a stone of the given color at the given vertex,  allowing illegal ko capture.
+<pre class="verbatim">Arguments: move (color + vertex)
+Fails:     invalid color, invalid vertex, illegal move
+Returns:   nothing
+</pre><a name="IDX352"></a>
+</li><li> popgo: Undo a trymove or tryko.
+<pre class="verbatim">Arguments: none
+Fails:     stack empty
+Returns:   nothing
+</pre>
+<a name="IDX353"></a>
+</li><li> clear_cache: clear the caches.
+<pre class="verbatim">Arguments: none.
+Fails:     never.
+Returns:   nothing.
+</pre><a name="IDX354"></a>
+</li><li> attack: Try to attack a string.
+<pre class="verbatim">Arguments: vertex
+Fails:     invalid vertex, empty vertex
+Returns:   attack code followed by attack point if attack code nonzero.
+</pre><a name="IDX355"></a>
+</li><li> attack_either: Try to attack either of two strings
+<pre class="verbatim">Arguments: two vertices
+Fails:     invalid vertex, empty vertex
+Returns:   attack code against the strings.  Guarantees there
+           exists a move which will attack one of the two
+           with attack_code, but does not return the move.
+</pre><a name="IDX356"></a>
+</li><li> defend: Try to defend a string.
+<pre class="verbatim">Arguments: vertex
+Fails:     invalid vertex, empty vertex
+Returns:   defense code followed by defense point if defense code nonzero.
+</pre><a name="IDX357"></a>
+</li><li> does_attack: Examine whether a specific move attacks a string tactically.
+<pre class="verbatim">Arguments: vertex (move), vertex (dragon)
+Fails:     invalid vertex, empty vertex
+Returns:   attack code
+</pre><a name="IDX358"></a>
+</li><li> does_defend: Examine whether a specific move defends a string tactically.
+<pre class="verbatim">Arguments: vertex (move), vertex (dragon)
+Fails:     invalid vertex, empty vertex
+Returns:   attack code
+</pre><a name="IDX359"></a>
+</li><li> ladder_attack: Try to attack a string strictly in a ladder.
+<pre class="verbatim">Arguments: vertex
+Fails:     invalid vertex, empty vertex
+Returns:   attack code followed by attack point if attack code nonzero.
+</pre><a name="IDX360"></a>
+</li><li> increase_depths: Increase depth values by one.
+<pre class="verbatim">Arguments: none
+Fails:     never
+Returns:   nothing
+</pre><a name="IDX361"></a>
+</li><li> decrease_depths: Decrease depth values by one.
+<pre class="verbatim">Arguments: none
+Fails:     never
+Returns:   nothing
+</pre><a name="IDX362"></a>
+</li><li> owl_attack: Try to attack a dragon.
+<pre class="verbatim">Arguments: vertex
+Fails:     invalid vertex, empty vertex
+Returns:   attack code followed by attack point if attack code nonzero.
+</pre><a name="IDX363"></a>
+</li><li> owl_defend: Try to defend a dragon.
+<pre class="verbatim">Arguments: vertex
+Fails:     invalid vertex, empty vertex
+Returns:   defense code followed by defense point if defense code nonzero.
+</pre><a name="IDX364"></a>
+</li><li> owl_threaten_attack: Try to attack a dragon in 2 moves.
+<pre class="verbatim">Arguments: vertex
+Fails:     invalid vertex, empty vertex
+Returns:   attack code followed by the two attack points if
+           attack code nonzero.
+</pre><a name="IDX365"></a>
+</li><li> owl_threaten_defense: Try to defend a dragon with 2 moves.
+<pre class="verbatim">Arguments: vertex
+Fails:     invalid vertex, empty vertex
+Returns:   defense code followed by the 2 defense points if
+           defense code nonzero.
+</pre><a name="IDX366"></a>
+</li><li> owl_does_attack: Examine whether a specific move attacks a dragon.
+<pre class="verbatim">Arguments: vertex (move), vertex (dragon)
+Fails:     invalid vertex, empty vertex
+Returns:   attack code
+</pre><a name="IDX367"></a>
+</li><li> owl_does_defend: Examine whether a specific move defends a dragon.
+<pre class="verbatim">Arguments: vertex (move), vertex (dragon)
+Fails:     invalid vertex, empty vertex
+Returns:   defense code
+</pre><a name="IDX368"></a>
+</li><li> owl_connection_defends: Examine whether a connection defends involved dragons.
+<pre class="verbatim">Arguments: vertex (move), vertex (dragon1), vertex (dragon2)
+Fails:     invalid vertex, empty vertex
+Returns:   defense code
+</pre><a name="IDX369"></a>
+</li><li> defend_both: Try to defend both of two strings
+<pre class="verbatim">Arguments: two vertices
+Fails:     invalid vertex, empty vertex
+Returns:   defend code for the strings.  Guarantees there
+           exists a move which will defend both of the two
+           with defend_code, but does not return the move.
+</pre><a name="IDX370"></a>
+</li><li> owl_substantial: Determine whether capturing a string gives a living dragon
+<pre class="verbatim">Arguments: vertex
+Fails:     invalid vertex, empty vertex
+Returns:   1 if dragon can live, 0 otherwise
+</pre><a name="IDX371"></a>
+</li><li> analyze_semeai: Analyze a semeai
+<pre class="verbatim">Arguments: dragona, dragonb
+Fails:     invalid vertices, empty vertices
+Returns:   semeai defense result, semeai attack result, semeai move
+</pre><a name="IDX372"></a>
+</li><li> analyze_semeai_after_move: Analyze a semeai after a move have been made.
+<pre class="verbatim">Arguments: color, vertex, dragona, dragonb
+Fails:     invalid vertices
+Returns:   semeai defense result, semeai attack result, semeai move
+</pre><a name="IDX373"></a>
+</li><li> tactical_analyze_semeai: Analyze a semeai, not using owl
+<pre class="verbatim">Arguments: dragona, dragonb
+Fails:     invalid vertices, empty vertices
+Returns:   status of dragona, dragonb assuming dragona moves first
+</pre><a name="IDX374"></a>
+</li><li> connect: Try to connect two strings.
+<pre class="verbatim">Arguments: vertex, vertex
+Fails:     invalid vertex, empty vertex, vertices of different colors
+Returns:   connect result followed by connect point if successful.
+</pre><a name="IDX375"></a>
+</li><li> disconnect: Try to disconnect two strings.
+<pre class="verbatim">Arguments: vertex, vertex
+Fails:     invalid vertex, empty vertex, vertices of different colors
+Returns:   disconnect result followed by disconnect point if successful.
+</pre><a name="IDX376"></a>
+</li><li> break_in: Try to break from string into area.
+<pre class="verbatim">Arguments: vertex, vertices
+Fails:     invalid vertex, empty vertex.
+Returns:   result followed by break in point if successful.
+</pre><a name="IDX377"></a>
+</li><li> block_off: Try to block string from area.
+<pre class="verbatim">Arguments: vertex, vertices
+Fails:     invalid vertex, empty vertex.
+Returns:   result followed by block point if successful.
+</pre>
+<a name="IDX378"></a>
+</li><li> eval_eye: Evaluate an eye space
+<pre class="verbatim">Arguments: vertex
+Fails:     invalid vertex
+Returns:   Minimum and maximum number of eyes. If these differ an
+           attack and a defense point are additionally returned.
+           If the vertex is not an eye space or not of unique color,
+           a single -1 is returned.
+</pre>
+<a name="IDX379"></a>
+</li><li> dragon_status: Determine status of a dragon.
+<pre class="verbatim">Arguments: optional vertex
+Fails:     invalid vertex, empty vertex
+Returns:   status ("alive", "critical", "dead", or "unknown"),
+           attack point, defense point. Points of attack and
+           defense are only given if the status is critical.
+           If no vertex is given, the status is listed for all
+           dragons, one per row in the format "A4: alive".
+
+FIXME: Should be able to distinguish between life in seki
+       and independent life. Should also be able to identify ko.
+</pre>
+<a name="IDX380"></a>
+</li><li> same_dragon: Determine whether two stones belong to the same dragon.
+<pre class="verbatim">Arguments: vertex, vertex
+Fails:     invalid vertex, empty vertex
+Returns:   1 if the vertices belong to the same dragon, 0 otherwise
+</pre>
+<a name="IDX381"></a>
+</li><li> unconditional_status: Determine the unconditional status of a vertex.
+<pre class="verbatim">Arguments: vertex
+Fails:     invalid vertex
+Returns:   unconditional status ("undecided", "alive", "dead",
+           "white_territory", "black_territory"). Occupied vertices can
+           be undecided, alive, or dead. Empty vertices can be
+           undecided, white territory, or black territory.
+</pre>
+<a name="IDX382"></a>
+</li><li> combination_attack: Find a move by color capturing something through a combination attack.
+<pre class="verbatim">Arguments: color
+Fails:     invalid color
+Returns:   Recommended move, PASS if no move found
+</pre>
+<a name="IDX383"></a>
+</li><li> combination_defend: If color can capture something through a combination attack, list moves by the opponent of color
+           to defend against this attack.
+<pre class="verbatim">Arguments: color
+Fails:     invalid color
+Returns:   Recommended moves, PASS if no combination attack found.
+</pre>
+<a name="IDX384"></a>
+</li><li> aa_confirm_safety: Run atari_atari_confirm_safety().
+<pre class="verbatim">Arguments: move, optional int
+Fails:     invalid move
+Returns:   success code, if failure also defending move
+</pre><a name="IDX385"></a>
+</li><li> genmove_black: Generate and play the supposedly best black move.
+<pre class="verbatim">Arguments: none
+Fails:     never
+Returns:   a move coordinate or "PASS"
+
+Status:    Obsolete GTP version 1 command.
+</pre><a name="IDX386"></a>
+</li><li> genmove_white: Generate and play the supposedly best white move.
+<pre class="verbatim">Arguments: none
+Fails:     never
+Returns:   a move coordinate or "PASS"
+
+Status:    Obsolete GTP version 1 command.
+</pre><a name="IDX387"></a>
+</li><li> genmove: Generate and play the supposedly best move for either color.
+<pre class="verbatim">Arguments: color to move
+Fails:     invalid color
+Returns:   a move coordinate or "PASS" (or "resign" if resignation_allowed)
+
+Status:    GTP version 2 standard command.
+</pre><a name="IDX388"></a>
+</li><li> reg_genmove: Generate the supposedly best move for either color.
+<pre class="verbatim">Arguments: color to move
+Fails:     invalid color
+Returns:   a move coordinate (or "PASS")
+
+Status:    GTP version 2 standard command.
+</pre><a name="IDX389"></a>
+</li><li> gg_genmove: Generate the supposedly best move for either color.
+<pre class="verbatim">Arguments: color to move, optionally a random seed
+Fails:     invalid color
+Returns:   a move coordinate (or "PASS")
+
+This differs from reg_genmove in the optional random seed.
+</pre><a name="IDX390"></a>
+</li><li> restricted_genmove: Generate the supposedly best move for either color from a choice of allowed vertices.
+<pre class="verbatim">Arguments: color to move, allowed vertices
+Fails:     invalid color, invalid vertex, no vertex listed
+Returns:   a move coordinate (or "PASS")
+</pre><a name="IDX391"></a>
+</li><li> kgs-genmove_cleanup: Generate and play the supposedly best move for either color, not passing until all dead opponent stones have been removed.
+<pre class="verbatim">Arguments: color to move
+Fails:     invalid color
+Returns:   a move coordinate (or "PASS")
+
+Status:    KGS specific command.
+
+A similar command, but possibly somewhat different, will likely be added
+to GTP version 3 at a later time.
+</pre><a name="IDX392"></a>
+</li><li> level: Set the playing level.
+<pre class="verbatim">Arguments: int
+Fails:     incorrect argument
+Returns:   nothing
+</pre>
+<a name="IDX393"></a>
+</li><li> undo: Undo one move
+<pre class="verbatim">Arguments: none
+Fails:     If move history is too short.
+Returns:   nothing
+
+Status:    GTP version 2 standard command.
+</pre>
+<a name="IDX394"></a>
+</li><li> gg-undo: Undo a number of moves
+<pre class="verbatim">Arguments: optional int
+Fails:     If move history is too short.
+Returns:   nothing
+</pre>
+<a name="IDX395"></a>
+</li><li> time_settings: Set time allowance
+<pre class="verbatim">Arguments: int main_time, int byo_yomi_time, int byo_yomi_stones
+Fails:     syntax error
+Returns:   nothing
+
+Status:    GTP version 2 standard command.
+</pre>
+<a name="IDX396"></a>
+</li><li> time_left: Report remaining time
+<pre class="verbatim">Arguments: color color, int time, int stones
+Fails:     syntax error
+Returns:   nothing
+
+Status:    GTP version 2 standard command.
+</pre><a name="IDX397"></a>
+</li><li> final_score: Compute the score of a finished game.
+<pre class="verbatim">Arguments: Optional random seed
+Fails:     never
+Returns:   Score in SGF format (RE property).
+
+Status:    GTP version 2 standard command.
+</pre><a name="IDX398"></a>
+</li><li> final_status: Report the final status of a vertex in a finished game.
+<pre class="verbatim">Arguments: Vertex, optional random seed
+Fails:     invalid vertex
+Returns:   Status in the form of one of the strings "alive", "dead",
+           "seki", "white_territory", "black_territory", or "dame".
+</pre><a name="IDX399"></a>
+</li><li> final_status_list: Report vertices with a specific final status in a finished game.
+<pre class="verbatim">Arguments: Status in the form of one of the strings "alive", "dead",
+           "seki", "white_territory", "black_territory", or "dame".
+           An optional random seed can be added.
+Fails:     missing or invalid status string
+Returns:   Vertices having the specified status. These are split with
+           one string on each line if the vertices are nonempty (i.e.
+           for "alive", "dead", and "seki").
+
+Status:    GTP version 2 standard command.
+           However, "dame", "white_territory", and "black_territory"
+           are private extensions.
+</pre>
+<a name="IDX400"></a>
+</li><li> estimate_score: Estimate the score
+<pre class="verbatim">Arguments: None
+Fails:     never
+Returns:   upper and lower bounds for the score
+</pre>
+<a name="IDX401"></a>
+</li><li> experimental_score: Estimate the score, taking into account which player moves next
+<pre class="verbatim">Arguments: Color to play
+Fails:     Invalid color
+Returns:   Score.
+
+This function generates a move for color, then adds the
+value of the move generated to the value of the position.
+Critical dragons are awarded to the opponent since the
+value of rescuing a critical dragon is taken into account
+in the value of the move generated.
+</pre><a name="IDX402"></a>
+</li><li> reset_life_node_counter: Reset the count of life nodes.
+<pre class="verbatim">Arguments: none
+Fails:     never
+Returns:   nothing
+
+Note: This function is obsolete and only remains for backwards
+compatibility.
+</pre><a name="IDX403"></a>
+</li><li> get_life_node_counter: Retrieve the count of life nodes.
+<pre class="verbatim">Arguments: none
+Fails:     never
+Returns:   number of life nodes
+
+Note: This function is obsolete and only remains for backwards
+compatibility.
+</pre><a name="IDX404"></a>
+</li><li> reset_owl_node_counter: Reset the count of owl nodes.
+<pre class="verbatim">Arguments: none
+Fails:     never
+Returns:   nothing
+</pre><a name="IDX405"></a>
+</li><li> get_owl_node_counter: Retrieve the count of owl nodes.
+<pre class="verbatim">Arguments: none
+Fails:     never
+Returns:   number of owl nodes
+</pre><a name="IDX406"></a>
+</li><li> reset_reading_node_counter: Reset the count of reading nodes.
+<pre class="verbatim">Arguments: none
+Fails:     never
+Returns:   nothing
+</pre><a name="IDX407"></a>
+</li><li> get_reading_node_counter: Retrieve the count of reading nodes.
+<pre class="verbatim">Arguments: none
+Fails:     never
+Returns:   number of reading nodes
+</pre><a name="IDX408"></a>
+</li><li> reset_trymove_counter: Reset the count of trymoves/trykos.
+<pre class="verbatim">Arguments: none
+Fails:     never
+Returns:   nothing
+</pre><a name="IDX409"></a>
+</li><li> get_trymove_counter: Retrieve the count of trymoves/trykos.
+<pre class="verbatim">Arguments: none
+Fails:     never
+Returns:   number of trymoves/trykos
+</pre><a name="IDX410"></a>
+</li><li> reset_connection_node_counter: Reset the count of connection nodes.
+<pre class="verbatim">Arguments: none
+Fails:     never
+Returns:   nothing
+</pre><a name="IDX411"></a>
+</li><li> get_connection_node_counter: Retrieve the count of connection nodes.
+<pre class="verbatim">Arguments: none
+Fails:     never
+Returns:   number of connection nodes
+</pre><a name="IDX412"></a>
+</li><li> test_eyeshape: Test an eyeshape for inconsistent evaluations
+<pre class="verbatim">Arguments: Eyeshape vertices
+Fails:     Bad vertices
+Returns:   Failure reports on stderr.
+</pre><a name="IDX413"></a>
+</li><li> analyze_eyegraph: Compute an eyevalue and vital points for an eye graph
+<pre class="verbatim">Arguments: Eyeshape encoded in string
+Fails:     Bad eyeshape, analysis failed
+Returns:   Eyevalue, vital points
+</pre><a name="IDX414"></a>
+</li><li> cputime: Returns elapsed CPU time in seconds.
+<pre class="verbatim">Arguments: none
+Fails:     never
+Returns:   Total elapsed (user + system) CPU time in seconds.
+</pre><a name="IDX415"></a>
+</li><li> showboard: Write the position to stdout.
+<pre class="verbatim">Arguments: none
+Fails:     never
+Returns:   nothing
+
+Status:    GTP version 2 standard command.
+</pre><a name="IDX416"></a>
+</li><li> dump_stack: Dump stack to stderr.
+<pre class="verbatim">Arguments: none
+Fails:     never
+Returns:   nothing
+</pre><a name="IDX417"></a>
+</li><li> initial_influence: Return information about the initial influence function.
+<pre class="verbatim">Arguments: color to move, what information
+Fails:     never
+Returns:   Influence data formatted like:
+
+  0.51   1.34   3.20   6.60   9.09   8.06   1.96   0.00   0.00 
+  0.45   1.65   4.92  12.19  17.47  15.92   4.03   0.00   0.00 
+                  .
+                  .
+                  .
+  0.00   0.00   0.00   0.00   0.00 100.00  75.53  41.47  23.41
+
+The available choices of information are:
+
+white_influence (float)
+black_influence (float)
+white_strength (float)
+black_strength (float)
+white_attenuation (float)
+black_attenuation (float)
+white_permeability (float)
+black_permeability (float)
+territory_value (float)
+influence_regions (int)
+non_territory (int)
+
+The encoding of influence_regions is as follows:
+ 4 white stone
+ 3 white territory
+ 2 white moyo
+ 1 white area
+ 0 neutral
+-1 black area
+-2 black moyo
+-3 black territory
+-4 black stone
+</pre><a name="IDX418"></a>
+</li><li> move_influence: Return information about the influence function after a move.
+<pre class="verbatim">Arguments: move, what information
+Fails:     never
+Returns:   Influence data formatted like for initial_influence.
+</pre><a name="IDX419"></a>
+</li><li> move_probabilities: List probabilities of each move being played (when non-zero). If no previous genmove command has been issued, the result
+           of this command will be meaningless.
+<pre class="verbatim">Arguments: none
+Fails:     never
+Returns:   Move, probabilty pairs, one per row.
+</pre><a name="IDX420"></a>
+</li><li> move_uncertainty: Return the number of bits of uncertainty in the move. If no previous genmove command has been issued, the result
+           of this command will be meaningless.
+<pre class="verbatim">Arguments: none
+Fails:     never
+Returns:   bits of uncertainty
+</pre><a name="IDX421"></a>
+</li><li> followup_influence: Return information about the followup influence after a move.
+<pre class="verbatim">Arguments: move, what information
+Fails:     never
+Returns:   Influence data formatted like for initial_influence.
+</pre><a name="IDX422"></a>
+</li><li> worm_data: Return the information in the worm data structure.
+<pre class="verbatim">Arguments: optional vertex
+Fails:     never
+Returns:   Worm data formatted like:
+
+A19:
+color           black
+size            10
+effective_size  17.83
+origin          A19
+liberties       8
+liberties2      15
+liberties3      10
+liberties4      8
+attack          PASS
+attack_code     0
+lunch           B19
+defend          PASS
+defend_code     0
+cutstone        2
+cutstone2       0
+genus           0
+inessential     0
+B19:
+color           white
+.
+.
+.
+inessential     0
+C19:
+...
+
+If an intersection is specified, only data for this one will be returned.
+</pre><a name="IDX423"></a>
+</li><li> worm_stones: List the stones of a worm
+<pre class="verbatim">Arguments: the location, "BLACK" or "WHITE"
+Fails:     if called on an empty or off-board location
+Returns:   list of stones
+</pre><a name="IDX424"></a>
+</li><li> worm_cutstone: Return the cutstone field in the worm data structure.
+<pre class="verbatim">Arguments: non-empty vertex
+Fails:     never
+Returns:   cutstone
+</pre><a name="IDX425"></a>
+</li><li> dragon_data: Return the information in the dragon data structure.
+<pre class="verbatim">Arguments: optional intersection
+Fails:     never
+Returns:   Dragon data formatted in the corresponding way to worm_data.
+</pre><a name="IDX426"></a>
+</li><li> dragon_stones: List the stones of a dragon
+<pre class="verbatim">Arguments: the location
+Fails:     if called on an empty or off-board location
+Returns:   list of stones
+</pre><a name="IDX427"></a>
+</li><li> eye_data: Return the information in the eye data structure.
+<pre class="verbatim">Arguments: color, vertex
+Fails:     never
+Returns:   eye data fields and values, one pair per row
+</pre><a name="IDX428"></a>
+</li><li> half_eye_data: Return the information in the half eye data structure.
+<pre class="verbatim">Arguments: vertex
+Fails:     never
+Returns:   half eye data fields and values, one pair per row
+</pre><a name="IDX429"></a>
+</li><li> start_sgftrace: Start storing moves executed during reading in an sgf tree in memory. 
+<pre class="verbatim">Arguments: none
+Fails:     never
+Returns:   nothing
+
+Warning: You had better know what you're doing if you try to use this
+         command.
+</pre><a name="IDX430"></a>
+</li><li> finish_sgftrace: Finish storing moves in an sgf tree and write it to file. 
+<pre class="verbatim">Arguments: filename
+Fails:     never
+Returns:   nothing
+
+Warning: You had better know what you're doing if you try to use this
+         command.
+</pre><a name="IDX431"></a>
+</li><li> printsgf: Dump the current position as a static sgf file to filename, or as output if filename is missing or "-" 
+<pre class="verbatim">Arguments: optional filename
+Fails:     never
+Returns:   nothing if filename, otherwise the sgf
+</pre><a name="IDX432"></a>
+</li><li> tune_move_ordering: Tune the parameters for the move ordering in the tactical reading.
+<pre class="verbatim">Arguments: MOVE_ORDERING_PARAMETERS integers
+Fails:     incorrect arguments
+Returns:   nothing
+</pre><a name="IDX433"></a>
+</li><li> echo: Echo the parameter
+<pre class="verbatim">Arguments: string
+Fails:     never
+Returns:   nothing
+</pre><a name="IDX434"></a>
+</li><li> echo_err: Echo the parameter to stdout AND stderr
+<pre class="verbatim">Arguments: string
+Fails:     never
+Returns:   nothing
+</pre><a name="IDX435"></a>
+</li><li> help: List all known commands
+<pre class="verbatim">Arguments: none
+Fails:     never
+Returns:   list of known commands, one per line
+
+Status:    GTP version 2 standard command.
+</pre><a name="IDX436"></a>
+</li><li> known_command: Tell whether a command is known.
+<pre class="verbatim">Arguments: command name
+Fails:     never
+Returns:   "true" if command exists, "false" if not
+
+Status:    GTP version 2 standard command.
+</pre><a name="IDX437"></a>
+</li><li> report_uncertainty: Turn uncertainty reports from owl_attack and owl_defend on or off.
+<pre class="verbatim">Arguments: "on" or "off"
+Fails:     invalid argument
+Returns:   nothing
+</pre><a name="IDX438"></a>
+</li><li> get_random_seed: Get the random seed
+<pre class="verbatim">Arguments: none
+Fails:     never
+Returns:   random seed
+</pre><a name="IDX439"></a>
+</li><li> set_random_seed: Set the random seed
+<pre class="verbatim">Arguments: integer
+Fails:     invalid data
+Returns:   nothing
+</pre><a name="IDX440"></a>
+</li><li> advance_random_seed: Advance the random seed by a number of games.
+<pre class="verbatim">Arguments: integer
+Fails:     invalid data
+Returns:   New random seed.
+</pre><a name="IDX441"></a>
+</li><li> is_surrounded: Determine if a dragon is surrounded
+<pre class="verbatim">Arguments: vertex (dragon)
+Fails:     invalid vertex, empty vertex
+Returns:   1 if surrounded, 2 if weakly surrounded, 0 if not
+</pre><a name="IDX442"></a>
+</li><li> does_surround: Determine if a move surrounds a dragon
+<pre class="verbatim">Arguments: vertex (move), vertex (dragon)
+Fails:     invalid vertex, empty (dragon, nonempty (move)
+Returns:   1 if (move) surrounds (dragon)
+</pre>
+<a name="IDX443"></a>
+</li><li> surround_map: Report the surround map for dragon at a vertex
+<pre class="verbatim">Arguments: vertex (dragon), vertex (mapped location)
+Fails:     invalid vertex, empty dragon
+Returns:   value of surround map at (mapped location), or -1 if
+           dragon not surrounded.
+</pre><a name="IDX444"></a>
+</li><li> set_search_diamond: limit search, and establish a search diamond
+<pre class="verbatim">Arguments: pos
+Fails:     invalid value
+Returns:   nothing
+</pre><a name="IDX445"></a>
+</li><li> reset_search_mask: unmark the entire board for limited search
+<pre class="verbatim">Arguments: none
+Fails:     never
+Returns:   nothing
+</pre><a name="IDX446"></a>
+</li><li> limit_search: sets the global variable limit_search
+<pre class="verbatim">Arguments: value
+Fails:     invalid arguments
+Returns:   nothing
+</pre><a name="IDX447"></a>
+</li><li> set_search_limit: mark a vertex for limited search
+<pre class="verbatim">Arguments: position
+Fails:     invalid arguments
+Returns:   nothing
+</pre><a name="IDX448"></a>
+</li><li> draw_search_area: Draw search area. Writes to stderr.
+<pre class="verbatim">Arguments: none
+Fails:     never
+Returns:   nothing
+</pre></li></ul>
+
+<hr size="6">
+<table cellpadding="1" cellspacing="1" border="0">
+<tbody><tr><td valign="middle" align="left">[<a href="http://www.gnu.org/software/gnugo/gnugo_19.html#SEC192" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="http://www.gnu.org/software/gnugo/gnugo_20.html#SEC201" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="http://www.gnu.org/software/gnugo/gnugo_ovr.html#SEC_Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="http://www.gnu.org/software/gnugo/gnugo_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="http://www.gnu.org/software/gnugo/gnugo_22.html#SEC217" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="http://www.gnu.org/software/gnugo/gnugo_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></tbody></table>
+<p>
+ <font size="-1">
+  This document was generated by <em>Daniel Bump</em> on <em>February, 19 2009</em> using <a href="http://www.nongnu.org/texi2html/"><em>texi2html 1.78</em></a>.
+ </font>
+ <br>
+
+</p>
+
+
+</body></html>

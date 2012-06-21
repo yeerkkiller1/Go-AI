@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type='text/xsl' href='_UpgradeReport_Files/UpgradeReport.xslt'?><UpgradeLog>
+<Properties><Property Name="Solution" Value="OpenCLFilter">
+</Property><Property Name="Solution File" Value="C:\Users\quentin\Dropbox\Go AI\OpenCLFilter\OpenCLFilter.sln">
+</Property><Property Name="User Options File" Value="C:\Users\quentin\Dropbox\Go AI\OpenCLFilter\OpenCLFilter.suo">
+</Property><Property Name="Date" Value="Thursday, May 03, 2012">
+</Property><Property Name="Time" Value="11:27 AM">
+</Property></Properties><Event ErrorLevel="0" Project="" Source="OpenCLFilter.sln" Description="File successfully backed up as C:\Users\quentin\Dropbox\Go AI\OpenCLFilter\Backup\OpenCLFilter.sln">
+</Event><Event ErrorLevel="0" Project="" Source="OpenCLFilter.suo" Description="File successfully backed up as C:\Users\quentin\Dropbox\Go AI\OpenCLFilter\Backup\OpenCLFilter.suo">
+</Event><Event ErrorLevel="0" Project="OpenCLFilter" Source="OpenCLFilter\OpenCLFilter.csproj" Description="Project file successfully backed up as C:\Users\quentin\Dropbox\Go AI\OpenCLFilter\Backup\OpenCLFilter\OpenCLFilter.csproj">
+</Event><Event ErrorLevel="0" Project="OpenCLFilter" Source="OpenCLFilter\OpenCLFilter.csproj.user" Description="Project user file successfully backed up as C:\Users\quentin\Dropbox\Go AI\OpenCLFilter\Backup\OpenCLFilter\OpenCLFilter.csproj.user">
+</Event><Event ErrorLevel="0" Project="OpenCLFilter" Source="OpenCLFilter\CLFilter.cs" Description="File successfully backed up as C:\Users\quentin\Dropbox\Go AI\OpenCLFilter\Backup\OpenCLFilter\CLFilter.cs">
+</Event><Event ErrorLevel="0" Project="OpenCLFilter" Source="OpenCLFilter\Form1.cs" Description="File successfully backed up as C:\Users\quentin\Dropbox\Go AI\OpenCLFilter\Backup\OpenCLFilter\Form1.cs">
+</Event><Event ErrorLevel="0" Project="OpenCLFilter" Source="OpenCLFilter\Form1.Designer.cs" Description="File successfully backed up as C:\Users\quentin\Dropbox\Go AI\OpenCLFilter\Backup\OpenCLFilter\Form1.Designer.cs">
+</Event><Event ErrorLevel="0" Project="OpenCLFilter" Source="OpenCLFilter\frmCfgFilter.cs" Description="File successfully backed up as C:\Users\quentin\Dropbox\Go AI\OpenCLFilter\Backup\OpenCLFilter\frmCfgFilter.cs">
+</Event><Event ErrorLevel="0" Project="OpenCLFilter" Source="OpenCLFilter\frmCfgFilter.Designer.cs" Description="File successfully backed up as C:\Users\quentin\Dropbox\Go AI\OpenCLFilter\Backup\OpenCLFilter\frmCfgFilter.Designer.cs">
+</Event><Event ErrorLevel="0" Project="OpenCLFilter" Source="OpenCLFilter\ImageData.cs" Description="File successfully backed up as C:\Users\quentin\Dropbox\Go AI\OpenCLFilter\Backup\OpenCLFilter\ImageData.cs">
+</Event><Event ErrorLevel="0" Project="OpenCLFilter" Source="OpenCLFilter\Program.cs" Description="File successfully backed up as C:\Users\quentin\Dropbox\Go AI\OpenCLFilter\Backup\OpenCLFilter\Program.cs">
+</Event><Event ErrorLevel="0" Project="OpenCLFilter" Source="OpenCLFilter\Properties\AssemblyInfo.cs" Description="File successfully backed up as C:\Users\quentin\Dropbox\Go AI\OpenCLFilter\Backup\OpenCLFilter\Properties\AssemblyInfo.cs">
+</Event><Event ErrorLevel="0" Project="OpenCLFilter" Source="OpenCLFilter\Properties\Resources.Designer.cs" Description="File successfully backed up as C:\Users\quentin\Dropbox\Go AI\OpenCLFilter\Backup\OpenCLFilter\Properties\Resources.Designer.cs">
+</Event><Event ErrorLevel="0" Project="OpenCLFilter" Source="OpenCLFilter\Properties\Settings.Designer.cs" Description="File successfully backed up as C:\Users\quentin\Dropbox\Go AI\OpenCLFilter\Backup\OpenCLFilter\Properties\Settings.Designer.cs">
+</Event><Event ErrorLevel="0" Project="OpenCLFilter" Source="OpenCLFilter\Properties\Settings.settings" Description="File successfully backed up as C:\Users\quentin\Dropbox\Go AI\OpenCLFilter\Backup\OpenCLFilter\Properties\Settings.settings">
+</Event><Event ErrorLevel="0" Project="OpenCLFilter" Source="OpenCLFilter\filter.ico" Description="File successfully backed up as C:\Users\quentin\Dropbox\Go AI\OpenCLFilter\Backup\OpenCLFilter\filter.ico">
+</Event><Event ErrorLevel="0" Project="OpenCLFilter" Source="OpenCLFilter\Form1.resx" Description="File successfully backed up as C:\Users\quentin\Dropbox\Go AI\OpenCLFilter\Backup\OpenCLFilter\Form1.resx">
+</Event><Event ErrorLevel="0" Project="OpenCLFilter" Source="OpenCLFilter\frmCfgFilter.resx" Description="File successfully backed up as C:\Users\quentin\Dropbox\Go AI\OpenCLFilter\Backup\OpenCLFilter\frmCfgFilter.resx">
+</Event><Event ErrorLevel="0" Project="OpenCLFilter" Source="OpenCLFilter\Properties\Resources.resx" Description="File successfully backed up as C:\Users\quentin\Dropbox\Go AI\OpenCLFilter\Backup\OpenCLFilter\Properties\Resources.resx">
+</Event><Event ErrorLevel="0" Project="OpenCLFilter" Source="OpenCLFilter\OpenCLFilter.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="OpenCLFilter" Source="OpenCLFilter\OpenCLFilter.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="" Source="OpenCLFilter.sln" Description="Solution converted successfully">
+</Event><Event ErrorLevel="3" Project="" Source="OpenCLFilter.sln" Description="Converted">
+</Event><Event ErrorLevel="0" Project="OpenCLFilter" Source="OpenCLFilter\OpenCLFilter.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event></UpgradeLog>

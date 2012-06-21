@@ -1,0 +1,14 @@
+README for goDummy 1.0.4
+------------------------
+
+   This is a sample computer go player that attaches to cgoban by speaking
+go modem through stdin/stdout.  To run it under cgoban, run cgoban and
+press the "Go Modem Protocol" button.  Then select "program" as one of the
+players and type "./goDummy" as the program name.
+
+   If you have any questions, you can reach me at wms@hevanet.com or
+wms@ssd.intel.com or
+   William Shubert,
+   1975 NW Everett St #301
+   Portland OR 97209 USA.
+   (503)223-2285

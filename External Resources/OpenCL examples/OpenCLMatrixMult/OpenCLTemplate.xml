@@ -1,0 +1,1253 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>OpenCLTemplate</name>
+    </assembly>
+    <members>
+        <member name="T:OpenCLTemplate.frmCLInfo">
+            <summary>Displays OpenCL related information</summary>
+        </member>
+        <member name="F:OpenCLTemplate.frmCLInfo.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:OpenCLTemplate.frmCLInfo.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:OpenCLTemplate.frmCLInfo.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="M:OpenCLTemplate.frmCLInfo.#ctor">
+            <summary>Constructor.</summary>
+        </member>
+        <member name="T:OpenCLTemplate.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:OpenCLTemplate.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:OpenCLTemplate.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="T:OpenCLTemplate.OpenCLRTBController">
+            <summary>Class to help editing OpenCL code</summary>
+        </member>
+        <member name="M:OpenCLTemplate.OpenCLRTBController.#ctor(System.Windows.Forms.RichTextBox)">
+            <summary>Constructor. Takes care of a Rich Text Box KeyUp event to paint things</summary>
+            <param name="rTBOpenCL">RichTextBox to control</param>
+        </member>
+        <member name="F:OpenCLTemplate.OpenCLRTBController.HelpIndentation">
+            <summary>Help indentation?</summary>
+        </member>
+        <member name="F:OpenCLTemplate.OpenCLRTBController.NormalTextColor">
+            <summary>Regular text color</summary>
+        </member>
+        <member name="F:OpenCLTemplate.OpenCLRTBController.NormalTextFont">
+            <summary>Regular text font</summary>
+        </member>
+        <member name="F:OpenCLTemplate.OpenCLRTBController.CommentColor">
+            <summary>Comments color</summary>
+        </member>
+        <member name="F:OpenCLTemplate.OpenCLRTBController.CommentTextFont">
+            <summary>Comments font</summary>
+        </member>
+        <member name="F:OpenCLTemplate.OpenCLRTBController.OpenCLStrings">
+            <summary>List of string structures to mark</summary>
+        </member>
+        <member name="M:OpenCLTemplate.OpenCLRTBController.rTB_KeyUp(System.Object,System.Windows.Forms.KeyEventArgs)">
+            <summary>KeyUp event handler</summary>
+        </member>
+        <member name="M:OpenCLTemplate.OpenCLRTBController.Update">
+            <summary>Forces OpenCL RichTextBox to be updated</summary>
+        </member>
+        <member name="M:OpenCLTemplate.OpenCLRTBController.StartedUpdating(System.Windows.Forms.RichTextBox)">
+            <summary>Stops updating text box while coloring text</summary>
+            <param name="rTB">Rich text box to lock</param>
+        </member>
+        <member name="M:OpenCLTemplate.OpenCLRTBController.StoppedUpdating(System.Windows.Forms.RichTextBox)">
+            <summary>Restarts updating text box</summary>
+            <param name="rTB">Rich text box to unlock</param>
+        </member>
+        <member name="T:OpenCLTemplate.OpenCLRTBController.StringsToMark">
+            <summary>Defines a structure of strings to mark</summary>
+        </member>
+        <member name="F:OpenCLTemplate.OpenCLRTBController.StringsToMark.Description">
+            <summary>Description of string type</summary>
+        </member>
+        <member name="F:OpenCLTemplate.OpenCLRTBController.StringsToMark.StringsColor">
+            <summary>Color to use for this string type</summary>
+        </member>
+        <member name="F:OpenCLTemplate.OpenCLRTBController.StringsToMark.StringsFont">
+            <summary>Font to be used in this list of strings</summary>
+        </member>
+        <member name="F:OpenCLTemplate.OpenCLRTBController.StringsToMark.Strings">
+            <summary>List of strings of this type</summary>
+        </member>
+        <member name="T:OpenCLTemplate.CLCalc">
+            <summary>OpenCL calculations class</summary>
+        </member>
+        <member name="F:OpenCLTemplate.CLCalc.dblInclude">
+            <summary>String to include to enable Double Precision calculations</summary>
+        </member>
+        <member name="F:OpenCLTemplate.CLCalc.GLAccel">
+            <summary>Currently used acceleration</summary>
+        </member>
+        <member name="F:OpenCLTemplate.CLCalc.GLInitErr">
+            <summary>Initialization error</summary>
+        </member>
+        <member name="M:OpenCLTemplate.CLCalc.DisableCL">
+            <summary>Sets CLCalc status to NotUsingGL</summary>
+        </member>
+        <member name="M:OpenCLTemplate.CLCalc.InitCL">
+            <summary>Initializes OpenCL and reads devices</summary>
+        </member>
+        <member name="M:OpenCLTemplate.CLCalc.CheckDevice(System.Int32)">
+            <summary>Tries to execute actual code in device to check its availability.</summary>
+            <param name="num">Command queue number to check</param>
+        </member>
+        <member name="M:OpenCLTemplate.CLCalc.FinishCL">
+            <summary>Releases OpenCL resources</summary>
+        </member>
+        <member name="F:OpenCLTemplate.CLCalc.Err">
+            <summary>Last found error</summary>
+        </member>
+        <member name="F:OpenCLTemplate.CLCalc.CLPlatforms">
+            <summary>List of available platforms</summary>
+        </member>
+        <member name="F:OpenCLTemplate.CLCalc.CLDevices">
+            <summary>List of available devices</summary>
+        </member>
+        <member name="P:OpenCLTemplate.CLCalc.EnableDblSupport">
+            <summary>Gets string to include to enable Double Precision calculations</summary>
+        </member>
+        <member name="P:OpenCLTemplate.CLCalc.GLAcceleration">
+            <summary>Gets acceleration type being used</summary>
+        </member>
+        <member name="P:OpenCLTemplate.CLCalc.GLInitError">
+            <summary>Gets initialization error description</summary>
+        </member>
+        <member name="P:OpenCLTemplate.CLCalc.LastError">
+            <summary>Last error. Throws exception if not set to success.</summary>
+        </member>
+        <member name="T:OpenCLTemplate.CLCalc.GLAccelerationType">
+            <summary>OpenGL accelerations</summary>
+        </member>
+        <member name="F:OpenCLTemplate.CLCalc.GLAccelerationType.Unknown">
+            <summary>Has not tested what type of acceleration is going to be used.</summary>
+        </member>
+        <member name="F:OpenCLTemplate.CLCalc.GLAccelerationType.UsingGL">
+            <summary>OpenGL used to accelerate calculations</summary>
+        </member>
+        <member name="F:OpenCLTemplate.CLCalc.GLAccelerationType.NotUsingGL">
+            <summary>No OpenGL used/supported</summary>
+        </member>
+        <member name="T:OpenCLTemplate.CLCalc.CLDevice">
+            <summary>Class to hold OpenCL devices</summary>
+        </member>
+        <member name="F:OpenCLTemplate.CLCalc.CLDevice.ID">
+            <summary>Device ID</summary>
+        </member>
+        <member name="F:OpenCLTemplate.CLCalc.CLDevice.CLDeviceType">
+            <summary>Device type string</summary>
+        </member>
+        <member name="F:OpenCLTemplate.CLCalc.CLDevice.CLDeviceName">
+            <summary>Device name string</summary>
+        </member>
+        <member name="F:OpenCLTemplate.CLCalc.CLDevice.CLDeviceVendor">
+            <summary>Device vendor string</summary>
+        </member>
+        <member name="F:OpenCLTemplate.CLCalc.CLDevice.CLDeviceVersion">
+            <summary>OpenCL version string</summary>
+        </member>
+        <member name="F:OpenCLTemplate.CLCalc.CLDevice.CLDeviceExecCapab">
+            <summary>Execution capabilities of the device</summary>
+        </member>
+        <member name="F:OpenCLTemplate.CLCalc.CLDevice.CLDeviceAvailable">
+            <summary>Is device available?</summary>
+        </member>
+        <member name="F:OpenCLTemplate.CLCalc.CLDevice.CLDeviceCompilerAvailable">
+            <summary>Is device compiler available?</summary>
+        </member>
+        <member name="F:OpenCLTemplate.CLCalc.CLDevice.CLDeviceMaxMallocSize">
+            <summary>Maximum memory allocation size in bytes</summary>
+        </member>
+        <member name="F:OpenCLTemplate.CLCalc.CLDevice.CLDeviceMemSize">
+            <summary>Memory size in bytes</summary>
+        </member>
+        <member name="F:OpenCLTemplate.CLCalc.CLDevice.CLDeviceMaxWorkItemSizes">
+            <summary>Maximum number of work-items 
+            that can be specified in each dimension of the work-group 
+            to clEnqueueNDRangeKernel.</summary>
+        </member>
+        <member name="F:OpenCLTemplate.CLCalc.CLDevice.CLDeviceMaxWorkGroupSize">
+            <summary>Maximum number of work-items in a 
+            work-group executing a kernel using the data parallel execution model.</summary>
+        </member>
+        <member name="M:OpenCLTemplate.CLCalc.CLDevice.#ctor(GASS.OpenCL.CLDeviceID)">
+            <summary>Constructor</summary>
+            <param name="DeviceID">Device ID</param>
+        </member>
+        <member name="T:OpenCLTemplate.CLCalc.CLPlatform">
+            <summary>Class to hold OpenCL Platforms</summary>
+        </member>
+        <member name="F:OpenCLTemplate.CLCalc.CLPlatform.ID">
+            <summary>Platform ID</summary>
+        </member>
+        <member name="F:OpenCLTemplate.CLCalc.CLPlatform.CLPlatformProfile">
+            <summary>OpenCL profile string. Profile name supported by the implementation.</summary>
+        </member>
+        <member name="F:OpenCLTemplate.CLCalc.CLPlatform.CLPlatformVersion">
+            <summary>OpenCL version string.</summary>
+        </member>
+        <member name="F:OpenCLTemplate.CLCalc.CLPlatform.CLPlatformName">
+            <summary>OpenCL name string.</summary>
+        </member>
+        <member name="F:OpenCLTemplate.CLCalc.CLPlatform.CLPlatformVendor">
+            <summary>OpenCL vendor string.</summary>
+        </member>
+        <member name="F:OpenCLTemplate.CLCalc.CLPlatform.CLPlatformExtensions">
+            <summary>OpenCL extensions string.</summary>
+        </member>
+        <member name="M:OpenCLTemplate.CLCalc.CLPlatform.#ctor(GASS.OpenCL.CLPlatformID)">
+            <summary>Constructor.</summary>
+            <param name="PlatformID">Sets this platform's ID</param>
+        </member>
+        <member name="T:OpenCLTemplate.CLCalc.Program">
+            <summary>Program related stuff</summary>
+        </member>
+        <member name="F:OpenCLTemplate.CLCalc.Program.Event">
+            <summary>Local event</summary>
+        </member>
+        <member name="F:OpenCLTemplate.CLCalc.Program.Context">
+            <summary>OpenCL context using all devices</summary>
+        </member>
+        <member name="F:OpenCLTemplate.CLCalc.Program.CommQueues">
+            <summary>Synchronous command queues that are executed in call order</summary>
+        </member>
+        <member name="F:OpenCLTemplate.CLCalc.Program.AsyncCommQueues">
+            <summary>Asynchronous command queues</summary>
+        </member>
+        <member name="F:OpenCLTemplate.CLCalc.Program.DefaultCQ">
+            <summary>Default synchronous command queue set as the first GPU, for ease of use.</summary>
+        </member>
+        <member name="F:OpenCLTemplate.CLCalc.Program.Prog">
+            <summary>Compiled program</summary>
+        </member>
+        <member name="M:OpenCLTemplate.CLCalc.Program.Sync">
+            <summary>Ends all commands being executed</summary>
+        </member>
+        <member name="M:OpenCLTemplate.CLCalc.Program.Compile(System.String)">
+            <summary>Compiles program contained in a single string.</summary>
+            <param name="SourceCode">Source code to compile</param>
+        </member>
+        <member name="M:OpenCLTemplate.CLCalc.Program.Compile(System.String,System.Collections.Generic.List{System.String}@)">
+            <summary>Compiles program contained in a single string. Returns build logs for each device.</summary>
+            <param name="SourceCode">Source code to compile</param>
+            <param name="BuildLogs">Build logs for each device</param>
+        </member>
+        <member name="M:OpenCLTemplate.CLCalc.Program.Compile(System.String[])">
+            <summary>Compiles the program.</summary>
+            <param name="SourceCode">Source code to compile</param>
+        </member>
+        <member name="M:OpenCLTemplate.CLCalc.Program.Compile(System.String[],System.Collections.Generic.List{System.String}@)">
+            <summary>Compiles the program. Returns the build logs for each device.</summary>
+            <param name="SourceCode">Source code array to compile</param>
+            <param name="BuildLogs">Build logs for each device</param>
+        </member>
+        <member name="T:OpenCLTemplate.CLCalc.Program.Variable">
+            <summary>Variables class</summary>
+        </member>
+        <member name="F:OpenCLTemplate.CLCalc.Program.Variable.VarSize">
+            <summary>Data to be stored</summary>
+        </member>
+        <member name="F:OpenCLTemplate.CLCalc.Program.Variable.OriginalVarLength">
+            <summary>Original variable length</summary>
+        </member>
+        <member name="F:OpenCLTemplate.CLCalc.Program.Variable.VarBuff">
+            <summary>Memory buffer</summary>
+        </member>
+        <member name="M:OpenCLTemplate.CLCalc.Program.Variable.#ctor(System.Single[])">
+            <summary>Constructor.</summary>
+            <param name="Values">Variable whose size will be allocated in device memory.</param>
+        </member>
+        <member name="M:OpenCLTemplate.CLCalc.Program.Variable.#ctor(System.Int32[])">
+            <summary>Constructor.</summary>
+            <param name="Values">Variable whose size will be allocated in device memory.</param>
+        </member>
+        <member name="M:OpenCLTemplate.CLCalc.Program.Variable.#ctor(System.Int64[])">
+            <summary>Constructor.</summary>
+            <param name="Values">Variable whose size will be allocated in device memory.</param>
+        </member>
+        <member name="M:OpenCLTemplate.CLCalc.Program.Variable.#ctor(System.Double[])">
+            <summary>Constructor.</summary>
+            <param name="Values">Variable whose size will be allocated in device memory.</param>
+        </member>
+        <member name="M:OpenCLTemplate.CLCalc.Program.Variable.#ctor(System.Char[])">
+            <summary>Constructor.</summary>
+            <param name="Values">Variable whose size will be allocated in device memory.</param>
+        </member>
+        <member name="M:OpenCLTemplate.CLCalc.Program.Variable.#ctor(System.Byte[])">
+            <summary>Constructor.</summary>
+            <param name="Values">Variable whose size will be allocated in device memory.</param>
+        </member>
+        <member name="M:OpenCLTemplate.CLCalc.Program.Variable.WriteToDevice(System.Single[],GASS.OpenCL.CLCommandQueue,GASS.OpenCL.CLBool,GASS.OpenCL.CLEvent,GASS.OpenCL.CLEvent[])">
+            <summary>Writes variable to device</summary>
+            <param name="Values">Values to write to device</param>
+            <param name="CQ">Command queue to use</param>
+            <param name="BlockingWrite">TRUE to return only after completed writing.</param>
+            <param name="Event">OpenCL Event associated to this operation</param>
+            <param name="Event_Wait_List">OpenCL Events that need to finish before this one can start</param>
+        </member>
+        <member name="M:OpenCLTemplate.CLCalc.Program.Variable.WriteToDevice(System.Single[])">
+            <summary>Writes variable to device</summary>
+            <param name="Values">Values to write to device</param>
+        </member>
+        <member name="M:OpenCLTemplate.CLCalc.Program.Variable.WriteToDevice(System.Int32[],GASS.OpenCL.CLCommandQueue,GASS.OpenCL.CLBool,GASS.OpenCL.CLEvent,GASS.OpenCL.CLEvent[])">
+            <summary>Writes variable to device</summary>
+            <param name="Values">Values to write to device</param>
+            <param name="CQ">Command queue to use</param>
+            <param name="BlockingWrite">TRUE to return only after completed writing.</param>
+            <param name="Event">OpenCL Event associated to this operation</param>
+            <param name="Event_Wait_List">OpenCL Events that need to finish before this one can start</param>
+        </member>
+        <member name="M:OpenCLTemplate.CLCalc.Program.Variable.WriteToDevice(System.Int32[])">
+            <summary>Writes variable to device</summary>
+            <param name="Values">Values to write to device</param>
+        </member>
+        <member name="M:OpenCLTemplate.CLCalc.Program.Variable.WriteToDevice(System.Int64[],GASS.OpenCL.CLCommandQueue,GASS.OpenCL.CLBool,GASS.OpenCL.CLEvent,GASS.OpenCL.CLEvent[])">
+            <summary>Writes variable to device</summary>
+            <param name="Values">Values to write to device</param>
+            <param name="CQ">Command queue to use</param>
+            <param name="BlockingWrite">TRUE to return only after completed writing.</param>
+            <param name="Event">OpenCL Event associated to this operation</param>
+            <param name="Event_Wait_List">OpenCL Events that need to finish before this one can start</param>
+        </member>
+        <member name="M:OpenCLTemplate.CLCalc.Program.Variable.WriteToDevice(System.Int64[])">
+            <summary>Writes variable to device</summary>
+            <param name="Values">Values to write to device</param>
+        </member>
+        <member name="M:OpenCLTemplate.CLCalc.Program.Variable.WriteToDevice(System.Double[],GASS.OpenCL.CLCommandQueue,GASS.OpenCL.CLBool,GASS.OpenCL.CLEvent,GASS.OpenCL.CLEvent[])">
+            <summary>Writes variable to device</summary>
+            <param name="Values">Values to write to device</param>
+            <param name="CQ">Command queue to use</param>
+            <param name="BlockingWrite">TRUE to return only after completed writing.</param>
+            <param name="Event">OpenCL Event associated to this operation</param>
+            <param name="Event_Wait_List">OpenCL Events that need to finish before this one can start</param>
+        </member>
+        <member name="M:OpenCLTemplate.CLCalc.Program.Variable.WriteToDevice(System.Double[])">
+            <summary>Writes variable to device</summary>
+            <param name="Values">Values to write to device</param>
+        </member>
+        <member name="M:OpenCLTemplate.CLCalc.Program.Variable.WriteToDevice(System.Char[],GASS.OpenCL.CLCommandQueue,GASS.OpenCL.CLBool,GASS.OpenCL.CLEvent,GASS.OpenCL.CLEvent[])">
+            <summary>Writes variable to device</summary>
+            <param name="Values">Values to write to device</param>
+            <param name="CQ">Command queue to use</param>
+            <param name="BlockingWrite">TRUE to return only after completed writing.</param>
+            <param name="Event">OpenCL Event associated to this operation</param>
+            <param name="Event_Wait_List">OpenCL Events that need to finish before this one can start</param>
+        </member>
+        <member name="M:OpenCLTemplate.CLCalc.Program.Variable.WriteToDevice(System.Char[])">
+            <summary>Writes variable to device</summary>
+            <param name="Values">Values to write to device</param>
+        </member>
+        <member name="M:OpenCLTemplate.CLCalc.Program.Variable.WriteToDevice(System.Byte[],GASS.OpenCL.CLCommandQueue,GASS.OpenCL.CLBool,GASS.OpenCL.CLEvent,GASS.OpenCL.CLEvent[])">
+            <summary>Writes variable to device</summary>
+            <param name="Values">Values to write to device</param>
+            <param name="CQ">Command queue to use</param>
+            <param name="BlockingWrite">TRUE to return only after completed writing.</param>
+            <param name="Event">OpenCL Event associated to this operation</param>
+            <param name="Event_Wait_List">OpenCL Events that need to finish before this one can start</param>
+        </member>
+        <member name="M:OpenCLTemplate.CLCalc.Program.Variable.WriteToDevice(System.Byte[])">
+            <summary>Writes variable to device</summary>
+            <param name="Values">Values to write to device</param>
+        </member>
+        <member name="M:OpenCLTemplate.CLCalc.Program.Variable.ReadFromDeviceTo(System.Single[],GASS.OpenCL.CLCommandQueue,GASS.OpenCL.CLBool,GASS.OpenCL.CLEvent,GASS.OpenCL.CLEvent[])">
+            <summary>Reads variable from device.</summary>
+            <param name="Values">Values to store data coming from device</param>
+            <param name="CQ">Command queue to use</param>
+            <param name="BlockingRead">TRUE to return only after completed reading.</param>
+            <param name="Event">OpenCL Event associated with this operation</param>
+            <param name="Event_Wait_List">OpenCL Events that need to finish before this one can start</param>
+        </member>
+        <member name="M:OpenCLTemplate.CLCalc.Program.Variable.ReadFromDeviceTo(System.Single[])">
+            <summary>Reads variable from device. Does not return until data has been copied.</summary>
+            <param name="Values">Values to store data coming from device</param>
+        </member>
+        <member name="M:OpenCLTemplate.CLCalc.Program.Variable.ReadFromDeviceTo(System.Int32[],GASS.OpenCL.CLCommandQueue,GASS.OpenCL.CLBool,GASS.OpenCL.CLEvent,GASS.OpenCL.CLEvent[])">
+            <summary>Reads variable from device.</summary>
+            <param name="Values">Values to store data coming from device</param>
+            <param name="CQ">Command queue to use</param>
+            <param name="BlockingRead">TRUE to return only after completed reading.</param>
+            <param name="Event">OpenCL Event associated with this operation</param>
+            <param name="Event_Wait_List">OpenCL Events that need to finish before this one can start</param>
+        </member>
+        <member name="M:OpenCLTemplate.CLCalc.Program.Variable.ReadFromDeviceTo(System.Int32[])">
+            <summary>Reads variable from device. Does not return until data has been copied.</summary>
+            <param name="Values">Values to store data coming from device</param>
+        </member>
+        <member name="M:OpenCLTemplate.CLCalc.Program.Variable.ReadFromDeviceTo(System.Int64[],GASS.OpenCL.CLCommandQueue,GASS.OpenCL.CLBool,GASS.OpenCL.CLEvent,GASS.OpenCL.CLEvent[])">
+            <summary>Reads variable from device.</summary>
+            <param name="Values">Values to store data coming from device</param>
+            <param name="CQ">Command queue to use</param>
+            <param name="BlockingRead">TRUE to return only after completed reading.</param>
+            <param name="Event">OpenCL Event associated with this operation</param>
+            <param name="Event_Wait_List">OpenCL Events that need to finish before this one can start</param>
+        </member>
+        <member name="M:OpenCLTemplate.CLCalc.Program.Variable.ReadFromDeviceTo(System.Int64[])">
+            <summary>Reads variable from device. Does not return until data has been copied.</summary>
+            <param name="Values">Values to store data coming from device</param>
+        </member>
+        <member name="M:OpenCLTemplate.CLCalc.Program.Variable.ReadFromDeviceTo(System.Double[],GASS.OpenCL.CLCommandQueue,GASS.OpenCL.CLBool,GASS.OpenCL.CLEvent,GASS.OpenCL.CLEvent[])">
+            <summary>Reads variable from device.</summary>
+            <param name="Values">Values to store data coming from device</param>
+            <param name="CQ">Command queue to use</param>
+            <param name="BlockingRead">TRUE to return only after completed reading.</param>
+            <param name="Event">OpenCL Event associated with this operation</param>
+            <param name="Event_Wait_List">OpenCL Events that need to finish before this one can start</param>
+        </member>
+        <member name="M:OpenCLTemplate.CLCalc.Program.Variable.ReadFromDeviceTo(System.Double[])">
+            <summary>Reads variable from device. Does not return until data has been copied.</summary>
+            <param name="Values">Values to store data coming from device</param>
+        </member>
+        <member name="M:OpenCLTemplate.CLCalc.Program.Variable.ReadFromDeviceTo(System.Char[],GASS.OpenCL.CLCommandQueue,GASS.OpenCL.CLBool,GASS.OpenCL.CLEvent,GASS.OpenCL.CLEvent[])">
+            <summary>Reads variable from device.</summary>
+            <param name="Values">Values to store data coming from device</param>
+            <param name="CQ">Command queue to use</param>
+            <param name="BlockingRead">TRUE to return only after completed reading.</param>
+            <param name="Event">OpenCL Event associated with this operation</param>
+            <param name="Event_Wait_List">OpenCL Events that need to finish before this one can start</param>
+        </member>
+        <member name="M:OpenCLTemplate.CLCalc.Program.Variable.ReadFromDeviceTo(System.Char[])">
+            <summary>Reads variable from device. Does not return until data has been copied.</summary>
+            <param name="Values">Values to store data coming from device</param>
+        </member>
+        <member name="M:OpenCLTemplate.CLCalc.Program.Variable.ReadFromDeviceTo(System.Byte[],GASS.OpenCL.CLCommandQueue,GASS.OpenCL.CLBool,GASS.OpenCL.CLEvent,GASS.OpenCL.CLEvent[])">
+            <summary>Reads variable from device.</summary>
+            <param name="Values">Values to store data coming from device</param>
+            <param name="CQ">Command queue to use</param>
+            <param name="BlockingRead">TRUE to return only after completed reading.</param>
+            <param name="Event">OpenCL Event associated with this operation</param>
+            <param name="Event_Wait_List">OpenCL Events that need to finish before this one can start</param>
+        </member>
+        <member name="M:OpenCLTemplate.CLCalc.Program.Variable.ReadFromDeviceTo(System.Byte[])">
+            <summary>Reads variable from device. Does not return until data has been copied.</summary>
+            <param name="Values">Values to store data coming from device</param>
+        </member>
+        <member name="M:OpenCLTemplate.CLCalc.Program.Variable.SetAsArgument(System.UInt32,GASS.OpenCL.CLKernel)">
+            <summary>Sets this variable as an argument for a kernel</summary>
+            <param name="ArgIndex">Index of kernel argument</param>
+            <param name="Kernel">Kernel to receive argument</param>
+        </member>
+        <member name="M:OpenCLTemplate.CLCalc.Program.Variable.Dispose">
+            <summary>Releases variable from memory.</summary>
+        </member>
+        <member name="M:OpenCLTemplate.CLCalc.Program.Variable.Finalize">
+            <summary>Destructor</summary>
+        </member>
+        <member name="P:OpenCLTemplate.CLCalc.Program.Variable.Size">
+            <summary>Returns the size of the stored variable</summary>
+        </member>
+        <member name="T:OpenCLTemplate.CLCalc.Program.Kernel">
+            <summary>Kernels class</summary>
+        </member>
+        <member name="F:OpenCLTemplate.CLCalc.Program.Kernel.kernel">
+            <summary>Local kernel storage</summary>
+        </member>
+        <member name="F:OpenCLTemplate.CLCalc.Program.Kernel.nArgs">
+            <summary>Number of arguments</summary>
+        </member>
+        <member name="M:OpenCLTemplate.CLCalc.Program.Kernel.#ctor(System.String)">
+            <summary>Creates a new Kernel</summary>
+            <param name="KernelName"></param>
+        </member>
+        <member name="F:OpenCLTemplate.CLCalc.Program.Kernel.Vars">
+            <summary>"Remember" variables</summary>
+        </member>
+        <member name="M:OpenCLTemplate.CLCalc.Program.Kernel.SetArguments(OpenCLTemplate.CLCalc.Program.Variable[])">
+            <summary>Sets kernel arguments</summary>
+            <param name="Variables">Variables to be set as arguments</param>
+        </member>
+        <member name="M:OpenCLTemplate.CLCalc.Program.Kernel.Execute(GASS.OpenCL.CLCommandQueue,OpenCLTemplate.CLCalc.Program.Variable[],System.Int32[],GASS.OpenCL.CLEvent[],GASS.OpenCL.CLEvent)">
+            <summary>Execute this kernel</summary>
+            <param name="CQ">Command queue to use</param>
+            <param name="Arguments">Arguments of the kernel function</param>
+            <param name="GlobalWorkSize">Array of maximum index arrays. Total work-items = product(max[i],i+0..n-1), n=max.Length</param>
+            <param name="Event_Wait_List">Events to wait before executing this</param>
+            <param name="Event">Event of this command</param>
+        </member>
+        <member name="M:OpenCLTemplate.CLCalc.Program.Kernel.Execute(GASS.OpenCL.CLCommandQueue,OpenCLTemplate.CLCalc.Program.Variable[],System.Int32[],System.Int32[],GASS.OpenCL.CLEvent[],GASS.OpenCL.CLEvent)">
+            <summary>Execute this kernel</summary>
+            <param name="CQ">Command queue to use</param>
+            <param name="Arguments">Arguments of the kernel function</param>
+            <param name="GlobalWorkSize">Array of maximum index arrays. Total work-items = product(max[i],i+0..n-1), n=max.Length</param>
+            <param name="LocalWorkSize">Local work sizes</param>
+            <param name="Event_Wait_List">Events to wait before executing this</param>
+            <param name="Event">Event of this command</param>
+        </member>
+        <member name="M:OpenCLTemplate.CLCalc.Program.Kernel.Execute(OpenCLTemplate.CLCalc.Program.Variable[],System.Int32[])">
+            <summary>Execute this kernel</summary>
+            <param name="GlobalWorkSize">Array of maximum index arrays. Total work-items = product(max[i],i+0..n-1), n=max.Length</param>
+            <param name="Arguments">Arguments of the kernel function</param>
+        </member>
+        <member name="M:OpenCLTemplate.CLCalc.Program.Kernel.Execute(OpenCLTemplate.CLCalc.Program.Variable[],System.Int32)">
+            <summary>Execute this kernel using work_dim = 1</summary>
+            <param name="GlobalWorkSize">Global work size in one-dimension. global_work_size = new int[1] {GlobalWorkSize}</param>
+            <param name="Arguments">Arguments of the kernel function</param>
+        </member>
+        <member name="M:OpenCLTemplate.CLCalc.Program.Kernel.Execute(OpenCLTemplate.CLCalc.Program.Variable[],System.Int32[],System.Int32[])">
+            <summary>Execute this kernel</summary>
+            <param name="GlobalWorkSize">Array of maximum index arrays. Total work-items = product(max[i],i+0..n-1), n=max.Length</param>
+            <param name="LocalWorkSize">Local work sizes</param>
+            <param name="Arguments">Arguments of the kernel function</param>
+        </member>
+        <member name="M:OpenCLTemplate.CLCalc.Program.Kernel.Dispose">
+            <summary>Releases kernel from memory</summary>
+        </member>
+        <member name="M:OpenCLTemplate.CLCalc.Program.Kernel.Finalize">
+            <summary>Destructor</summary>
+        </member>
+        <member name="P:OpenCLTemplate.CLCalc.Program.Kernel.NumberOfArguments">
+            <summary>Gets how many arguments this kernel has</summary>
+        </member>
+        <member name="T:OpenCLTemplate.CLCalc.CLPrograms">
+            <summary>OpenCL programs</summary>
+        </member>
+        <member name="T:OpenCLTemplate.CLCalc.CLPrograms.floatLinearAlgebra">
+            <summary>Basic linear algebra functions</summary>
+        </member>
+        <member name="F:OpenCLTemplate.CLCalc.CLPrograms.floatLinearAlgebra.floatVecSum">
+            <summary>Float vector sum kernel</summary>
+        </member>
+        <member name="F:OpenCLTemplate.CLCalc.CLPrograms.floatLinearAlgebra.floatMatrixMult">
+            <summary>float matrix multiplication kernel</summary>
+        </member>
+        <member name="F:OpenCLTemplate.CLCalc.CLPrograms.floatLinearAlgebra.floatGaussSeidel">
+            <summary>float Gauss Seidel method</summary>
+        </member>
+        <member name="F:OpenCLTemplate.CLCalc.CLPrograms.floatLinearAlgebra.floatLUScale">
+            <summary>LU factorizaton method</summary>
+        </member>
+        <member name="M:OpenCLTemplate.CLCalc.CLPrograms.floatLinearAlgebra.#ctor">
+            <summary>Constructor. Builds OpenCL program.</summary>
+        </member>
+        <member name="M:OpenCLTemplate.CLCalc.CLPrograms.floatLinearAlgebra.VectorToMatrix(System.Single[],System.Int32@,System.Int32@)">
+            <summary>Converts vector to matrix</summary>
+            <param name="v">Vector</param>
+            <param name="maxi">Matrix first dimension</param>
+            <param name="maxj">Matrix second dimension</param>
+        </member>
+        <member name="M:OpenCLTemplate.CLCalc.CLPrograms.floatLinearAlgebra.MatrixToVector(System.Single[0:,0:],System.Int32@,System.Int32@)">
+            <summary>Converts matrix to vector</summary>
+            <param name="M">Matrix</param>
+            <param name="maxi">Matrix first dimension</param>
+            <param name="maxj">Matrix second dimension</param>
+        </member>
+        <member name="M:OpenCLTemplate.CLCalc.CLPrograms.floatLinearAlgebra.MatrixSum(System.Single[0:,0:],System.Single[0:,0:])">
+            <summary>Returns the sum of two matrices</summary>
+            <param name="M1">Matrix 1</param>
+            <param name="M2">Matrix 2</param>
+        </member>
+        <member name="M:OpenCLTemplate.CLCalc.CLPrograms.floatLinearAlgebra.MatrixMultiply(System.Single[0:,0:],System.Single[0:,0:])">
+            <summary>Matrix multiplication</summary>
+            <param name="M1">Matrix 1</param>
+            <param name="M2">Matrix 2</param>
+        </member>
+        <member name="M:OpenCLTemplate.CLCalc.CLPrograms.floatLinearAlgebra.LeastSquaresGS(System.Single[0:,0:],System.Single[],System.Single[],System.Int32,System.Int32,System.Single,System.Single[]@)">
+            <summary>Gauss Seidel method for iterative linear system solving. Returns unknown x</summary>
+            <param name="M">Matrix M so that Mx=b</param>
+            <param name="x">Initial estimate</param>
+            <param name="b">Known vector b</param>
+            <param name="Iterations">Gauss-Seidel iterations per step</param>
+            <param name="MaxIter">Maximum number of times Gauss-Seidel iterations</param>
+            <param name="totalError">Desired sqrt(Sum(error[i]^2))*number of equations</param>
+            <param name="err">Estimated absolute error per component</param>
+        </member>
+        <member name="M:OpenCLTemplate.CLCalc.CLPrograms.floatLinearAlgebra.LeastSquaresGS(System.Single[0:,0:],System.Single[],System.Single[],System.Single[]@)">
+            <summary>Gauss Seidel method for iterative linear system solving. Returns unknown x</summary>
+            <param name="M">Matrix M so that Mx=b</param>
+            <param name="x">Initial estimate</param>
+            <param name="b">Known vector b</param>
+            <param name="err">Estimated error per equation</param>
+        </member>
+        <member name="M:OpenCLTemplate.CLCalc.CLPrograms.floatLinearAlgebra.LinSolve(System.Single[0:,0:],System.Single[],System.Single,System.Int32)">
+            <summary>Solves linear system Mx = b by LU decomposition. Returns x</summary>
+            <param name="M">Matrix M</param>
+            <param name="b">Vector b</param>
+            <param name="maxAbsErr">Maximum acceptable absolute error</param>
+            <param name="maxIters">Maximum iterations</param>
+        </member>
+        <member name="M:OpenCLTemplate.CLCalc.CLPrograms.floatLinearAlgebra.LUDecomp(System.Single[0:,0:],System.Int32,OpenCLTemplate.CLCalc.Program.Variable@)">
+            <summary>Calculates LU decomposition of M matrix</summary>
+            <param name="M">Matrix to decompose</param>
+            <param name="n">Matrix dimension</param>
+            <param name="varindx">Swap index</param>
+        </member>
+        <member name="F:OpenCLTemplate.CLCalc.CLPrograms.floatLinearAlgebra.LinalgSource.GaussSeidel">
+            <summary>Gauss Seidel method. Make sure to send x = b. Replaces x.</summary>
+        </member>
+        <member name="F:OpenCLTemplate.CLCalc.CLPrograms.floatLinearAlgebra.LinalgSource.matrixMult">
+            <summary>Matrix multiplication. Dimensions { p, r }.
+            </summary>
+        </member>
+        <member name="T:OpenCLTemplate.CLCalc.CLPrograms.doubleLinearAlgebra">
+            <summary>Basic linear algebra functions</summary>
+        </member>
+        <member name="F:OpenCLTemplate.CLCalc.CLPrograms.doubleLinearAlgebra.doubleVecSum">
+            <summary>Float vector sum kernel</summary>
+        </member>
+        <member name="F:OpenCLTemplate.CLCalc.CLPrograms.doubleLinearAlgebra.doubleMatrixMult">
+            <summary>double matrix multiplication kernel</summary>
+        </member>
+        <member name="F:OpenCLTemplate.CLCalc.CLPrograms.doubleLinearAlgebra.doubleGaussSeidel">
+            <summary>double Gauss Seidel method</summary>
+        </member>
+        <member name="F:OpenCLTemplate.CLCalc.CLPrograms.doubleLinearAlgebra.doubleLUScale">
+            <summary>LU factorizaton method</summary>
+        </member>
+        <member name="M:OpenCLTemplate.CLCalc.CLPrograms.doubleLinearAlgebra.#ctor">
+            <summary>Constructor. Builds OpenCL program.</summary>
+        </member>
+        <member name="M:OpenCLTemplate.CLCalc.CLPrograms.doubleLinearAlgebra.VectorToMatrix(System.Double[],System.Int32@,System.Int32@)">
+            <summary>Converts vector to matrix</summary>
+            <param name="v">Vector</param>
+            <param name="maxi">Matrix first dimension</param>
+            <param name="maxj">Matrix second dimension</param>
+        </member>
+        <member name="M:OpenCLTemplate.CLCalc.CLPrograms.doubleLinearAlgebra.MatrixToVector(System.Double[0:,0:],System.Int32@,System.Int32@)">
+            <summary>Converts matrix to vector</summary>
+            <param name="M">Matrix</param>
+            <param name="maxi">Matrix first dimension</param>
+            <param name="maxj">Matrix second dimension</param>
+        </member>
+        <member name="M:OpenCLTemplate.CLCalc.CLPrograms.doubleLinearAlgebra.MatrixSum(System.Double[0:,0:],System.Double[0:,0:])">
+            <summary>Returns the sum of two matrices</summary>
+            <param name="M1">Matrix 1</param>
+            <param name="M2">Matrix 2</param>
+        </member>
+        <member name="M:OpenCLTemplate.CLCalc.CLPrograms.doubleLinearAlgebra.MatrixMultiply(System.Double[0:,0:],System.Double[0:,0:])">
+            <summary>Matrix multiplication</summary>
+            <param name="M1">Matrix 1</param>
+            <param name="M2">Matrix 2</param>
+        </member>
+        <member name="M:OpenCLTemplate.CLCalc.CLPrograms.doubleLinearAlgebra.LeastSquaresGS(System.Double[0:,0:],System.Double[],System.Double[],System.Int32,System.Int32,System.Double,System.Double[]@)">
+            <summary>Gauss Seidel method for iterative linear system solving. Returns unknown x</summary>
+            <param name="M">Matrix M so that Mx=b</param>
+            <param name="x">Initial estimate</param>
+            <param name="b">Known vector b</param>
+            <param name="Iterations">Gauss-Seidel iterations per step</param>
+            <param name="MaxIter">Maximum number of times Gauss-Seidel iterations</param>
+            <param name="totalError">Desired sqrt(Sum(error[i]^2))*number of equations</param>
+            <param name="err">Estimated absolute error per component</param>
+        </member>
+        <member name="M:OpenCLTemplate.CLCalc.CLPrograms.doubleLinearAlgebra.LeastSquaresGS(System.Double[0:,0:],System.Double[],System.Double[],System.Double[]@)">
+            <summary>Gauss Seidel method for iterative linear system solving. Returns unknown x</summary>
+            <param name="M">Matrix M so that Mx=b</param>
+            <param name="x">Initial estimate</param>
+            <param name="b">Known vector b</param>
+            <param name="err">Estimated error per equation</param>
+        </member>
+        <member name="M:OpenCLTemplate.CLCalc.CLPrograms.doubleLinearAlgebra.LinSolve(System.Double[0:,0:],System.Double[],System.Double,System.Int32)">
+            <summary>Solves linear system Mx = b by LU decomposition. Returns x</summary>
+            <param name="M">Matrix M</param>
+            <param name="b">Vector b</param>
+            <param name="maxAbsErr">Maximum acceptable absolute error</param>
+            <param name="maxIters">Maximum iterations</param>
+        </member>
+        <member name="M:OpenCLTemplate.CLCalc.CLPrograms.doubleLinearAlgebra.LUDecomp(System.Double[0:,0:],System.Int32,OpenCLTemplate.CLCalc.Program.Variable@)">
+            <summary>Calculates LU decomposition of M matrix</summary>
+            <param name="M">Matrix to decompose</param>
+            <param name="n">Matrix dimension</param>
+            <param name="varindx">Swap index</param>
+        </member>
+        <member name="F:OpenCLTemplate.CLCalc.CLPrograms.doubleLinearAlgebra.LinalgSource.GaussSeidel">
+            <summary>Gauss Seidel method. Make sure to send x = b. Replaces x.</summary>
+        </member>
+        <member name="F:OpenCLTemplate.CLCalc.CLPrograms.doubleLinearAlgebra.LinalgSource.matrixMult">
+            <summary>Matrix multiplication. Dimensions { p, r }.
+            </summary>
+        </member>
+        <member name="T:OpenCLTemplate.CLCalc.CLPrograms.floatODE46">
+            <summary>Float differential equation integrator</summary>
+        </member>
+        <member name="F:OpenCLTemplate.CLCalc.CLPrograms.floatODE46.KernelFinalizeCalc">
+            <summary>Writes final Y values and estimated absolute errors</summary>
+        </member>
+        <member name="F:OpenCLTemplate.CLCalc.CLPrograms.floatODE46.KernelUpdateX">
+            <summary>Updates X to current time</summary>
+        </member>
+        <member name="F:OpenCLTemplate.CLCalc.CLPrograms.floatODE46.Derivs">
+            <summary>Derivative calculator</summary>
+        </member>
+        <member name="M:OpenCLTemplate.CLCalc.CLPrograms.floatODE46.#ctor(System.Single,System.Single,System.Single[],OpenCLTemplate.CLCalc.CLPrograms.floatODE46.DerivCalcDeleg)">
+            <summary>Constructor.</summary>
+            <param name="InitialState">Initial state of system</param>
+            <param name="StepSize">Desired step per integration pass</param>
+            <param name="InitialIndepVarValue">Initial independent variable value</param>
+            <param name="DerivativeCalculator">Function to calculate derivatives vector</param>
+        </member>
+        <member name="M:OpenCLTemplate.CLCalc.CLPrograms.floatODE46.Integrate(System.Single)">
+            <summary>Integrates equation set to a final value using current stepsize. Ideally, final value 
+            and currentX should multiples of stepsize.</summary>
+            <param name="FinalValue">Final value to reach.</param>
+        </member>
+        <member name="M:OpenCLTemplate.CLCalc.CLPrograms.floatODE46.ResetState(System.Single,System.Single[])">
+            <summary>Sets current state</summary>
+            <param name="indepVar">New independent variable value</param>
+            <param name="State">New state values</param>
+        </member>
+        <member name="M:OpenCLTemplate.CLCalc.CLPrograms.floatODE46.Step(System.Single)">
+            <summary>Takes an integration step. Saves and returns stepsize back to what it was.</summary>
+            <param name="StepSize">Step size to use</param>
+        </member>
+        <member name="M:OpenCLTemplate.CLCalc.CLPrograms.floatODE46.Step">
+            <summary>Takes an integration step</summary>
+        </member>
+        <member name="M:OpenCLTemplate.CLCalc.CLPrograms.floatODE46.SetStep(System.Single)">
+            <summary>Sets step size.</summary>
+            <param name="StepSize">Step size to use</param>
+        </member>
+        <member name="P:OpenCLTemplate.CLCalc.CLPrograms.floatODE46.State">
+            <summary>Gets current values of space-state variables (from Device).</summary>
+        </member>
+        <member name="P:OpenCLTemplate.CLCalc.CLPrograms.floatODE46.AbsError">
+            <summary>Gets current absolute error sum</summary>
+        </member>
+        <member name="P:OpenCLTemplate.CLCalc.CLPrograms.floatODE46.IndepVar">
+            <summary>Gets current independent variable value (from Device).</summary>
+        </member>
+        <member name="T:OpenCLTemplate.CLCalc.CLPrograms.floatODE46.DerivCalcDeleg">
+            <summary>Function to calculate derivatives vector</summary>
+            <param name="x">IN: Scalar. Independent variable.</param>
+            <param name="y">IN: State-space vector.</param>
+            <param name="dydx">OUT: Derivatives</param>
+        </member>
+        <member name="T:OpenCLTemplate.CLCalc.CLPrograms.floatODE46.ODE46Source">
+            <summary>OpenCL source</summary>
+        </member>
+        <member name="T:OpenCLTemplate.CLCalc.CLPrograms.floatDEM">
+            <summary>Discrete element modeling. Calculates derivatives of n particle-spring model into a 6n space-state
+            system (positions, velocities, x,y,z each).</summary>
+        </member>
+        <member name="F:OpenCLTemplate.CLCalc.CLPrograms.floatDEM.m">
+            <summary>Mass values (n)</summary>
+        </member>
+        <member name="F:OpenCLTemplate.CLCalc.CLPrograms.floatDEM.posOrig">
+            <summary>Original positions (3n)</summary>
+        </member>
+        <member name="F:OpenCLTemplate.CLCalc.CLPrograms.floatDEM.origs">
+            <summary>Origins (L) origs[i] connects to dests[i]</summary>
+        </member>
+        <member name="F:OpenCLTemplate.CLCalc.CLPrograms.floatDEM.dests">
+            <summary>Destinations (L)</summary>
+        </member>
+        <member name="F:OpenCLTemplate.CLCalc.CLPrograms.floatDEM.k">
+            <summary>Spring constants (L)</summary>
+        </member>
+        <member name="F:OpenCLTemplate.CLCalc.CLPrograms.floatDEM.kGround">
+            <summary>Spring constants to ground (n)</summary>
+        </member>
+        <member name="F:OpenCLTemplate.CLCalc.CLPrograms.floatDEM.c">
+            <summary>Damping (L)</summary>
+        </member>
+        <member name="F:OpenCLTemplate.CLCalc.CLPrograms.floatDEM.cGround">
+            <summary>Damping to ground (n)</summary>
+        </member>
+        <member name="F:OpenCLTemplate.CLCalc.CLPrograms.floatDEM.nConnec">
+            <summary>Number of Connections (1)</summary>
+        </member>
+        <member name="F:OpenCLTemplate.CLCalc.CLPrograms.floatDEM.L0">
+            <summary>Initial distances (L)</summary>
+        </member>
+        <member name="F:OpenCLTemplate.CLCalc.CLPrograms.floatDEM.forces">
+            <summary>Actuating forces (3*n)</summary>
+        </member>
+        <member name="F:OpenCLTemplate.CLCalc.CLPrograms.floatDEM.connForces">
+            <summary>Connection forces (L)</summary>
+        </member>
+        <member name="F:OpenCLTemplate.CLCalc.CLPrograms.floatDEM.nodesConnections">
+            <summary>Nodes connections (int, 20*n)</summary>
+        </member>
+        <member name="F:OpenCLTemplate.CLCalc.CLPrograms.floatDEM.KernelcalcL0">
+            <summary>Initial lengths kernel. work_dim = 1, globalsize = n</summary>
+        </member>
+        <member name="F:OpenCLTemplate.CLCalc.CLPrograms.floatDEM.argscalcL0">
+            <summary>Initial length arguments</summary>
+        </member>
+        <member name="F:OpenCLTemplate.CLCalc.CLPrograms.floatDEM.KernelresetForces">
+            <summary>Reset forces kernel. work_dim = 1, globalsize = 3n</summary>
+        </member>
+        <member name="F:OpenCLTemplate.CLCalc.CLPrograms.floatDEM.argsresetForces">
+            <summary>Reset forces arguments</summary>
+        </member>
+        <member name="F:OpenCLTemplate.CLCalc.CLPrograms.floatDEM.KernelcalcForces">
+            <summary>Calculate forces kernel. work_dim = 1, globalsize = L</summary>
+        </member>
+        <member name="F:OpenCLTemplate.CLCalc.CLPrograms.floatDEM.argscalcForces">
+            <summary>Calculate forces arguments</summary>
+        </member>
+        <member name="F:OpenCLTemplate.CLCalc.CLPrograms.floatDEM.KernelcalcGroundForces">
+            <summary>Calculate forces kernel. work_dim = 1, globalsize = n</summary>
+        </member>
+        <member name="F:OpenCLTemplate.CLCalc.CLPrograms.floatDEM.argscalcGroundForces">
+            <summary>Calculate forces arguments</summary>
+        </member>
+        <member name="F:OpenCLTemplate.CLCalc.CLPrograms.floatDEM.Kernelderivs">
+            <summary>Calculate forces kernel. work_dim = 1, globalsize = L</summary>
+        </member>
+        <member name="F:OpenCLTemplate.CLCalc.CLPrograms.floatDEM.argsderivs">
+            <summary>Calculate forces arguments</summary>
+        </member>
+        <member name="F:OpenCLTemplate.CLCalc.CLPrograms.floatDEM.KernelcalcNodesConnections">
+            <summary>Calculate nodes connections. work_dim = 1, globalsize = n</summary>
+        </member>
+        <member name="F:OpenCLTemplate.CLCalc.CLPrograms.floatDEM.argscalcNodesConnections">
+            <summary>Calculate nodes connections arguments</summary>
+        </member>
+        <member name="M:OpenCLTemplate.CLCalc.CLPrograms.floatDEM.#ctor(System.Int32,System.Int32,System.Single[],System.Single[],System.Int32[],System.Int32[],System.Single[],System.Single[],System.Single[],System.Single[])">
+            <summary>Constructor.</summary>
+            <param name="nMasses">Number of masses in the system</param>
+            <param name="nConnections">Number of connections</param>
+            <param name="Masses">Mass of each vertex</param>
+            <param name="InitialStateSpace">Position and velocity of vertexes 
+            [2*3*i] - posx, [2*(3*i+1)] - posy, [2*(3*i+2)] - posz, 
+            [1+2*3*i] - velx, [1+2*(3*i+1)] - vely, [1+2*(3*i+2)] - velz</param>
+            <param name="Origins">Origin vertex of connections. Spring connects Origin[i] to Dests[i]</param>
+            <param name="Dests">Destination vertex of connections. Spring connects Origin[i] to Dests[i]</param>
+            <param name="SpringKs">Spring constant for each connection</param>
+            <param name="GroundKs">Spring constant for each mass, connecting to ground (nMass)</param>
+            <param name="Damp">Structural damping (relative-speed dependant) (nConnections)</param>
+            <param name="GroundDamp">Absolute damping proportional to speed relative to Earth (nMass)</param>
+        </member>
+        <member name="M:OpenCLTemplate.CLCalc.CLPrograms.floatDEM.derivs(OpenCLTemplate.CLCalc.Program.Variable,OpenCLTemplate.CLCalc.Program.Variable,OpenCLTemplate.CLCalc.Program.Variable)">
+            <summary>Calculates derivatives of deformable body space-state vector dydx[6n]. dydx[2i] - i-th position deriv, 
+            dydx[2i+1] - ith velocity deriv</summary>
+        </member>
+        <member name="F:OpenCLTemplate.CLCalc.CLPrograms.floatDEM.DEMSource.floatresetForces">
+            <summary>Reset forces. Work_dim = 1, nmax = { nMasses }</summary>
+        </member>
+        <member name="M:OpenCLTemplate.CLCalc.CLPrograms.floatDEM.DEMSource.derivs(System.Single[],System.Single[],System.Single[],System.Single[],System.Single[])">
+            <summary>Derivatives sketch. Work_dim = 1, nmax = { 3 * nMasses }</summary>
+            <param name="forces">Forces</param>
+            <param name="masses">Masses</param>
+            <param name="x">Independent variable</param>
+            <param name="y">State space vector</param>
+            <param name="dydx">Derivatives</param>
+        </member>
+        <member name="F:OpenCLTemplate.CLCalc.CLPrograms.floatDEM.DEMSource.floatcalcL0">
+            <summary>Initial L0 calculation. work_dim = 1, global_work_size[0]=nConnections</summary>
+        </member>
+        <member name="F:OpenCLTemplate.CLCalc.CLPrograms.floatDEM.DEMSource.floatcalcForces">
+            <summary>Forces calculation. Returns forces. Work_dim = 1, nmax = { nConnections }</summary>
+        </member>
+        <member name="F:OpenCLTemplate.CLCalc.CLPrograms.floatDEM.DEMSource.floatcalcGroundForces">
+            <summary>Calculates forces to ground. w_dim=1, global_work_size = nMasses</summary>
+        </member>
+        <member name="F:OpenCLTemplate.CLCalc.CLPrograms.floatDEM.DEMSource.floatcalcNodesConnections">
+            <summary>Calculates forces to ground. w_dim=1, global_work_size = nMasses</summary>
+        </member>
+        <member name="T:OpenCLTemplate.CLCalc.CLPrograms.VectorSum">
+            <summary>Vector sum - sums two vectors</summary>
+        </member>
+        <member name="F:OpenCLTemplate.CLCalc.CLPrograms.VectorSum.intVectorSum">
+            <summary>Integer vector sum. work_dim = 1</summary>
+        </member>
+        <member name="F:OpenCLTemplate.CLCalc.CLPrograms.VectorSum.floatVectorSum">
+            <summary>Float vector sum. work_dim=1</summary>
+        </member>
+        <member name="F:OpenCLTemplate.CLCalc.CLPrograms.VectorSum.longVectorSum">
+            <summary>Long vector sum. work_dim=1</summary>
+        </member>
+        <member name="F:OpenCLTemplate.CLCalc.CLPrograms.VectorSum.doubleVectorSum">
+            <summary>Double vector sum. work_dim=1</summary>
+        </member>
+        <member name="T:OpenCLTemplate.CLCalc.CLPrograms.MinDifs">
+            <summary>Minimum differences - makes matrix of shifted differences of vectors</summary>
+        </member>
+        <member name="F:OpenCLTemplate.CLCalc.CLPrograms.MinDifs.floatMinDifs">
+            <summary>Differences convolution. work_dim=2</summary>
+        </member>
+        <member name="T:OpenCLTemplate.CLCalc.CLPrograms.floatBodyPhysics">
+            <summary>Floating point particle system physics</summary>
+        </member>
+        <member name="F:OpenCLTemplate.CLCalc.CLPrograms.floatBodyPhysics.ConstAccelMotionEDOSolver">
+            <summary>Motion Newton-law 1D solver. Kernel: rk46</summary>
+        </member>
+        <member name="F:OpenCLTemplate.CLCalc.CLPrograms.floatBodyPhysics.ForceAppliers">
+            <summary>Force applier to particles. Kernels: ResetForces, ApplyGravity, FloorCollision</summary>
+        </member>
+        <member name="F:OpenCLTemplate.CLCalc.CLPrograms.floatBodyPhysics.CollisionAppliers">
+            <summary>Collision applier to particles. Kernels: ResetForces, ApplyGravity, FloorCollision</summary>
+        </member>
+        <member name="M:OpenCLTemplate.CLCalc.CLPrograms.floatBodyPhysics.#ctor(System.Int32)">
+            <summary>Initializes physics program. Components indexes: [i] - x, [i+1] - y, [i+2] - z</summary>
+            <param name="nParticles">Number of particles</param>
+        </member>
+        <member name="M:OpenCLTemplate.CLCalc.CLPrograms.floatBodyPhysics.SetParams(System.Single[],System.Single[],System.Single[],System.Single[])">
+            <summary>Sets particles parameters</summary>
+            <param name="pos">Positions (3*numParticles)</param>
+            <param name="vel">Speeds (3*numParticles)</param>
+            <param name="mass">Masses (numParticles)</param>
+            <param name="collisionSizes">Collision sizes (numParticles)</param>
+        </member>
+        <member name="M:OpenCLTemplate.CLCalc.CLPrograms.floatBodyPhysics.GetPositions">
+            <summary>Gets particles positions</summary>
+        </member>
+        <member name="M:OpenCLTemplate.CLCalc.CLPrograms.floatBodyPhysics.GetCloseNeighbors">
+            <summary>Gets how many close neighbors a particle has. Use this to avoid drawing unnecessary particles</summary>
+        </member>
+        <member name="M:OpenCLTemplate.CLCalc.CLPrograms.floatBodyPhysics.GetTime">
+            <summary>Gets simulation time</summary>
+        </member>
+        <member name="F:OpenCLTemplate.CLCalc.CLPrograms.floatBodyPhysics.step">
+            <summary>Stepsize</summary>
+        </member>
+        <member name="F:OpenCLTemplate.CLCalc.CLPrograms.floatBodyPhysics.MotionStep">
+            <summary>Executes an integration step</summary>
+        </member>
+        <member name="F:OpenCLTemplate.CLCalc.CLPrograms.floatBodyPhysics.stepArgs">
+            <summary>Motion step arguments</summary>
+        </member>
+        <member name="M:OpenCLTemplate.CLCalc.CLPrograms.floatBodyPhysics.Step(System.Single)">
+            <summary>Takes an integration step</summary>
+            <param name="stepSize">Step size</param>
+        </member>
+        <member name="F:OpenCLTemplate.CLCalc.CLPrograms.floatBodyPhysics.Kernel_ApplyGravity">
+            <summary>Applies gravity</summary>
+        </member>
+        <member name="F:OpenCLTemplate.CLCalc.CLPrograms.floatBodyPhysics.applyGravArgs">
+            <summary>Apply gravity arguments</summary>
+        </member>
+        <member name="M:OpenCLTemplate.CLCalc.CLPrograms.floatBodyPhysics.ApplyGravity(System.Single[])">
+            <summary>Applies gravity force.</summary>
+            <param name="value">Gravity force. Remember to use negative for down direction.</param>
+        </member>
+        <member name="F:OpenCLTemplate.CLCalc.CLPrograms.floatBodyPhysics.Kernel_ResetForces">
+            <summary>Clear forces</summary>
+        </member>
+        <member name="F:OpenCLTemplate.CLCalc.CLPrograms.floatBodyPhysics.resetForcesArgs">
+            <summary>Apply gravity arguments</summary>
+        </member>
+        <member name="M:OpenCLTemplate.CLCalc.CLPrograms.floatBodyPhysics.ResetForces">
+            <summary>Clears forces</summary>
+        </member>
+        <member name="F:OpenCLTemplate.CLCalc.CLPrograms.floatBodyPhysics.Kernel_FloorCollision">
+            <summary>Floor collision</summary>
+        </member>
+        <member name="F:OpenCLTemplate.CLCalc.CLPrograms.floatBodyPhysics.floorCollisionArgs">
+            <summary>Apply floor collision arguments</summary>
+        </member>
+        <member name="F:OpenCLTemplate.CLCalc.CLPrograms.floatBodyPhysics.EnableFloorCollision">
+            <summary>Applies floor collision?</summary>
+        </member>
+        <member name="F:OpenCLTemplate.CLCalc.CLPrograms.floatBodyPhysics.Kernel_WallCollision">
+            <summary>Wall collision</summary>
+        </member>
+        <member name="F:OpenCLTemplate.CLCalc.CLPrograms.floatBodyPhysics.wallCollisionArgs">
+            <summary>Apply floor collision arguments</summary>
+        </member>
+        <member name="F:OpenCLTemplate.CLCalc.CLPrograms.floatBodyPhysics.EnableWallCollision">
+            <summary>Applies floor collision?</summary>
+        </member>
+        <member name="F:OpenCLTemplate.CLCalc.CLPrograms.floatBodyPhysics.Kernel_SelfCollision">
+            <summary>Self collision</summary>
+        </member>
+        <member name="F:OpenCLTemplate.CLCalc.CLPrograms.floatBodyPhysics.selfCollisionArgs">
+            <summary>Apply self collision arguments</summary>
+        </member>
+        <member name="F:OpenCLTemplate.CLCalc.CLPrograms.floatBodyPhysics.EnableSelfCollision">
+            <summary>Applies self collision?</summary>
+        </member>
+        <member name="F:OpenCLTemplate.CLCalc.CLPrograms.floatBodyPhysics.Kernel_ResetCloseNeighbors">
+            <summary>Reset close neighbors</summary>
+        </member>
+        <member name="F:OpenCLTemplate.CLCalc.CLPrograms.floatBodyPhysics.resetCloseNeighborsArgs">
+            <summary>Apply self collision arguments</summary>
+        </member>
+        <member name="T:OpenCLTemplate.frmCLEdit">
+            <summary>OpenCL Helper Editor</summary>
+        </member>
+        <member name="F:OpenCLTemplate.frmCLEdit.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:OpenCLTemplate.frmCLEdit.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:OpenCLTemplate.frmCLEdit.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="M:OpenCLTemplate.frmCLEdit.#ctor">
+            <summary>Constructor.</summary>
+        </member>
+        <member name="M:OpenCLTemplate.frmCLEdit.btnCompileTest_Click(System.Object,System.EventArgs)">
+            <summary>Button to test code</summary>
+        </member>
+        <member name="T:Utility.ModifyRegistry.ModifyRegistry">
+            <summary>
+            An useful class to read/write/delete/count registry keys
+            </summary>
+        </member>
+        <member name="M:Utility.ModifyRegistry.ModifyRegistry.Read(System.String)">
+            <summary>
+            To read a registry key.
+            input: KeyName (string)
+            output: value (string) 
+            </summary>
+        </member>
+        <member name="M:Utility.ModifyRegistry.ModifyRegistry.Write(System.String,System.Object)">
+            <summary>
+            To write into a registry key.
+            input: KeyName (string) , Value (object)
+            output: true or false 
+            </summary>
+        </member>
+        <member name="M:Utility.ModifyRegistry.ModifyRegistry.DeleteKey(System.String)">
+            <summary>
+            To delete a registry key.
+            input: KeyName (string)
+            output: true or false 
+            </summary>
+        </member>
+        <member name="M:Utility.ModifyRegistry.ModifyRegistry.DeleteSubKeyTree">
+            <summary>
+            To delete a sub key and any child.
+            input: void
+            output: true or false 
+            </summary>
+        </member>
+        <member name="M:Utility.ModifyRegistry.ModifyRegistry.SubKeyCount">
+            <summary>
+            Retrive the count of subkeys at the current key.
+            input: void
+            output: number of subkeys
+            </summary>
+        </member>
+        <member name="M:Utility.ModifyRegistry.ModifyRegistry.ValueCount">
+            <summary>
+            Retrive the count of values in the key.
+            input: void
+            output: number of keys
+            </summary>
+        </member>
+        <member name="P:Utility.ModifyRegistry.ModifyRegistry.ShowError">
+            <summary>
+            A property to show or hide error messages 
+            (default = false)
+            </summary>
+        </member>
+        <member name="P:Utility.ModifyRegistry.ModifyRegistry.SubKey">
+            <summary>
+            A property to set the SubKey value
+            (default = "SOFTWARE\\" + Application.ProductName.ToUpper())
+            </summary>
+        </member>
+        <member name="P:Utility.ModifyRegistry.ModifyRegistry.BaseRegistryKey">
+            <summary>
+            A property to set the BaseRegistryKey value.
+            (default = Registry.LocalMachine)
+            </summary>
+        </member>
+        <member name="M:OpenCLTemplate.Program.Main">
+            <summary>
+            The main entry point for the application.
+            </summary>
+        </member>
+        <member name="T:LinearAlgebra.Matrix">
+            <summary>Creates a Matrix of real numbers.</summary>
+        </member>
+        <member name="F:LinearAlgebra.Matrix.Items">
+            <summary>Matrix items</summary>
+        </member>
+        <member name="F:LinearAlgebra.Matrix.LINALGMAXERROR">
+            <summary> Linear Solve parameter. Maximum mean error allowable to linear solve method.</summary>
+        </member>
+        <member name="F:LinearAlgebra.Matrix.LIMITITERS">
+            <summary> Linear Solve parameter. Limit linear solution correction iterations.</summary>
+        </member>
+        <member name="F:LinearAlgebra.Matrix.IGNOREHARDSINGULARITY">
+            <summary> Linear Solve parameter. Should the solution method halt if a hard singulariry is found in matrix?</summary>
+        </member>
+        <member name="F:LinearAlgebra.Matrix.IGNORENULLDETERMINANT">
+            <summary> Linear Solve parameter. Should the method ignore if the matrix has a close-to-zero determinant and keep solving?</summary>
+        </member>
+        <member name="M:LinearAlgebra.Matrix.#ctor">
+            <summary> Constructor. Initializes a [0,0] matrix.</summary>
+        </member>
+        <member name="M:LinearAlgebra.Matrix.#ctor(System.Double[0:,0:])">
+            <summary> Constructor. Creates matrix from existing items.</summary>
+            <param name="MatrixItems">Matrix items to create matrix from.</param>
+        </member>
+        <member name="M:LinearAlgebra.Matrix.#ctor(LinearAlgebra.Matrix)">
+            <summary> Copy constructor.</summary>
+            <param name="m">Matrix to copy from.</param>
+        </member>
+        <member name="M:LinearAlgebra.Matrix.#ctor(System.Int32,System.Int32)">
+            <summary> Constructor. Creates empty matrix with specified dimensions.</summary>
+            <param name="numRows">Number of rows in matrix.</param>
+            <param name="numCols">Number of columns in matrix.</param>
+        </member>
+        <member name="M:LinearAlgebra.Matrix.op_Addition(LinearAlgebra.Matrix,LinearAlgebra.Matrix)">
+            <summary> Sums two matrixes.</summary>
+            <param name="m1">First matrix to sum.</param>
+            <param name="m2">Second matrix to sum.</param>
+        </member>
+        <member name="M:LinearAlgebra.Matrix.op_Subtraction(LinearAlgebra.Matrix,LinearAlgebra.Matrix)">
+            <summary> Subtracts two matrixes.</summary>
+            <param name="m1">Matrix to subtract from.</param>
+            <param name="m2">Matrix to be subtracted.</param>
+        </member>
+        <member name="M:LinearAlgebra.Matrix.op_Multiply(LinearAlgebra.Matrix,LinearAlgebra.Matrix)">
+            <summary> Matrix multiplication. Notice that m1 rows should be the same as m2 lines for compatibility.</summary>
+            <param name="m1">First matrix to multiply.</param>
+            <param name="m2">Second matrix to multiply.</param>
+        </member>
+        <member name="M:LinearAlgebra.Matrix.op_Multiply(System.Double,LinearAlgebra.Matrix)">
+            <summary> Matrix scalar multiplication.</summary>
+            <param name="m">Matrix to multiply.</param>
+            <param name="num">Scalar to multiply.</param>
+        </member>
+        <member name="M:LinearAlgebra.Matrix.op_Multiply(LinearAlgebra.Matrix,System.Double)">
+            <summary> Matrix scalar multiplication.</summary>
+            <param name="m">Matrix to multiply.</param>
+            <param name="num">Scalar to multiply.</param>
+        </member>
+        <member name="M:LinearAlgebra.Matrix.op_Multiply(LinearAlgebra.Matrix,System.Double[])">
+            <summary> Matrix post-vector multiplication. Notice that a vector is a [1,Cols] matrix which means
+            vector length should be equal matrix number of columns.</summary>
+            <param name="m">Matrix to multiply.</param>
+            <param name="vet">vector to multiply.</param>
+        </member>
+        <member name="M:LinearAlgebra.Matrix.op_Multiply(System.Double[],LinearAlgebra.Matrix)">
+            <summary> Matrix pre-vector multiplication. Notice that a vector is a [1,Cols] matrix which means
+            vector length should be equal matrix number of lines.</summary>
+            <param name="m">Matrix to multiply.</param>
+            <param name="vet">vector to multiply.</param>
+        </member>
+        <member name="M:LinearAlgebra.Matrix.op_Division(LinearAlgebra.Matrix,System.Double)">
+            <summary> Matrix scalar division.</summary>
+            <param name="m">Matrix to multiply.</param>
+            <param name="num">Scalar to divide each element of matrix.</param>
+        </member>
+        <member name="M:LinearAlgebra.Matrix.Equals(LinearAlgebra.Matrix)">
+            <summary>Compares matrixes and returns true if they are identical.</summary>
+            <param name="Matrix">Matrix to compare to.</param>
+        </member>
+        <member name="M:LinearAlgebra.Matrix.Transpose">
+            <summary>Returns matrix transpose.</summary>
+        </member>
+        <member name="M:LinearAlgebra.Matrix.MultiplyElementWise(LinearAlgebra.Matrix)">
+            <summary>Element-wise product. This is not regular matrix product. It multiplies elements 
+            at corresponding positions.</summary>
+            <param name="Matrix">Matrix to multiply element-wise.</param>
+        </member>
+        <member name="M:LinearAlgebra.Matrix.NormEuclidean">
+            <summary>Returns Euclidean norm of the matrix.</summary>
+        </member>
+        <member name="M:LinearAlgebra.Matrix.Dot(LinearAlgebra.Matrix)">
+            <summary>Dot product of two matrixes.</summary>
+            <param name="Matrix">Matrix to dot product with/</param>
+        </member>
+        <member name="M:LinearAlgebra.Matrix.InvertElements">
+            <summary>Element-wise inversion. Returns the matrix with each element (x) inverted (1/x).</summary>
+        </member>
+        <member name="M:LinearAlgebra.Matrix.LUDecomp">
+            <summary>Creates internal LU factorization of this matrix.</summary>
+        </member>
+        <member name="M:LinearAlgebra.Matrix.LinearSolve(System.Double[])">
+            <summary>Returns the solution x to the linear system Ax=b, A being this matrix.</summary>
+            <param name="b">Right-hand side known values.</param>
+        </member>
+        <member name="M:LinearAlgebra.Matrix.Determinant">
+            <summary>Returns the determinant of this matrix.</summary>
+        </member>
+        <member name="M:LinearAlgebra.Matrix.Inversa">
+            <summary>Returns the inverse of this matrix.</summary>
+        </member>
+        <member name="M:LinearAlgebra.Matrix.IdentifyParameters(System.Double[])">
+            <summary>Returns the solution x to the linear system A'Ax=A'b, A being this matrix.</summary>
+            <param name="Y">Right-hand side known values.</param>
+        </member>
+        <member name="M:LinearAlgebra.Matrix.IdentifyParametersWeighted(System.Double[],LinearAlgebra.Matrix)">
+            <summary>Returns the weighted solution x to the linear system A'WAx=A'Wb, 
+            A being this matrix. TO DO: Correct quality check</summary>
+            <param name="Y">Right-hand side known values.</param>
+            <param name="W">Weight matrix.</param>
+        </member>
+        <member name="M:LinearAlgebra.Matrix.IdentifyParametersWeighted(System.Double[],System.Double[])">
+            <summary>Returns the weighted solution x to the linear system A'DAx=A'Db, 
+            A being this matrix. D is a diagonal weight matrix.</summary>
+            <param name="Y">Right-hand side known values.</param>
+            <param name="w">Main diagonal elements of diagonal weight matrix D.</param>
+        </member>
+        <member name="M:LinearAlgebra.Matrix.CheckQuality(System.Double[],System.Double[])">
+            <summary>Calculates R², corrected R² and Quadratic Error for the trySolution x to the linear system A'Ax=A'b, 
+            A being this matrix.</summary>
+            <param name="Y">Right-hand side known values.</param>
+            <param name="trySolution">Solution to use to evaluate quality indexers.</param>
+        </member>
+        <member name="M:LinearAlgebra.Matrix.GramSchmidt">
+            <summary>Applies the Gram-Schmidt orthonormalization method to this matrix, replacing 
+            it by the orthonormalized matrix.</summary>
+        </member>
+        <member name="M:LinearAlgebra.Matrix.GramSchmidt(System.Double[]@)">
+            <summary>Applies the Gram-Schmidt orthonormalization method to this matrix, replacing 
+            it by the orthonormalized matrix and also correcting right-hand Y values for a linear system solve.</summary>
+            <param name="y">Right-hand side known values.</param>
+        </member>
+        <member name="M:LinearAlgebra.Matrix.GramSchmidt(System.Int32[],System.Int32,System.Double[]@)">
+            <summary>Applies the Gram-Schmidt orthonormalization method to this matrix using 
+            a pre-set order of normalization. Replaces current matrix
+            by the orthonormalized matrix and also correcting 
+            right-hand Y values for a linear system solve.</summary>
+            <param name="y">Right-hand side known values.</param>
+            <param name="lineOrder">Line order to apply the orthonormalization method.</param>
+            <param name="indStart">Starts orthonormalization from line lineOrder[indStart]. Assumes previous lines are already
+            normalized.</param>
+        </member>
+        <member name="M:LinearAlgebra.Matrix.ToString">
+            <summary>Returns a string representing this matrix.</summary>
+        </member>
+        <member name="P:LinearAlgebra.Matrix.Item(System.Int32,System.Int32)">
+            <summary> Accesses items in current matrix.</summary>
+            <param name="i">Row of element to access.</param>
+            <param name="j">Column of element to access.</param>
+        </member>
+        <member name="P:LinearAlgebra.Matrix.rowCount">
+            <summary> Gets the number of rows in this matrix.</summary>
+        </member>
+        <member name="P:LinearAlgebra.Matrix.colCount">
+            <summary> Gets the number of columns in this matrix.</summary>
+        </member>
+        <member name="P:LinearAlgebra.Matrix.RSquareIndex">
+            <summary>Returns the R² index of last fit.</summary>
+        </member>
+        <member name="P:LinearAlgebra.Matrix.RSquareCorrectedIndex">
+            <summary>Returns corrected R² index of last fit.</summary>
+        </member>
+        <member name="P:LinearAlgebra.Matrix.QuadraticError">
+            <summary>Returns the sum of quadratic errors of last fit.</summary>
+        </member>
+    </members>
+</doc>

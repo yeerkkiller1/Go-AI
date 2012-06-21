@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  JNLP File for CGoban 3
+
+  $URL: svn+ssh://svn.igoweb.org/svn/kgs/trunk/launchers/javaws/cgoban-nfa.jnlp $
+  $Revision: 10178 $
+  $Date: 2010-04-04 00:44:25 -0700 (Sun, 04 Apr 2010) $
+
+  This is different from the "standard" cgoban 3 launcher only in that it has
+  the code to request file association commented out.
+-->
+
+<jnlp codebase="http://files.gokgs.com" href="javaBin/cgoban-nfa.jnlp">
+  <information>
+    <title>CGoban 3-NFA</title>
+    <vendor>KGS Online</vendor>
+    <homepage href="http://www.gokgs.com/"/>
+    <description>CGoban 3 (No File Assocation)</description>
+    <description kind="short">CGoban 3 can connect to the KGS go server and can view and edit SGF (go game record) files. This "No File Association" release skips the "Do you want to associate SGF files with this application?" question that Java Web Start likes to ask.</description>
+    <icon href="images/cgobanIcon.jpg"/>
+    <offline-allowed/>
+    <shortcut online="true">
+      <desktop/>
+      <menu submenu="KGS Online-NFA"/>
+    </shortcut>
+  </information>
+  <security>
+    <all-permissions/>
+  </security>
+  <resources>
+    <j2se version="1.6 1.5 1.4+" max-heap-size="150m"/>
+    <jar href="javaBin/cgoban-nfa.jar" main="true"/>
+    <!-- Needed for Apple system 10.4.11 or older. -->
+    <property name="apple.awt.textantialiasing" value="on"/>
+  </resources>
+  <application-desc/>
+</jnlp>
