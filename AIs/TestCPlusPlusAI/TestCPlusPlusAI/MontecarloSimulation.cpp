@@ -10,32 +10,9 @@
 
 #include "q.h"
 
+#include "Prune.h"
+
 using namespace std;
-
-vector<Piece> pieces;
-void DestructiveNonThreadSafeMakeLibertyGroup(Board& board, Piece curPiece)
-{  
-  pieces.push_back(curPiece);
-
-  vector<Piece> splitPieces;
-
-  vector<Piece> surrounding = SurroundingSquares<Piece>(&Board::GetPieceVoid, 
-    curPiece.location, &board);
-  for_each(begin(surrounding), end(surrounding), [&curPiece, &splitPieces] (Piece& piece) {
-    if(curPiece.curPiece == piece.curPiece)
-      splitPieces.push_back(piece);      
-  });
-
-  curPiece.curPiece = Marked;
-  board.SetPiece(curPiece.location, curPiece); //Marks it, so we don't go to it again
-
-  //split
-  for_each(begin(splitPieces), end(splitPieces), [&board] (Piece& piece) {
-    if(board.GetPiece(piece.location).curPiece != Marked) //Double check, incase it has changed
-      DestructiveNonThreadSafeMakeLibertyGroup(board, piece);
-  });
-}
-
 
 
 SimulationResults::SimulationResults(Board board)
@@ -53,15 +30,13 @@ SimulationResults::SimulationResults(Board board)
   {      
     for(int y = 0; y < BOARD_SIZE; y++)      
     {
-      Piece mark(Marked);
-        
       Location cur(x, y);        
-      if(board.GetPiece(cur).curPiece == Empty)
+      if(board.GetPiece(cur)->pieceTypeCur == Empty)
       {          
         int marked = 1;
-        //Pieces originalType = board.GetPiece(cur).curPiece;
+        //Pieces originalType = board.GetPiece(cur).pieceTypeCur;
           
-        board.SetPiece(cur, mark);            
+        board.GetPiece(cur)->pieceTypeCur = Marked;
 
         //Spiral outwards until you hit a fill square, we are assuming that 
         //all enclosed areas are surrounded by one kind... and so that square is the owner
@@ -89,21 +64,21 @@ SimulationResults::SimulationResults(Board board)
 
             curTurn = (curTurn + 1) % 4;
           }
-          else if (board.GetPiece(cur).curPiece == Black)
+          else if (board.GetPiece(cur)->pieceTypeCur == Black)
           {
             scoreInFavourOfBlack += marked;
             break;
           }
-          else if (board.GetPiece(cur).curPiece == White)
+          else if (board.GetPiece(cur)->pieceTypeCur == White)
           {
             scoreInFavourOfBlack -= marked;
             break;
           }
           else //Empty or Marked 
           {              
-            if(board.GetPiece(cur).curPiece == Empty) 
+            if(board.GetPiece(cur)->pieceTypeCur == Empty) 
             {
-              board.SetPiece(cur, mark);
+              board.GetPiece(cur)->pieceTypeCur = Marked;
               marked++;
             }
             else //Marked
@@ -114,7 +89,7 @@ SimulationResults::SimulationResults(Board board)
 
           corner = Location(cur.x + velX[(curTurn + 1) % 4], cur.y + velY[(curTurn + 1) % 4]);
           if(corner.IsOnBoard() &&
-            (board.GetPiece(corner).curPiece == Empty))
+            (board.GetPiece(corner)->pieceTypeCur == Empty))
             //Turn
           {
             curTurn = (curTurn + 1) % 4;
@@ -150,8 +125,6 @@ SimulationResults MonteCarloSimulate(Board board, int seed)
 
   while(true)
   {
-    Piece curPiece(board.curTurn);
-
     int xPos = genrand_int32() % 9;
     int yPos = genrand_int32() % 9;
     //Find a position which we can place to, or pass
@@ -161,8 +134,8 @@ SimulationResults MonteCarloSimulate(Board board, int seed)
 
 
 
-    while(board.GetPiece(Location(xPos, yPos)).curPiece != Empty ||
-          !SimplePrune(board, curPiece, Location(xPos, yPos)))
+    while(board.GetPiece(Location(xPos, yPos))->pieceTypeCur != Empty ||
+          !SimplePrune(board, board.curTurn, Location(xPos, yPos)))
     {
       xPos = genrand_int32() % 9;
       yPos = genrand_int32() % 9;
@@ -190,8 +163,10 @@ SimulationResults MonteCarloSimulate(Board board, int seed)
 
     //We get to play it!
     Board boardBefore = board;
-    board.PlayPiece(curPiece, Location(xPos, yPos));
-    
+    board.PlayPiece(board.curTurn, Location(xPos, yPos));
+    //Things have been changed so this code will not work anyway
+#if 0
+
     #ifdef DEBUG_LEVEL_3
     Board temp2 = board;
     temp2.SetPiece(Location(xPos, yPos), Piece(Marked));    
@@ -220,7 +195,7 @@ SimulationResults MonteCarloSimulate(Board board, int seed)
             vector<Piece> surrounding = SurroundingSquares<Piece>(&Board::GetPieceVoid, 
               piece.location, &board);
             for_each(begin(surrounding), end(surrounding), [&emptyPieces](Piece piece) {
-              if(piece.curPiece == Empty)
+              if(piece.pieceTypeCur == Empty)
               {
                 bool alreadyFound = false;
                 for_each(begin(emptyPieces), end(emptyPieces), [&piece, &alreadyFound](Piece prevPiece){
@@ -236,7 +211,7 @@ SimulationResults MonteCarloSimulate(Board board, int seed)
 
           if(pieces.size() != group.size())             
           {
-            boardBefore.PlayPiece(curPiece, Location(xPos, yPos));
+            boardBefore.PlayPiece(pieceTypeCur, Location(xPos, yPos));
 
             pieces.clear();
             DestructiveNonThreadSafeMakeLibertyGroup(boardBefore, piece); 
@@ -248,13 +223,14 @@ SimulationResults MonteCarloSimulate(Board board, int seed)
           /*
           if(emptyPieces.size() != group.liberties)             
           {
-            boardBefore.PlayPiece(curPiece, Location(xPos, yPos));
+            boardBefore.PlayPiece(pieceTypeCur, Location(xPos, yPos));
             throw exception("invalid liberty group");
           }
           */
         }
       }
     }
+#endif
 #endif
     
     //Double check all liberties are correct and that groups were properly made!
@@ -263,49 +239,3 @@ SimulationResults MonteCarloSimulate(Board board, int seed)
   return SimulationResults(board);
 }
 
-//False means don't place
-//Board is copied, and so we change it...
-//in the future when we want to not copy it... the algorithm will need to be more complicated
-//to remove the need for changing it (complicated stuff needs to be done to see if we can place
-bool SimplePrune(Board board, Piece piece, Location location)
-{  
-  Piece square = board.GetPiece(location);
-
-  //Prevent placing where you previously got taken
-  if(square.hadBlack || square.hadWhite)
-    return false;
-
-  //Prevent placing in immediate suicide  
-  //Scope and make a temp copy, and then place and see if it is suicide! (bad... but for not it works)
-  {
-    //Eventually screen lots of these calls out... as usually they are actually not needed
-
-    Board copy = board;
-    copy.PlayPiece(piece, location);
-    if(copy.GetLibertyGroup(location).liberties == 0)
-    {
-      //Then its suicide, and we don't place there!
-      return false;
-    }
-  }
-  
-  //Prevent placing when you have TOO many friendly and no threats
-  int friendly = 0;
-  int enemy = 0;
-
-  vector<Piece> surrSqrs = SurroundingSquares<Piece>(&Board::GetPieceVoid, location, &board);            
-  for_each(begin(surrSqrs), end(surrSqrs), [&piece, &friendly, &enemy] (Piece& surSqr) {       
-    if(surSqr.curPiece == piece.curPiece)    
-      friendly++;    
-    else    
-      enemy++;    
-  });
-
-
-  friendly += 4 - surrSqrs.size(); //Off the board is good too
-
-  if(enemy == 0 && friendly >= 3)
-    return false;
-
-  return true;
-}

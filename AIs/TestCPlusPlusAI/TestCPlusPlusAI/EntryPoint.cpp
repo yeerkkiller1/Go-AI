@@ -41,7 +41,7 @@ int main ()
     try
     {
       Piece piece;
-      piece.curPiece = black ? Black : White;    
+      piece.pieceTypeCur = black ? Black : White;    
       black = !black;
 
       board.PlayPiece(piece, Location(x, y));
@@ -68,14 +68,14 @@ int main ()
   {
   Board board;
 
-  board.PlayPiece(Piece(Black), Location(4, 4));
-  board.PlayPiece(Piece(Black), Location(4, 5));
-  board.PlayPiece(Piece(Black), Location(4, 6));
-  board.PlayPiece(Piece(Black), Location(5, 4));
-  board.PlayPiece(Piece(Black), Location(5, 6));
-  board.PlayPiece(Piece(Black), Location(6, 4));
-  board.PlayPiece(Piece(White), Location(6, 5));
-  board.PlayPiece(Piece(White), Location(6, 6));
+  board.PlayPiece(Black, Location(4, 4));
+  board.PlayPiece(Black, Location(4, 5));
+  board.PlayPiece(Black, Location(4, 6));
+  board.PlayPiece(Black, Location(5, 4));
+  board.PlayPiece(Black, Location(5, 6));
+  board.PlayPiece(Black, Location(6, 4));
+  board.PlayPiece(White, Location(6, 5));
+  board.PlayPiece(White, Location(6, 6));
 
   cout << board.ToString().c_str() << endl;
   cout << board.MetaToString().c_str() << endl;

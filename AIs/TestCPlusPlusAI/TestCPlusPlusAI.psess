@@ -42,37 +42,6 @@
       <Instrument>true</Instrument>
       <Sample>true</Sample>
       <ExternalWebsite>false</ExternalWebsite>
-      <InteractionProfilingEnabled>false</InteractionProfilingEnabled>
-      <IsLocalJavascript>false</IsLocalJavascript>
-      <IsMetro>false</IsMetro>
-      <IsWWA>false</IsWWA>
-      <LaunchProject>true</LaunchProject>
-      <OverrideProjectSettings>false</OverrideProjectSettings>
-      <LaunchMethod>Executable</LaunchMethod>
-      <ExecutablePath>Debug\TestCPlusPlusAI.exe</ExecutablePath>
-      <StartupDirectory>TestCPlusPlusAI\</StartupDirectory>
-      <Arguments>
-      </Arguments>
-      <NetAppHost>IIS</NetAppHost>
-      <NetBrowser>InternetExplorer</NetBrowser>
-      <ExcludeSmallFuncs>true</ExcludeSmallFuncs>
-      <JScriptProfilingEnabled>false</JScriptProfilingEnabled>
-      <PreinstrumentEvent>
-        <InstrEventExclude>false</InstrEventExclude>
-      </PreinstrumentEvent>
-      <PostinstrumentEvent>
-        <InstrEventExclude>false</InstrEventExclude>
-      </PostinstrumentEvent>
-      <ProjRef>{0B03FDA8-A50F-94B5-E574-E6A1C4CCC3F7}|TestCPlusPlusAI\TestCPlusPlusAI.vcxproj</ProjRef>
-      <ProjPath>TestCPlusPlusAI\TestCPlusPlusAI.vcxproj</ProjPath>
-      <ProjName>TestCPlusPlusAI</ProjName>
-    </ProjBinary>
-    <ProjBinary>
-      <Path>Debug\TestCPlusPlusAI.exe</Path>
-      <ArgumentTimestamp>01/01/0001 00:00:00</ArgumentTimestamp>
-      <Instrument>true</Instrument>
-      <Sample>true</Sample>
-      <ExternalWebsite>false</ExternalWebsite>
       <InteractionProfilingEnabled>true</InteractionProfilingEnabled>
       <IsLocalJavascript>false</IsLocalJavascript>
       <IsMetro>false</IsMetro>
@@ -108,9 +77,6 @@
     </Report>
     <Report>
       <Path>TestCPlusPlusAI120615.vsp</Path>
-    </Report>
-    <Report>
-      <Path>TestCPlusPlusAI120620.vsp</Path>
     </Report>
   </Reports>
   <Launches>

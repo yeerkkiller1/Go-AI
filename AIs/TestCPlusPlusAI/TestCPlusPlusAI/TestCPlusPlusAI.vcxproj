@@ -68,18 +68,28 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Board.cpp" />
     <ClCompile Include="EntryPoint.cpp" />
+    <ClCompile Include="libertyGroup.cpp" />
+    <ClCompile Include="Location.cpp" />
     <ClCompile Include="Metadata.cpp" />
     <ClCompile Include="MontecarloSimulation.cpp" />
+    <ClCompile Include="Piece.cpp" />
     <ClCompile Include="Prune.cpp" />
+    <ClCompile Include="TestFunctions.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Board.h" />
     <ClInclude Include="Constants.h" />
     <ClInclude Include="FastRandom.h" />
+    <ClInclude Include="libertyGroup.h" />
+    <ClInclude Include="Location.h" />
     <ClInclude Include="Metadata.h" />
     <ClInclude Include="MontecarloSimulation.h" />
+    <ClInclude Include="Piece.h" />
     <ClInclude Include="Prune.h" />
     <ClInclude Include="q.h" />
+    <ClInclude Include="TestFunctions.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
