@@ -1,0 +1,167 @@
+# Project: pachi
+# Makefile created by Dev-C++ 5.1.0.0
+
+CPP      = g++.exe
+CC       = gcc.exe
+WINDRES  = windres.exe
+OBJ      = fbook.o gtp.o move.o network.o ownermap.o pachi.o pattern3.o playout.o probdist.o random.o stone.o timeinfo.o board.o distributed/distributed.o distributed/merge.o distributed/protocol.o joseki/base.o joseki/joseki.o montecarlo/montecarlo.o playout/light.o playout/moggy.o random/random.o replay/replay.o tactics/1lib.o tactics/2lib.o tactics/ladder.o tactics/nakade.o tactics/nlib.o tactics/selfatari.o tactics/util.o t-unit/test.o uct/dynkomi.o uct/plugins.o uct/prior.o uct/search.o uct/slave.o uct/tree.o uct/uct.o uct/walk.o uct/policy/generic.o uct/policy/ucb1.o uct/policy/ucb1amaf.o pattern.o patternplay/patternplay.o patternscan/patternscan.o patternsp.o patternprob.o $(RES)
+LINKOBJ  = fbook.o gtp.o move.o network.o ownermap.o pachi.o pattern3.o playout.o probdist.o random.o stone.o timeinfo.o board.o distributed/distributed.o distributed/merge.o distributed/protocol.o joseki/base.o joseki/joseki.o montecarlo/montecarlo.o playout/light.o playout/moggy.o random/random.o replay/replay.o tactics/1lib.o tactics/2lib.o tactics/ladder.o tactics/nakade.o tactics/nlib.o tactics/selfatari.o tactics/util.o t-unit/test.o uct/dynkomi.o uct/plugins.o uct/prior.o uct/search.o uct/slave.o uct/tree.o uct/uct.o uct/walk.o uct/policy/generic.o uct/policy/ucb1.o uct/policy/ucb1amaf.o pattern.o patternplay/patternplay.o patternscan/patternscan.o patternsp.o patternprob.o $(RES)
+LIBS     = -L"K:/Dev-Cpp/MinGW32/lib" -static-libstdc++ -static-libgcc -lpthread -lws2_32  -Ofast -std=gnu99 
+INCS     = -I"K:/Dev-Cpp/MinGW32/include"  -I"." 
+CXXINCS  = -I"K:/Dev-Cpp/MinGW32/include"  -I"." 
+BIN      = pachi.exe
+CXXFLAGS = $(CXXINCS)   -Ofast -std=gnu99
+CFLAGS   = $(INCS)    -Ofast -std=gnu99
+RM       = rm -f
+
+.PHONY: all all-before all-after clean clean-custom
+
+all: all-before pachi.exe all-after
+
+
+clean: clean-custom
+	${RM} $(OBJ) $(BIN)
+
+$(BIN): $(OBJ)
+	$(CC) $(LINKOBJ) -o "pachi.exe" $(LIBS)
+
+fbook.o: fbook.c
+	$(CC) -c fbook.c -o fbook.o $(CFLAGS)
+
+gtp.o: gtp.c
+	$(CC) -c gtp.c -o gtp.o $(CFLAGS)
+
+move.o: move.c
+	$(CC) -c move.c -o move.o $(CFLAGS)
+
+network.o: network.c
+	$(CC) -c network.c -o network.o $(CFLAGS)
+
+ownermap.o: ownermap.c
+	$(CC) -c ownermap.c -o ownermap.o $(CFLAGS)
+
+pachi.o: pachi.c
+	$(CC) -c pachi.c -o pachi.o $(CFLAGS)
+
+pattern3.o: pattern3.c
+	$(CC) -c pattern3.c -o pattern3.o $(CFLAGS)
+
+playout.o: playout.c
+	$(CC) -c playout.c -o playout.o $(CFLAGS)
+
+probdist.o: probdist.c
+	$(CC) -c probdist.c -o probdist.o $(CFLAGS)
+
+random.o: random.c
+	$(CC) -c random.c -o random.o $(CFLAGS)
+
+stone.o: stone.c
+	$(CC) -c stone.c -o stone.o $(CFLAGS)
+
+timeinfo.o: timeinfo.c
+	$(CC) -c timeinfo.c -o timeinfo.o $(CFLAGS)
+
+board.o: board.c
+	$(CC) -c board.c -o board.o $(CFLAGS)
+
+distributed/distributed.o: distributed/distributed.c
+	$(CC) -c distributed/distributed.c -o distributed/distributed.o $(CFLAGS)
+
+distributed/merge.o: distributed/merge.c
+	$(CC) -c distributed/merge.c -o distributed/merge.o $(CFLAGS)
+
+distributed/protocol.o: distributed/protocol.c
+	$(CC) -c distributed/protocol.c -o distributed/protocol.o $(CFLAGS)
+
+joseki/base.o: joseki/base.c
+	$(CC) -c joseki/base.c -o joseki/base.o $(CFLAGS)
+
+joseki/joseki.o: joseki/joseki.c
+	$(CC) -c joseki/joseki.c -o joseki/joseki.o $(CFLAGS)
+
+montecarlo/montecarlo.o: montecarlo/montecarlo.c
+	$(CC) -c montecarlo/montecarlo.c -o montecarlo/montecarlo.o $(CFLAGS)
+
+playout/light.o: playout/light.c
+	$(CC) -c playout/light.c -o playout/light.o $(CFLAGS)
+
+playout/moggy.o: playout/moggy.c
+	$(CC) -c playout/moggy.c -o playout/moggy.o $(CFLAGS)
+
+random/random.o: random/random.c
+	$(CC) -c random/random.c -o random/random.o $(CFLAGS)
+
+replay/replay.o: replay/replay.c
+	$(CC) -c replay/replay.c -o replay/replay.o $(CFLAGS)
+
+tactics/1lib.o: tactics/1lib.c
+	$(CC) -c tactics/1lib.c -o tactics/1lib.o $(CFLAGS)
+
+tactics/2lib.o: tactics/2lib.c
+	$(CC) -c tactics/2lib.c -o tactics/2lib.o $(CFLAGS)
+
+tactics/ladder.o: tactics/ladder.c
+	$(CC) -c tactics/ladder.c -o tactics/ladder.o $(CFLAGS)
+
+tactics/nakade.o: tactics/nakade.c
+	$(CC) -c tactics/nakade.c -o tactics/nakade.o $(CFLAGS)
+
+tactics/nlib.o: tactics/nlib.c
+	$(CC) -c tactics/nlib.c -o tactics/nlib.o $(CFLAGS)
+
+tactics/selfatari.o: tactics/selfatari.c
+	$(CC) -c tactics/selfatari.c -o tactics/selfatari.o $(CFLAGS)
+
+tactics/util.o: tactics/util.c
+	$(CC) -c tactics/util.c -o tactics/util.o $(CFLAGS)
+
+t-unit/test.o: t-unit/test.c
+	$(CC) -c t-unit/test.c -o t-unit/test.o $(CFLAGS)
+
+uct/dynkomi.o: uct/dynkomi.c
+	$(CC) -c uct/dynkomi.c -o uct/dynkomi.o $(CFLAGS)
+
+uct/plugins.o: uct/plugins.c
+	$(CC) -c uct/plugins.c -o uct/plugins.o $(CFLAGS)
+
+uct/prior.o: uct/prior.c
+	$(CC) -c uct/prior.c -o uct/prior.o $(CFLAGS)
+
+uct/search.o: uct/search.c
+	$(CC) -c uct/search.c -o uct/search.o $(CFLAGS)
+
+uct/slave.o: uct/slave.c
+	$(CC) -c uct/slave.c -o uct/slave.o $(CFLAGS)
+
+uct/tree.o: uct/tree.c
+	$(CC) -c uct/tree.c -o uct/tree.o $(CFLAGS)
+
+uct/uct.o: uct/uct.c
+	$(CC) -c uct/uct.c -o uct/uct.o $(CFLAGS)
+
+uct/walk.o: uct/walk.c
+	$(CC) -c uct/walk.c -o uct/walk.o $(CFLAGS)
+
+uct/policy/generic.o: uct/policy/generic.c
+	$(CC) -c uct/policy/generic.c -o uct/policy/generic.o $(CFLAGS)
+
+uct/policy/ucb1.o: uct/policy/ucb1.c
+	$(CC) -c uct/policy/ucb1.c -o uct/policy/ucb1.o $(CFLAGS)
+
+uct/policy/ucb1amaf.o: uct/policy/ucb1amaf.c
+	$(CC) -c uct/policy/ucb1amaf.c -o uct/policy/ucb1amaf.o $(CFLAGS)
+
+pattern.o: pattern.c
+	$(CC) -c pattern.c -o pattern.o $(CFLAGS)
+
+patternplay/patternplay.o: patternplay/patternplay.c
+	$(CC) -c patternplay/patternplay.c -o patternplay/patternplay.o $(CFLAGS)
+
+patternscan/patternscan.o: patternscan/patternscan.c
+	$(CC) -c patternscan/patternscan.c -o patternscan/patternscan.o $(CFLAGS)
+
+patternsp.o: patternsp.c
+	$(CC) -c patternsp.c -o patternsp.o $(CFLAGS)
+
+patternprob.o: patternprob.c
+	$(CC) -c patternprob.c -o patternprob.o $(CFLAGS)

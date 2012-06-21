@@ -1,0 +1,41 @@
+AmiGoGtp is a version of the AmiGo Go program with a Go Text Protocol
+interface added.
+
+AmiGo was one of the first Go programs publicly available with source code.
+It is based on a Pascal program written by Stoney Ballard in 1983 and posted
+to USENET and was ported to C and the Amiga by Todd R. Johnson in 1989.
+
+AmiGo plays weak compared with newer programs. The purpose of this release
+is to make AmiGo available as a reference player. Therefore only small
+changes to the original source code were made:
+
+- Small bug fixes
+- Fixes for compiler warnings
+- Less deterministic play
+- Support for board sizes from 9 to 19
+- Support for superko rules (used at computer Go servers)
+
+The source code should compile on any standard C++ platform. It includes
+configuration files for a build using GNU Autotools. See INSTALL for details.
+To use AmigoGtp in the GoGui graphical interface (http://gogui.sf.net),
+select "New Program" from the "Program" menu and enter the location of the
+amigogtp executable in the command field.
+
+This release includes the following directories:
+
+amigo/
+The original AmiGo release 1.0 for the Amiga computer (all contents of
+the file amigo.lzh except for the Amiga binary). See amigo/readme for
+release notes and a history of the program
+
+amigo-patched/
+The source files actually used from amigo with the mentioned changes
+applied. See amigo-patched/CHANGES for more details
+
+gtpengine/
+Implementation of the Go Text Protocol in C++. Taken from the Explorer
+Go program with friendly permission of Martin Mueller. Newer versions of
+GtpEngine are now part of the Fuego Go program (http://fuego.sf.net).
+
+amigogtp/
+The Go Text Protocol interface to AmiGo
