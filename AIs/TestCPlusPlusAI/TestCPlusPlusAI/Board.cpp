@@ -8,6 +8,93 @@
 
 using namespace std;
 
+Board::Board():whiteTakenOff(0), blackTakenOff(0), curTurn(Black)  
+{ 
+  //While we don't need to allocate anything, we need to hook some pointers up
+  for(int y = 0; y < BOARD_SIZE; y++)
+    for(int x = 0; x < BOARD_SIZE; x++)
+    {
+      board[x][y].location = Location(x,y);
+      board[x][y].libGroup = &(board[x][y].ownedLibertyGroup);
+      board[x][y].libGroup->owner = &board[x][y];
+    }
+}
+
+Board::Board( const Board& other )
+{
+  //Don't know why this is needed?
+  Piece	(&boardAlias) [BOARD_SIZE][BOARD_SIZE] = board;	
+
+  whiteTakenOff = other.whiteTakenOff;
+  blackTakenOff = other.blackTakenOff;
+  curTurn = other.curTurn;
+
+  Location::COPY_ALLOWED = true;
+  //While we don't need to allocate anything, we need to hook some pointers up
+  for(int y = 0; y < BOARD_SIZE; y++)
+  {
+    for(int x = 0; x < BOARD_SIZE; x++)
+    {
+      const Piece& otherPiece = other.board[x][y];
+      Piece& curPiece = board[x][y];
+
+      //location
+      curPiece.location = Location(x, y);
+      curPiece.pieceTypeCur = otherPiece.pieceTypeCur;
+      curPiece.hadBlack = otherPiece.hadBlack;
+      curPiece.hadWhite = otherPiece.hadWhite;
+            
+      //fix up all ownedLibertyGroup (as every group is owned)
+      //and then hook up libGroup to the appropriate ownedLibertyGroup
+
+      curPiece.ownedLibertyGroup.owner = &curPiece;
+
+      Location prevOwnerPos = other.board[x][y].libGroup->owner->location;
+      curPiece.ownedLibertyGroup.clear();    
+      curPiece.ownedLibertyGroup.liberties.clear();      
+
+      std::for_each(begin(otherPiece.ownedLibertyGroup), end(otherPiece.ownedLibertyGroup),
+        [&curPiece, &boardAlias](Piece * pieceInGroup){
+          curPiece.ownedLibertyGroup.insert(&boardAlias[pieceInGroup->location.x][pieceInGroup->location.y]);
+      });
+
+      std::for_each(begin(otherPiece.ownedLibertyGroup.liberties), end(otherPiece.ownedLibertyGroup.liberties),
+        [&curPiece, &boardAlias](Piece * libInGroup){
+          curPiece.ownedLibertyGroup.liberties.insert(&boardAlias[libInGroup->location.x][libInGroup->location.y]);
+      });
+    }
+  }
+
+  for(int y = 0; y < BOARD_SIZE; y++)
+  {
+    for(int x = 0; x < BOARD_SIZE; x++)
+    {
+      Location prevOwnerPos = other.board[x][y].libGroup->owner->location;
+
+      //libGroup      
+      board[x][y].libGroup = &board[prevOwnerPos.x][prevOwnerPos.y].ownedLibertyGroup;
+      //board[x][y].libGroup->owner = &board[prevOwnerPos.x][prevOwnerPos.y];      
+
+      //Wait... this will actually be REALLY HARD! DON'T DO THIS!
+    }
+  }
+#ifdef DEBUG_LEVEL_2
+  for(int y = 0; y < BOARD_SIZE; y++)
+  {
+    for(int x = 0; x < BOARD_SIZE; x++)
+    {      
+      if(board[x][y].ToString() != other.board[x][y].ToString() ||
+        board[x][y].Group() != other.board[x][y].Group() ||
+        board[x][y].LibsInGroup() != other.board[x][y].LibsInGroup())
+      {
+        throw exception("copy of board failed!");
+      }
+    }
+  }
+#endif
+    
+  Location::COPY_ALLOWED = false;
+}
 
 Piece*	Board::GetPiece		(Location location)
 {
@@ -121,7 +208,7 @@ void	Board::PlayPiece	(Pieces type, Location location)
 
   //Play actual piece
   Piece* curPiece = GetPiece(location);
-  curPiece->pieceTypeCur = curTurn;  
+  curPiece->pieceTypeCur = type;  
   curPiece->hadBlack |= curPiece->IsBlack(); //We set these on place
   curPiece->hadWhite |= curPiece->IsWhite();
 
@@ -143,11 +230,19 @@ void	Board::PlayPiece	(Pieces type, Location location)
 	libertyGroup* curFriendly = curPiece->libGroup;
   curFriendly->insert(curPiece);
 
+  //Fill our liberties up, and take away ourself as a liberty from surrounding squares
   vector<Piece*> pieceSurrs = SurroundingSquares<Piece>(&GetPieceVoid, location, this);
-  for_each(begin(pieceSurrs), end(pieceSurrs), [&curFriendly] (Piece* pieceSurr) {
+  for_each(begin(pieceSurrs), end(pieceSurrs), [&curFriendly, &curPiece] (Piece* pieceSurr) {
     if(pieceSurr->pieceTypeCur == Empty)    
       curFriendly->liberties.insert(pieceSurr);
+    else
+    {
+      //It could have been previously removed
+      if(pieceSurr->libGroup->liberties.find(curPiece) != pieceSurr->libGroup->liberties.end())
+        pieceSurr->libGroup->liberties.erase(pieceSurr->libGroup->liberties.find(curPiece));
+    }
   });
+  //If we make the group dead, we handle it later (unless it is friendly, then prune failed and we broke the rules)
 
 
 	vector<libertyGroup*> libGrpSurrs = SurroundingSquares<libertyGroup>(&GetLibertyGroupVoid, location, this);
@@ -202,17 +297,14 @@ void	Board::PlayPiece	(Pieces type, Location location)
         src->liberties.clear();
         src->clear();
         src->owner->libGroup = dst;
-			}
-			else if (group->owner->Opposite() == type)
+
+        int spotForDebugging = 0;
+      }
+      else if (group->owner->Opposite() == type)
 			{
-				//If it dies remove it, else just take off one liberty        
-        if(group->liberties.size() == 1)           
-          this->RemoveGroup(group);        
-        else
-        {
-          //This is all you need to do to replace a liberty
-          group->liberties.erase(group->liberties.find(curPiece));
-        }
+				//If it died remove it (we already took away the liberty from it before
+        if(group->liberties.size() == 0)           
+          this->RemoveGroup(group);                
 			}
 			else
 			{

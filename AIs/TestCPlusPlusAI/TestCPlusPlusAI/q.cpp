@@ -1,28 +1,13 @@
-#pragma once
-
-
 #include <stdlib.h>
-
 #include <vector>
 
-using namespace std;
 
-//template <class T, size_t ROW, size_t COL>
-//using Matrix = std::array<std::array<T, COL>, ROW>;
 
-//template <T> 
-
-//Higher levels are slower but check more
-//#define DEBUG_LEVEL_1
-//#define DEBUG_LEVEL_2
-//#define DEBUG_LEVEL_3 //Diagnostic output
-
-#pragma once
 #include "Location.h"
 #include "Board.h"
 
-//Calls the function with all its valid surrounding squares and returns
-//an array of the returned inputs
+using namespace std;
+
 template <typename T>
 vector<T*> SurroundingSquares (void * (*LocFnc) (Location, Board*), Location location, Board * board)
 {

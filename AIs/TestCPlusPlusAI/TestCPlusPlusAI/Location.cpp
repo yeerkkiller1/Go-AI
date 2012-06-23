@@ -1,6 +1,8 @@
 #include "Location.h"
 #include "Constants.h"
 
+bool Location::COPY_ALLOWED = false;
+
 bool	Location::IsOnBoard	()
 {
 	return (x < BOARD_SIZE && y < BOARD_SIZE && x >= 0 && y >= 0);

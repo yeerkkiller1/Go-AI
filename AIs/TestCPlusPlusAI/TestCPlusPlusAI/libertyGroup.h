@@ -19,12 +19,7 @@ public:
   //MUST BE FILLED IN BY BOARD!
   Piece* owner;
 
-  libertyGroup( const libertyGroup& other ) : owner(other.owner)
-  {
-    //Hmm are you sure you want to do this? Plus I am not sure if it works
-    //(usually you should not move stuff around, just use the references
-    //in the original class and use delta theory to prevent coping)
-  }
+  libertyGroup( const libertyGroup& other );
 
   libertyGroup()
   {

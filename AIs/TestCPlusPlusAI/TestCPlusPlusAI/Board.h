@@ -14,16 +14,8 @@ public:
 
   Pieces curTurn;
 
-	Board():whiteTakenOff(0), blackTakenOff(0), curTurn(Black)  
-  { 
-    //While we don't need to allocate anything, we need to hook some pointers up
-    for(int y = 0; y < BOARD_SIZE; y++)
-      for(int x = 0; x < BOARD_SIZE; x++)
-      {
-        board[x][y].location = Location(x,y);
-        board[x][y].libGroup = &(board[x][y].ownedLibertyGroup);
-      }
-  }
+	Board();
+  Board( const Board& other );
 
   ~Board()
   {

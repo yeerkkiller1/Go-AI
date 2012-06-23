@@ -1,13 +1,14 @@
 #pragma once
 
 class Piece; //Forward declartion to make libertyGroup happy
+enum Pieces { Black, White, Empty, Marked};
 
 #include "Location.h"
 #include "libertyGroup.h"
 
 #include <string>
-
-enum Pieces { Black, White, Empty, Marked};
+#include <algorithm>
+using namespace std;
 
 //You should really not copy these, as they contain all the information on the 
 //spot on the board and stuff (SHOULD REALLY BE CALLED SQUARE!)
@@ -37,6 +38,8 @@ public:
 
   Piece( const Piece& other ) : libGroup(other.libGroup), ownedLibertyGroup(other.ownedLibertyGroup)
   {
+    if(!Location::COPY_ALLOWED)
+      int breakPoint = 0;
     //Hmm are you sure you want to do this? Plus I am not sure if it works
     //(usually you should not move stuff around, just use the references
     //in the original class and use delta theory to prevent coping)
@@ -64,5 +67,30 @@ public:
       return "M";
     else
       return " ";
+  }
+
+  std::string Group() const
+  {
+    std::string curText = "";
+
+    for_each(begin(*libGroup), end(*libGroup), [&curText] (Piece * pieceInGroup){
+      curText += "(";
+      curText += pieceInGroup->location.ToString();
+      curText += ") ";
+    });
+
+    return curText;
+  }
+
+  std::string LibsInGroup() const
+  {
+    std::string curText = "";
+    for_each(begin(libGroup->liberties), end(libGroup->liberties), [&curText] (Piece * libInGroup){
+      curText += "(";
+      curText += libInGroup->location.ToString();
+      curText += ") ";
+    });
+
+    return curText;
   }
 };

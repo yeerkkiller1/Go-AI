@@ -3,10 +3,10 @@
 //Try not to include all of this... just include the ones you need (maybe)
 
 //Just includes the appropriate metadata files
-#include "Board.h"
-#include "libertyGroup.h"
-#include "Piece.h"
-#include "Location.h"
+//#include "Board.h"
+//#include "libertyGroup.h"
+//#include "Piece.h"
+//#include "Location.h"
 
 
 /*

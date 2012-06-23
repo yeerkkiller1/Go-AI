@@ -1,3 +1,5 @@
+#define DEBUG_LEVEL_1
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <utility>
@@ -18,6 +20,8 @@
 #include "Metadata.h"
 
 #include "MontecarloSimulation.h"
+
+#include "Location.h"
 
 //#include "FastRandom.h"
 
@@ -63,7 +67,7 @@ int main ()
     }
   }
 #endif
-
+  
   try
   {
   Board board;
@@ -83,6 +87,7 @@ int main ()
 
   auto t1 = high_resolution_clock::now(); 
     
+  Location::COPY_ALLOWED = true;
   SimulationResults results = MonteCarloSimulate(board, 20452);
   cout << results.scoreInFavourOfBlack << endl;
 
@@ -90,23 +95,33 @@ int main ()
 	double time = totalTime.count() / 10000.0;  
   cout << time << endl;
 
+  Location::COPY_ALLOWED = true;
   results = MonteCarloSimulate(board, 3452);
   cout << results.scoreInFavourOfBlack << endl;
 
+  Location::COPY_ALLOWED = true;
   results = MonteCarloSimulate(board, 3422);
   cout << results.scoreInFavourOfBlack << endl;
-    
+  
+  results = MonteCarloSimulate(board, 34222); cout << results.scoreInFavourOfBlack << ", ";
+  results = MonteCarloSimulate(board, 34622); cout << results.scoreInFavourOfBlack << ", ";
+  results = MonteCarloSimulate(board, 342322); cout << results.scoreInFavourOfBlack << ", ";
+  results = MonteCarloSimulate(board, 34262); cout << results.scoreInFavourOfBlack << ", ";
+  results = MonteCarloSimulate(board, 348322); cout << results.scoreInFavourOfBlack << ", ";
+  results = MonteCarloSimulate(board, 34202); cout << results.scoreInFavourOfBlack << ", ";
+  results = MonteCarloSimulate(board, 34212); cout << results.scoreInFavourOfBlack << endl;
+
   totalTime = (high_resolution_clock::now() - t1);
 	time = totalTime.count() / 10000.0;  
   cout << time;
 
   return 0;
-  
-  }
-  catch (exception e)
+  } catch(exception e)
   {
     cout << e.what();
   }
+  
+  
   return 1;
 	/*
 	Piece temp(0);

@@ -1,4 +1,3 @@
-#include "Metadata.h"
 #include "MontecarloSimulation.h"
 
 #include <stdlib.h>
@@ -17,6 +16,8 @@ using namespace std;
 
 SimulationResults::SimulationResults(Board board)
 {
+  Location::COPY_ALLOWED = false;
+
   scoreInFavourOfBlack = 0;
 
   scoreInFavourOfBlack += board.whiteTakenOff;
@@ -162,7 +163,9 @@ SimulationResults MonteCarloSimulate(Board board, int seed)
     //else
 
     //We get to play it!
+#ifdef DEBUG_LEVEL_2
     Board boardBefore = board;
+#endif
     board.PlayPiece(board.curTurn, Location(xPos, yPos));
     //Things have been changed so this code will not work anyway
 #if 0
