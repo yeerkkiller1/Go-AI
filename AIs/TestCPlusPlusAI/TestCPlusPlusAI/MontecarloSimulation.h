@@ -10,7 +10,7 @@ class SimulationResults
 public:
   int scoreInFavourOfBlack;
 
-  SimulationResults(Board board);  
+  SimulationResults(Board& board);  
 }; //class
 
 SimulationResults MonteCarloSimulate(Board initial, int seed);

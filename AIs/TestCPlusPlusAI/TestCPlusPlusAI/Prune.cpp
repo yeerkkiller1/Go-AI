@@ -50,9 +50,9 @@ bool SimplePrune(Board& board, Pieces type, Location location)
   {
     return false;
   }
-
+  
   //If friendly is all but 1
-  if(enemy == 0 && friendly >= pieceAdjs.size() - 1)
+  if(enemy == 0 && friendly >= (pieceAdjs.size() - 1))
     return false;
 
   return true;
@@ -83,13 +83,13 @@ inline bool IsSuicide(Board& board, Pieces type, Location location, int friendly
   //have if we placed, and then see if it is big enough (we stop early, eventually we might
   //be smarter and analysis if the liberty group is good or optimize it down to simply keeping
   //track of one liberty)
-  set<Piece *> libertiesFound;  
+  FastSet<Piece> libertiesFound;  
       
   for(auto pieceSur = pieceAdjs.begin(); pieceSur != pieceAdjs.end(); pieceSur++)
   {
     if((*pieceSur)->pieceTypeCur == type)
     {
-      set<Piece *> libs = (*pieceSur)->libGroup->liberties;        
+      FastSet<Piece>& libs = (*pieceSur)->libGroup->liberties;
       for(auto lib = libs.begin(); lib != libs.end(); lib++)
       {
         if((*lib) != pieceCur)

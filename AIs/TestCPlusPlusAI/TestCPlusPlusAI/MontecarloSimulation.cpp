@@ -13,7 +13,7 @@
 
 using namespace std;
 
-
+/*
 SimulationResults::SimulationResults(Board board)
 {
   Location::COPY_ALLOWED = false;
@@ -28,7 +28,109 @@ SimulationResults::SimulationResults(Board board)
   #define MAX_BOARD_LOOPS 200
 
   for(int x = 0; x < BOARD_SIZE; x++)
-  {      
+  {
+    for(int y = 0; y < BOARD_SIZE; y++)      
+    {
+      Location cur(x, y);        
+      if(board.GetPiece(cur)->pieceTypeCur == Empty)
+      {          
+        int marked = 1;
+        //Pieces originalType = board.GetPiece(cur).pieceTypeCur;
+          
+        board.GetPiece(cur)->pieceTypeCur = Marked;
+
+        //Spiral outwards until you hit a fill square, we are assuming that 
+        //all enclosed areas are surrounded by one kind... and so that square is the owner
+
+        int velX[4] = {1, 0, -1, 0};
+        int velY[4] = {0, 1, 0, -1};
+
+        int curTurn = 0;                    
+        //(1, 0) -> (0, -1) -> (-1, 0) -> (0, 1)
+        Location corner;
+
+        //We turn right
+
+        //Sort of hackish... but it fixes some cases (still not great)
+        int maxSearches = MAX_BOARD_LOOPS;
+        int curSearchs = 0;
+
+        while(++curSearchs < maxSearches)
+        {
+          cur = Location(cur.x + velX[curTurn], cur.y + velY[curTurn]);
+
+          if(!cur.IsOnBoard()) //Go back, and then turn
+          {
+            cur = Location(cur.x - velX[curTurn], cur.y - velY[curTurn]);
+
+            curTurn = (curTurn + 1) % 4;
+          }
+          else if (board.GetPiece(cur)->pieceTypeCur == Black)
+          {
+            scoreInFavourOfBlack += marked;
+            break;
+          }
+          else if (board.GetPiece(cur)->pieceTypeCur == White)
+          {
+            scoreInFavourOfBlack -= marked;
+            break;
+          }
+          else //Empty or Marked 
+          {              
+            if(board.GetPiece(cur)->pieceTypeCur == Empty) 
+            {
+              board.GetPiece(cur)->pieceTypeCur = Marked;
+              marked++;
+            }
+            else //Marked
+            {
+              //(do nothing)
+            }
+          }
+
+          corner = Location(cur.x + velX[(curTurn + 1) % 4], cur.y + velY[(curTurn + 1) % 4]);
+          if(corner.IsOnBoard() &&
+            (board.GetPiece(corner)->pieceTypeCur == Empty))
+            //Turn
+          {
+            curTurn = (curTurn + 1) % 4;
+          }
+        } //End of finding partial size of container and owner
+
+        if(curSearchs == maxSearches)
+        {            
+          if(scoreInFavourOfBlack - marked < 0 && scoreInFavourOfBlack + marked >= 0)
+          {
+            //We cannot call the game as the algorithm to find which pieces are owned by who
+            //is not perfect (infact it sucks). It needs to be entirely closed, and so recursion
+            //is not acceptable. A large enough manual stack may work, but something that is
+            //even better should be created (a zigzag and loop following pattern perhaps).
+            throw exception("due to problems with owned recognition, this game cannot be called");
+          }
+          scoreInFavourOfBlack += marked;                          
+        }
+
+      } //End of is empty
+    } //x loop    
+  } //y loop
+
+
+} //function
+*/
+
+SimulationResults::SimulationResults(Board& board)
+{
+  scoreInFavourOfBlack = 0;
+
+  scoreInFavourOfBlack += board.whiteTakenOff;
+  scoreInFavourOfBlack -= board.blackTakenOff;
+
+  //We mark the squares, so we can spend time looking for the owner of a group doing work also
+
+  #define MAX_BOARD_LOOPS 200
+
+  for(int x = 0; x < BOARD_SIZE; x++)
+  {
     for(int y = 0; y < BOARD_SIZE; y++)      
     {
       Location cur(x, y);        
@@ -120,6 +222,8 @@ SimulationResults::SimulationResults(Board board)
 
 SimulationResults MonteCarloSimulate(Board board, int seed)
 {    
+  Location::COPY_ALLOWED = false;
+
   init_genrand(seed);
 
   bool lastPassed = false;

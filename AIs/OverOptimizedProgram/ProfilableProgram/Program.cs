@@ -83,42 +83,41 @@ namespace ProfilableProgram
             int blackCaptured = 0;
             int whiteCaptured = 0;
 
-            TestDotNetGoPlayer.MetaPlayPiece(2, board, libboard, groboard, ref curGroupCount,
+            TestDotNetGoPlayer.MetaPlayPiece(1, board, libboard, groboard, ref curGroupCount,
                             2, 2, ref blackCaptured, ref whiteCaptured);
             TestDotNetGoPlayer.MetaPlayPiece(1, board, libboard, groboard, ref curGroupCount,
-                            6, 2, ref blackCaptured, ref whiteCaptured);
-            TestDotNetGoPlayer.MetaPlayPiece(2, board, libboard, groboard, ref curGroupCount,
-                            2, 4, ref blackCaptured, ref whiteCaptured);
-            TestDotNetGoPlayer.MetaPlayPiece(1, board, libboard, groboard, ref curGroupCount,
                             4, 4, ref blackCaptured, ref whiteCaptured);
-            TestDotNetGoPlayer.MetaPlayPiece(2, board, libboard, groboard, ref curGroupCount,
-                            3, 5, ref blackCaptured, ref whiteCaptured);
-            TestDotNetGoPlayer.MetaPlayPiece(1, board, libboard, groboard, ref curGroupCount,
-                            2, 6, ref blackCaptured, ref whiteCaptured);
-            TestDotNetGoPlayer.MetaPlayPiece(2, board, libboard, groboard, ref curGroupCount,
-                            4, 6, ref blackCaptured, ref whiteCaptured);
-            TestDotNetGoPlayer.MetaPlayPiece(1, board, libboard, groboard, ref curGroupCount,
-                            6, 6, ref blackCaptured, ref whiteCaptured);
-
             TestDotNetGoPlayer.MetaPlayPiece(1, board, libboard, groboard, ref curGroupCount,
                             4, 5, ref blackCaptured, ref whiteCaptured);
-            TestDotNetGoPlayer.MetaPlayPiece(2, board, libboard, groboard, ref curGroupCount,
-                            3, 6, ref blackCaptured, ref whiteCaptured);
-
             TestDotNetGoPlayer.MetaPlayPiece(1, board, libboard, groboard, ref curGroupCount,
-                            3, 2, ref blackCaptured, ref whiteCaptured);
-            TestDotNetGoPlayer.MetaPlayPiece(2, board, libboard, groboard, ref curGroupCount,
-                            2, 7, ref blackCaptured, ref whiteCaptured);
-
+                            4, 6, ref blackCaptured, ref whiteCaptured);
+            TestDotNetGoPlayer.MetaPlayPiece(1, board, libboard, groboard, ref curGroupCount,
+                            5, 4, ref blackCaptured, ref whiteCaptured);
             TestDotNetGoPlayer.MetaPlayPiece(1, board, libboard, groboard, ref curGroupCount,
                             5, 6, ref blackCaptured, ref whiteCaptured);
-            TestDotNetGoPlayer.MetaPlayPiece(2, board, libboard, groboard, ref curGroupCount,
-                            1, 6, ref blackCaptured, ref whiteCaptured);
+            TestDotNetGoPlayer.MetaPlayPiece(1, board, libboard, groboard, ref curGroupCount,
+                            6, 4, ref blackCaptured, ref whiteCaptured);
 
+            TestDotNetGoPlayer.MetaPlayPiece(2, board, libboard, groboard, ref curGroupCount,
+                            6, 5, ref blackCaptured, ref whiteCaptured);
+            TestDotNetGoPlayer.MetaPlayPiece(2, board, libboard, groboard, ref curGroupCount,
+                            6, 6, ref blackCaptured, ref whiteCaptured);            
 
             TestDotNetGoPlayer player = new TestDotNetGoPlayer();
             double bestWinRate = 0;
             Ent_vertex vertex = player.GetBest(true, true, board, 1, 0, out bestWinRate);
+
+            double averageScoreTest = 0;
+            double rate = 0;
+
+            int totalSims = 100;
+
+            for (int x = 0; x < totalSims; x++)
+                rate += TestDotNetGoPlayer.MonteCarloForBlackMetadata(false,
+                                board, 0, 0, monteCarloCount, ref averageScoreTest);
+
+            rate /= totalSims;
+            averageScoreTest /= totalSims;
 
             //Just make sure they are the same (as it is a deterministic test anyway)
             for (int x = 0; x < boardSampleCount; x++)
@@ -169,7 +168,7 @@ namespace ProfilableProgram
 
             speedTestOne = DateTime.Now.Ticks - speedTestOne;
 
-            Console.WriteLine((9 * 9 * TestDotNetGoPlayer.monteCarloCount) / ((speedTestOne / 10000.0) / 1000.0));
+            //Console.WriteLine((9 * 9 * TestDotNetGoPlayer.monteCarloCount) / ((speedTestOne / 10000.0) / 1000.0));
 
             Console.Read();
         }
@@ -220,7 +219,7 @@ namespace ProfilableProgram
                     int blackCaptured = 0, whiteCaptured = 0;
                     double averageScore = 0;
 
-                    bestWinRate = MonteCarloForBlackMetadata(curBlack, curBoard, blackCaptured, whiteCaptured, monteCarloCount, ref averageScore);
+                    bestWinRate = MonteCarloForBlackMetadata(curBlack, curBoard, blackCaptured, whiteCaptured, 100, ref averageScore);
 
                     if (!blackUs)
                     {

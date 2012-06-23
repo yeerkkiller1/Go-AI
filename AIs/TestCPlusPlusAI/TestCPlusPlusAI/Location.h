@@ -33,9 +33,9 @@ public :
 
 	bool IsOnBoard();
 
-  friend bool operator== (Location &p1, Location &p2);
+  friend bool operator== (const Location &p1, const Location &p2);
 
-	friend bool operator!= (Location &p1, Location &p2); 
+	friend bool operator!= (const Location &p1, const Location &p2); 
 
   std::string ToString() const
   {

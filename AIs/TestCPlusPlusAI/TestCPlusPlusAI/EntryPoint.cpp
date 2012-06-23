@@ -82,6 +82,11 @@ int main ()
   board.PlayPiece(White, Location(6, 5));
   board.PlayPiece(White, Location(6, 6));
 
+  //board.PlayPiece(Black, Location(7, 4));
+  //board.PlayPiece(Black, Location(7, 6));
+  //board.PlayPiece(Black, Location(8, 5));
+  //board.PlayPiece(Black, Location(8, 6));
+
   cout << board.ToString().c_str() << endl;
   cout << board.MetaToString().c_str() << endl;
   cout << board.LibsToString().c_str() << endl;  
@@ -94,7 +99,7 @@ int main ()
 
   auto totalTime = (high_resolution_clock::now() - t1);
 	double time = totalTime.count() / 10000.0;  
-  cout << time << endl;
+  cout << time << " time for first" << endl;
 
   Location::COPY_ALLOWED = true;
   results = MonteCarloSimulate(board, 3452);

@@ -45,10 +45,10 @@ public:
     //in the original class and use delta theory to prevent coping)
   }  
 
-	friend bool operator== (Piece p1, Piece p2);	
-  friend bool operator!= (Piece p1, Piece p2);	
-  friend bool operator < (Piece p1, Piece p2);  	
-  friend bool operator > (Piece p1, Piece p2);
+	friend bool operator== (const Piece& p1, const Piece& p2);	
+  friend bool operator!= (const Piece& p1, const Piece& p2);	
+  friend bool operator < (const Piece& p1, const Piece& p2);  	
+  friend bool operator > (const Piece& p1, const Piece& p2);
 
 	Pieces pieceTypeCur;
 
@@ -73,11 +73,13 @@ public:
   {
     std::string curText = "";
 
-    for_each(begin(*libGroup), end(*libGroup), [&curText] (Piece * pieceInGroup){
+    for(auto pieceInGroup = libGroup->begin();
+      pieceInGroup != libGroup->end(); pieceInGroup++)
+    {
       curText += "(";
-      curText += pieceInGroup->location.ToString();
+      curText += (*pieceInGroup)->location.ToString();
       curText += ") ";
-    });
+    }
 
     return curText;
   }

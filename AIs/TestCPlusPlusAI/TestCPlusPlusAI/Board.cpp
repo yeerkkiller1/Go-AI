@@ -6,6 +6,9 @@
 
 #include <algorithm>
 
+#include <stdio.h>
+#include <iostream>
+
 using namespace std;
 
 Board::Board():whiteTakenOff(0), blackTakenOff(0), curTurn(Black)  
@@ -22,9 +25,7 @@ Board::Board():whiteTakenOff(0), blackTakenOff(0), curTurn(Black)
 
 Board::Board( const Board& other )
 {
-  //Don't know why this is needed?
-  Piece	(&boardAlias) [BOARD_SIZE][BOARD_SIZE] = board;	
-
+  //Don't know why this is needed?  
   whiteTakenOff = other.whiteTakenOff;
   blackTakenOff = other.blackTakenOff;
   curTurn = other.curTurn;
@@ -48,19 +49,28 @@ Board::Board( const Board& other )
       //and then hook up libGroup to the appropriate ownedLibertyGroup
 
       curPiece.ownedLibertyGroup.owner = &curPiece;
+    }
+  }
 
+  for(int y = 0; y < BOARD_SIZE; y++)
+  {
+    for(int x = 0; x < BOARD_SIZE; x++)
+    {
+      const Piece& otherPiece = other.board[x][y];
+      Piece& curPiece = board[x][y];
       Location prevOwnerPos = other.board[x][y].libGroup->owner->location;
       curPiece.ownedLibertyGroup.clear();    
       curPiece.ownedLibertyGroup.liberties.clear();      
 
-      std::for_each(begin(otherPiece.ownedLibertyGroup), end(otherPiece.ownedLibertyGroup),
-        [&curPiece, &boardAlias](Piece * pieceInGroup){
-          curPiece.ownedLibertyGroup.insert(&boardAlias[pieceInGroup->location.x][pieceInGroup->location.y]);
-      });
+      for(auto pieceInGroup = otherPiece.ownedLibertyGroup.begin();
+        pieceInGroup != otherPiece.ownedLibertyGroup.end(); pieceInGroup++)
+      {              
+          curPiece.ownedLibertyGroup.insert(&board[(*pieceInGroup)->location.x][(*pieceInGroup)->location.y]);
+      }
 
       std::for_each(begin(otherPiece.ownedLibertyGroup.liberties), end(otherPiece.ownedLibertyGroup.liberties),
-        [&curPiece, &boardAlias](Piece * libInGroup){
-          curPiece.ownedLibertyGroup.liberties.insert(&boardAlias[libInGroup->location.x][libInGroup->location.y]);
+        [&curPiece, this](Piece * libInGroup){
+          curPiece.ownedLibertyGroup.liberties.insert(&(this->board)[libInGroup->location.x][libInGroup->location.y]);
       });
     }
   }
@@ -194,7 +204,7 @@ void  Board::RemoveGroup (libertyGroup* libGrpToRemove)
 
 
 void	Board::PlayPiece	(Pieces type, Location location)
-{
+{  
 	if(type == Empty)
 		throw std::exception("placing empty piece");
 
@@ -238,8 +248,8 @@ void	Board::PlayPiece	(Pieces type, Location location)
     else
     {
       //It could have been previously removed
-      if(pieceSurr->libGroup->liberties.find(curPiece) != pieceSurr->libGroup->liberties.end())
-        pieceSurr->libGroup->liberties.erase(pieceSurr->libGroup->liberties.find(curPiece));
+      //if(pieceSurr->libGroup->liberties.find(curPiece) != pieceSurr->libGroup->liberties.end())
+        pieceSurr->libGroup->liberties.erase(curPiece);
     }
   });
   //If we make the group dead, we handle it later (unless it is friendly, then prune failed and we broke the rules)
@@ -277,21 +287,19 @@ void	Board::PlayPiece	(Pieces type, Location location)
         //to the dst (except for the owner, he is handled last), adding the pieces 
         //to the dst and then afterwards, adding the liberties        
 
-        for_each(begin(*src), end(*src), [&dst] (Piece * pieceSrc)
-        {          
-          dst->insert(pieceSrc);
-          //If its not the owner
-          if(pieceSrc->libGroup != &pieceSrc->ownedLibertyGroup)          
-            pieceSrc->libGroup = dst;            
-          
-          dst->insert(pieceSrc);
-        });
-
-        for_each(begin(src->liberties), end(src->liberties), [&dst] (Piece * pieceSrcLib)
+        for(auto pieceSrc = src->begin(); pieceSrc != src->end(); pieceSrc++)
         {
-          //Make sure this actually screens duplicates (it should because its a set... but maybe not)
-          dst->liberties.insert(pieceSrcLib);
-        });
+          dst->insert(*pieceSrc);
+          //If its not the owner
+          if((*pieceSrc)->libGroup != &(*pieceSrc)->ownedLibertyGroup)          
+            (*pieceSrc)->libGroup = dst;                                
+        }
+
+        for(auto pieceSrcLib = src->liberties.begin(); 
+          pieceSrcLib != src->liberties.end(); pieceSrcLib++)
+        {
+          dst->liberties.insert(*pieceSrcLib);
+        }
 
         //Clean up src
         src->liberties.clear();

@@ -24,9 +24,9 @@ Pieces	Piece::Opposite()
 		throw std::exception("Called opposite of an empty square");
 }
 
-bool operator== (Piece p1, Piece p2)  { return p1.location == p2.location; }
-bool operator!= (Piece p1, Piece p2)  { return p1.location != p2.location; }
-bool operator< (Piece p1, Piece p2)	  { return (p1.location.y < p2.location.y) || 
+bool operator== (const Piece& p1, const Piece& p2)  { return p1.location == p2.location; }
+bool operator!= (const Piece& p1, const Piece& p2)  { return p1.location != p2.location; }
+bool operator< (const Piece& p1, const Piece& p2)	  { return (p1.location.y < p2.location.y) || 
                                         (p1.location.y == p2.location.y && p1.location.x < p2.location.x); }
-bool operator> (Piece p1, Piece p2)	  { return (p1.location.y > p2.location.y) || 
+bool operator> (const Piece& p1, const Piece& p2)	  { return (p1.location.y > p2.location.y) || 
                                         (p1.location.y == p2.location.y && p1.location.x > p2.location.x); }

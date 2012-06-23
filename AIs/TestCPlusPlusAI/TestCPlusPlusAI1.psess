@@ -81,6 +81,18 @@
     <Report>
       <Path>TestCPlusPlusAI120621(2).vsp</Path>
     </Report>
+    <Report>
+      <Path>TestCPlusPlusAI120623.vsp</Path>
+    </Report>
+    <Report>
+      <Path>TestCPlusPlusAI120623(1).vsp</Path>
+    </Report>
+    <Report>
+      <Path>TestCPlusPlusAI120623(2).vsp</Path>
+    </Report>
+    <Report>
+      <Path>TestCPlusPlusAI120623(3).vsp</Path>
+    </Report>
   </Reports>
   <Launches>
     <ProjBinary>

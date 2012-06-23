@@ -49,6 +49,7 @@
       <AdditionalIncludeDirectories>C:\Program Files\boost_1_49_0\boost_1_49_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <CompileAs>Default</CompileAs>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -71,6 +72,7 @@
     <ClCompile Include="Board.cpp" />
     <ClCompile Include="EntryPoint.cpp" />
     <ClCompile Include="FastRandom.cpp" />
+    <ClCompile Include="FastSetReplacement.cpp" />
     <ClCompile Include="libertyGroup.cpp" />
     <ClCompile Include="Location.cpp" />
     <ClCompile Include="MontecarloSimulation.cpp" />
@@ -83,6 +85,7 @@
     <ClInclude Include="Board.h" />
     <ClInclude Include="Constants.h" />
     <ClInclude Include="FastRandom.h" />
+    <ClInclude Include="FastSetReplacement.h" />
     <ClInclude Include="libertyGroup.h" />
     <ClInclude Include="Location.h" />
     <ClInclude Include="MontecarloSimulation.h" />

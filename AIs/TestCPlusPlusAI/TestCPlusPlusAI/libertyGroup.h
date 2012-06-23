@@ -1,5 +1,9 @@
 #pragma once
 
+class libertyGroup;
+
+#include "FastSetReplacement.h"
+
 #include <set>
 #include "Piece.h"
 
@@ -8,12 +12,12 @@
 
 //The group contains the pieces connected, liberties is all the empty squares that they
 //consider as liberties to them
-class libertyGroup : public std::set<Piece*>
+class libertyGroup : public FastSet<Piece>
 {
 public:
 	//ATTENTION! This must be maintained by an outside source as we do not maintain it!
   //By definition a liberty is an empty square, so that is what this contains
-	set<Piece*> liberties;
+	FastSet<Piece> liberties;
 
 
   //MUST BE FILLED IN BY BOARD!
