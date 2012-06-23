@@ -1,4 +1,3 @@
-#define DEBUG_LEVEL_1
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -22,6 +21,8 @@
 #include "MontecarloSimulation.h"
 
 #include "Location.h"
+
+#include "FastRandom.h"
 
 //#include "FastRandom.h"
 
@@ -103,17 +104,29 @@ int main ()
   results = MonteCarloSimulate(board, 3422);
   cout << results.scoreInFavourOfBlack << endl;
   
-  results = MonteCarloSimulate(board, 34222); cout << results.scoreInFavourOfBlack << ", ";
-  results = MonteCarloSimulate(board, 34622); cout << results.scoreInFavourOfBlack << ", ";
-  results = MonteCarloSimulate(board, 342322); cout << results.scoreInFavourOfBlack << ", ";
-  results = MonteCarloSimulate(board, 34262); cout << results.scoreInFavourOfBlack << ", ";
-  results = MonteCarloSimulate(board, 348322); cout << results.scoreInFavourOfBlack << ", ";
-  results = MonteCarloSimulate(board, 34202); cout << results.scoreInFavourOfBlack << ", ";
-  results = MonteCarloSimulate(board, 34212); cout << results.scoreInFavourOfBlack << endl;
+
+  t1 = high_resolution_clock::now(); 
+  double averageResult = 0.0;
+  int cSimulations = 1000;
+  double blackWinPercentage = 0;
+  for(int x = 0; x < cSimulations; x++)
+  {
+    results = MonteCarloSimulate(board, genrand_int32());
+    averageResult += results.scoreInFavourOfBlack;
+
+    if(results.scoreInFavourOfBlack > 0)
+      blackWinPercentage++;
+  }
+
+  averageResult /= cSimulations;
+  blackWinPercentage /= cSimulations;
 
   totalTime = (high_resolution_clock::now() - t1);
-	time = totalTime.count() / 10000.0;  
-  cout << time;
+	time = (totalTime.count() / 10000.0) / cSimulations;  
+
+  cout << time << " average time and " 
+    << averageResult << " average result with " 
+    << blackWinPercentage << " average black win percentage" << endl;
 
   return 0;
   } catch(exception e)

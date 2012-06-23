@@ -70,6 +70,7 @@
   <ItemGroup>
     <ClCompile Include="Board.cpp" />
     <ClCompile Include="EntryPoint.cpp" />
+    <ClCompile Include="FastRandom.cpp" />
     <ClCompile Include="libertyGroup.cpp" />
     <ClCompile Include="Location.cpp" />
     <ClCompile Include="MontecarloSimulation.cpp" />
