@@ -1,16 +1,29 @@
-#include "Metadata.h"
+#pragma once
+
 
 #include "Prune.h"
 
-#include <stdlib.h>
-#include <algorithm>
+typedef struct SimulationResults SimulationResults;
 
-class SimulationResults
+struct SimulationResults
 {
-public:
-  int scoreInFavourOfBlack;
+  int scoreInFavourOfBlack;  
+  int blackPlays;
+  int whitePlays;
+};
 
-  SimulationResults(Board& board);  
-}; //class
+void MonteCarloSimulate
+(
+  Board* boardIn,
+  int seed,
+  SimulationResults* simulationResults,
+  unsigned long* mt,
+  int* pmti
+);
 
-SimulationResults MonteCarloSimulate(Board initial, int seed);
+void ctor_SimulateResults(SimulationResults* m, Board board);
+
+#ifdef PROFILE
+  int* GetProfileStream();
+  int* GetProfileStreamPos();
+#endif

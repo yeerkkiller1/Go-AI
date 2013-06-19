@@ -1,152 +1,81 @@
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <utility>
-#include <cstdlib>
 
-#include <vector>
-
-#include <chrono>
-//#include <string>
-#include <memory>
-#include <iostream>
-
-#include <boost/utility.hpp>
-
+#include <time.h>
 
 
 #include "q.h"
-#include "Metadata.h"
 
 #include "MontecarloSimulation.h"
 
-#include "Location.h"
 
 #include "FastRandom.h"
 
-//#include "FastRandom.h"
+#include "Constants.h"
 
-using namespace std;
-using namespace chrono;
+#include <stdio.h>
 
+#include "Tests.h"
+#include "IntStream.h"
+
+#ifdef PROFILE
+#include "Distributions.h"
+#endif
 //setup a build console to use new C++ 11 stuff (not sure if it will already)
 //and full optimization
 
-int main ()
-{  
-#if 0
-  Board board;
+//Avg Sim time (milli)    1st Result    2nd   3rd     Avg Result    Avg Black Win
+//(per montecarlo     
+//simulation)
 
-  bool black = true;
-  int x = 0, y = 0;
-  cin >> x;
-  cin >> y;
-  while(x >= 0 && y >= 0)
-  {
-    try
-    {
-      Piece piece;
-      piece.pieceTypeCur = black ? Black : White;    
-      black = !black;
+//0.3
+//0.109                   -18           11    24      9.469         0.715
 
-      board.PlayPiece(piece, Location(x, y));
-      cout << board.ToString().c_str() << endl;
-      cout << board.MetaToString().c_str() << endl;
-      cout << board.LibsToString().c_str() << endl;
-      cout << endl;
-      cout << endl;
+int main (int argc, char** argv)
+{   
 
-     cin >> x;
-      cin >> y;
-    }
-    catch (exception e)
-    {      
-      cout << "not possible as: " << e.what() << endl;
-
-      cin >> x;
-      cin >> y;
-    }
-  }
-#endif
-  
+#ifndef C
   try
   {
-  Board board;
-
-  board.PlayPiece(Black, Location(4, 4));
-  board.PlayPiece(Black, Location(4, 5));
-  board.PlayPiece(Black, Location(4, 6));
-  board.PlayPiece(Black, Location(5, 4));
-  board.PlayPiece(Black, Location(5, 6));
-  board.PlayPiece(Black, Location(6, 4));
-  board.PlayPiece(White, Location(6, 5));
-  board.PlayPiece(White, Location(6, 6));
-
-  //board.PlayPiece(Black, Location(7, 4));
-  //board.PlayPiece(Black, Location(7, 6));
-  //board.PlayPiece(Black, Location(8, 5));
-  //board.PlayPiece(Black, Location(8, 6));
-
-  cout << board.ToString().c_str() << endl;
-  cout << board.MetaToString().c_str() << endl;
-  cout << board.LibsToString().c_str() << endl;  
-
-  auto t1 = high_resolution_clock::now(); 
-    
-  Location::COPY_ALLOWED = true;
-  SimulationResults results = MonteCarloSimulate(board, 20452);
-  cout << results.scoreInFavourOfBlack << endl;
-
-  auto totalTime = (high_resolution_clock::now() - t1);
-	double time = totalTime.count() / 10000.0;  
-  cout << time << " time for first" << endl;
-
-  Location::COPY_ALLOWED = true;
-  results = MonteCarloSimulate(board, 3452);
-  cout << results.scoreInFavourOfBlack << endl;
-
-  Location::COPY_ALLOWED = true;
-  results = MonteCarloSimulate(board, 3422);
-  cout << results.scoreInFavourOfBlack << endl;
+#endif
+ 
   
+long t1 = clock(); double time;
 
-  t1 = high_resolution_clock::now(); 
-  double averageResult = 0.0;
-  int cSimulations = 1000;
-  double blackWinPercentage = 0;
-  for(int x = 0; x < cSimulations; x++)
-  {
-    results = MonteCarloSimulate(board, genrand_int32());
-    averageResult += results.scoreInFavourOfBlack;
+int cSimulations = 1000;
 
-    if(results.scoreInFavourOfBlack > 0)
-      blackWinPercentage++;
-  }
+int intStream[10000];
+int charPos = 0;
 
-  averageResult /= cSimulations;
-  blackWinPercentage /= cSimulations;
+//We have to time both... as in OpenCL we need to time both too
+RunBasicSimulations(intStream, &charPos);
+RunSpeedSimulation(intStream, &charPos, cSimulations, 73471);
+    
+time = clock() - t1;
 
-  totalTime = (high_resolution_clock::now() - t1);
-	time = (totalTime.count() / 10000.0) / cSimulations;  
+WriteCharToIntStream(intStream, &charPos, '{');
+WriteFloatToIntStream(intStream, &charPos, (cSimulations * 1000) / (time), 2);
+WriteStringToIntStream(intStream, &charPos, " per second");
+WriteCharToIntStream(intStream, &charPos, '}');
 
-  cout << time << " average time and " 
-    << averageResult << " average result with " 
-    << blackWinPercentage << " average black win percentage" << endl;
+WriteCharToIntStream(intStream, &charPos, '\0');
 
-  return 0;
+printf("%s", (char*)intStream);
+
+#ifndef C
   } catch(exception e)
   {
     cout << e.what();
   }
-  
-  
-  return 1;
-	/*
-	Piece temp(0);
-	for(int x = 0; x < total; x++)
-	{
-	swap(test[x], test[total - x - 1]);        
-	//auto p = make_shared<int>(42);
-	}
-	*/
+#endif  
+
+#ifdef PROFILE
+  TestDistributions();
+#endif
+
+  //Gives you a chance to read the output
+  //DASSERT(false);
+
+  //while(true);
+
+  return 0;
 }

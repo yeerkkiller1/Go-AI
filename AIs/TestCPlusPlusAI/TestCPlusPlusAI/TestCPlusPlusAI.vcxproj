@@ -41,7 +41,9 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -49,7 +51,9 @@
       <AdditionalIncludeDirectories>C:\Program Files\boost_1_49_0\boost_1_49_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
-      <CompileAs>Default</CompileAs>
+      <CompileAs>CompileAsC</CompileAs>
+      <InlineFunctionExpansion>Default</InlineFunctionExpansion>
+      <AdditionalOptions>/DPROFILE /F50000000 /DDEBUG %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -61,6 +65,8 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <AdditionalOptions>/DPROFILE /F50000000 /DDEBUG %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -70,29 +76,37 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Board.cpp" />
+    <ClCompile Include="Distributions.cpp" />
     <ClCompile Include="EntryPoint.cpp" />
     <ClCompile Include="FastRandom.cpp" />
+    <ClCompile Include="FastSetLinked.cpp" />
     <ClCompile Include="FastSetReplacement.cpp" />
+    <ClCompile Include="IntStream.cpp" />
     <ClCompile Include="libertyGroup.cpp" />
     <ClCompile Include="Location.cpp" />
     <ClCompile Include="MontecarloSimulation.cpp" />
-    <ClCompile Include="Piece.cpp" />
+    <ClCompile Include="Square.cpp" />
     <ClCompile Include="Prune.cpp" />
     <ClCompile Include="q.cpp" />
-    <ClCompile Include="TestFunctions.cpp" />
+    <ClCompile Include="Tests.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\..\..\..\..\Program Files (x86)\Windows Kits\8.0\Include\shared\concurrencysal.h" />
     <ClInclude Include="Board.h" />
     <ClInclude Include="Constants.h" />
+    <ClInclude Include="Distributions.h" />
     <ClInclude Include="FastRandom.h" />
+    <ClInclude Include="FastSetLinked.h" />
     <ClInclude Include="FastSetReplacement.h" />
+    <ClInclude Include="IntStream.h" />
     <ClInclude Include="libertyGroup.h" />
     <ClInclude Include="Location.h" />
     <ClInclude Include="MontecarloSimulation.h" />
-    <ClInclude Include="Piece.h" />
+    <ClInclude Include="Square.h" />
     <ClInclude Include="Prune.h" />
     <ClInclude Include="q.h" />
     <ClInclude Include="TestFunctions.h" />
+    <ClInclude Include="Tests.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

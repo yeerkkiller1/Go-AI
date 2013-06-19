@@ -1,7 +1,8 @@
 :start
 
+call "C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\vcvarsall.bat" x64
 
-"C:\Program Files (x86)\tcc\tcc.exe" "TestCPlusPlusAI\EntryPoint.cpp" "TestCPlusPlusAI\Location.cpp" "TestCPlusPlusAI\Piece.cpp" "TestCPlusPlusAI\libertyGroup.cpp" "TestCPlusPlusAI\Board.cpp" "TestCPlusPlusAI\MontecarloSimulation.cpp" "TestCPlusPlusAI\Prune.cpp" "TestCPlusPlusAI\q.cpp" "TestCPlusPlusAI\FastRandom.cpp" "TestCPlusPlusAI\FastSetReplacement.cpp" /I "C:\Program Files\boost_1_49_0\boost_1_49_0" /EHsc /Ox /Gs /link shell32.lib
+cl /Tc "TestCPlusPlusAI\EntryPoint.cpp" /Tc "TestCPlusPlusAI\Location.cpp" /Tc "TestCPlusPlusAI\Piece.cpp" /Tc "TestCPlusPlusAI\libertyGroup.cpp" /Tc "TestCPlusPlusAI\Board.cpp" /Tc "TestCPlusPlusAI\MontecarloSimulation.cpp" /Tc "TestCPlusPlusAI\Prune.cpp" /Tc "TestCPlusPlusAI\q.cpp" /Tc "TestCPlusPlusAI\FastRandom.cpp" /Tc "TestCPlusPlusAI\FastSetReplacement.cpp" /Ox
 
 echo.
 echo ---------------------------------------
